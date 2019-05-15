@@ -1,0 +1,331 @@
+\documentclass[phd,tocprelim]{cornell}
+%
+% tocprelim option must be included to put the roman numeral pages in the
+% table of contents
+%
+% The cornellheadings option will make headings completely consistent with
+% guidelines.
+%
+% This sample document was originally provided by Blake Jacquot, and
+% fixed up by Andrew Myers.
+%
+%Some possible packages to include
+\usepackage{graphicx,pstricks}
+\usepackage{graphics}
+\usepackage{moreverb}
+\usepackage{subfigure}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{hangcaption}
+\usepackage{txfonts}
+\usepackage{palatino}
+
+%if you're having problems with overfull boxes, you may need to increase
+%the tolerance to 9999
+\tolerance=9999
+
+\bibliographystyle{plain}
+%\bibliographystyle{IEEEbib}
+
+\renewcommand{\caption}[1]{\singlespacing\hangcaption{#1}\normalspacing}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.75}
+
+\title {Fast Semistochastic Heat-Bath Configuration Interaction}
+\author {Junhao Li}
+\conferraldate {June}{2019}
+\degreefield {Ph.D.}
+\copyrightholder{Junhao Li}
+\copyrightyear{2019}
+
+\begin{document}
+
+\maketitle
+\makecopyright
+
+\begin{abstract}
+In this thesis, I present my work on the fast semistochastic heat-bath configuration interaction, which is an efficient algorithm for solving the many-body solving electronic structure calculations and computational research on large clusters. Arrow provides two sets of features: a quantum solver based on the Fast Semistochastic Heatbath Configuration Interaction (Fast SHCI) algorithm recently developed in our group, and several generic distributed computing building blocks.
+
+Fast SHCI [Junhao Li et al., JCP 2018] is more than 100 times faster than other algorithms in its category (selected CI plus perturbation theory), and also much faster than other essentially exact algorithms for most chemical systems. This thesis provides an in-depth description of the Fast SHCI algorithm and its implementation in Arrow. I use Arrow to compute electronic structures of several chemical systems and the homogeneous electron gas.  Some of these calculations are more accurate than those achieved by other high-order quantum chemistry methods.  Others treat systems larger than those that can be treated by other equally accurate methods.
+
+Arrow uses a modular design, which not only makes the library highly extensible but also contributes several generic distributed computing building blocks to the open-source community. The high-level components that come with Arrow include:
+(1) A data serialization library that is upto four times faster and produces more compact serialized messages than widely used libraries in industry;
+(2) A highly optimized cluster computing library that is upto eight times faster than Apache Spark on common data processing tasks;
+(3) A modified version of Google Test for testing distributed computing modules.
+In this thesis, I discuss my design and implementation of all of them.
+
+Finally, I also provide a brief discussion of the usability of general software engineering best practices for the development of medium-scale scientific software packages with lessons learned from designing, developing, and leading the development of Arrow. Medium-scale scientific software packages are common in scientific research where a small group of researchers works on the same code base. Due to the differences in the requirements, some best practices that are common in industry need to be adjusted to be useful for these projects.
+
+Your abstract goes here. Make sure it sits inside the brackets. If not,
+your biosketch page may not be roman numeral iii, as required by the
+graduate school.
+\end{abstract}
+
+\begin{biosketch}
+Junhao Li was born and grew up in Shanghai, China.
+From a young age, he had a strong interest in science and engineering, and enjoyed disassembling all kinds of home appliances.
+
+Junhao attended Shanghai Jiao Tong University from 2009, graduating with a B.S. in physics and a B.S.E in computer science in 2013.
+While an undergraduate, he did research in various fields, including semiconductor fabrication, photovoltaics, finite element analysis of electromagnetic field, density functional theory, and social networks.
+
+In the fall of 2013, Junhao came to Cornell University to persue a Ph.D. in physics.
+During his Ph.D, he mainly worked with professor Cyrus Umrigar on the development and application of highly accurate quantum chemistry methods.
+He developed the fast heat-bath configuration interaction method, which is faster than other methods in its category by more than an order of magnitude, and achieved significantly higher accuracy than other well developed methods, such as DMRG and FCIQMC, on several systems.
+he also did research in molecular dynamics and defects with professor James Sethna.
+
+After obtaining a master's degree at Cornell, Junhao spent a summer as an intern at Google in California in 2016.
+He then returned to Ithaca, brought back the engineering merits he learned from Google, and developed a highly efficient and extensible quantum chemistry package, Arrow, as well as several open-sourced generic high performance computing libraries.
+
+% Junhao also spent time as a summmer intern at Google.
+% working with Cyrus Umrigar, studying highly accurate electronic structure methods.
+% During his Ph.D., he was a Givens Associate at Argonne National
+% Laboratory, studying the dynamics of lossy quantum systems with Stephen Gray
+% and parallelization on novel computing architectures with Misun Min. Matthew
+% also spent time as a Livermore Graduate Scholar at Lawrence Livermore National
+% Laboratory, working jointly with Miguel Morales and Cyrus Umrigar on electronic
+% structure methods.
+\end{biosketch}
+
+\begin{dedication}
+This document is dedicated to all Cornell graduate students.
+\end{dedication}
+
+\begin{acknowledgements}
+First of all, I would like to thank my advisors Professor Cyrus Umrigar and Professor James Sethna for their guidance and support during my Ph.D.
+
+and committment to scientific research are exemplary and have influenced me
+greatly. His vast breadth of knowledge, tremendous physical insights and unique
+way of looking at things have been a guiding force and have complemented
+my ’numerical way’ of approaching problems. I am quite grateful to him for
+convincing me to look for simple explanations even when the problem looked
+quite complex. The end results were certainly more satisfying this way than
+they would have been otherwise.
+I sincerely thank Prof. Umrigar and Prof. Garnet Chan from whom I have
+
+inherited almost all my knowledge of the numerical machinery which was in-
+strumental in ’getting things to work’ in this thesis. I am indebted to Prof. Gar-
+net Chan for training me when I was still a young graduate student and for
+
+helping me overcome my fear of programming (and initial reluctance to toil
+with computer codes for long hours). I am happy to acknowledge that most of
+
+my knowledge of the workings of the DMRG algorithm and literature on ten-
+sor networks was gained by being a reasonably attentive observer of his group
+
+meetings. Prof. Cyrus Umrigar has been an excellent guide and has helped me
+
+explore the rather challenging problem of numerically simulating fermion sys-
+tems with Quantum Monte Carlo. I am grateful to him for teaching me about
+
+the various areas of Quantum Monte Carlo and for patiently listening to all my
+ideas. I also thank him for the excellent tomatoes and eggs I received from his
+farm as it saved me quite a few trips to the grocery shops!
+
+I would also like to thank Prof. Daniel Ralph for serving on my thesis com-
+mittee and for emphasizing to be on the lookout for experimental connections to
+
+v
+
+my work. I thank Prof. Piet Brouwer, Prof. Rob Thorne and Prof. Erich Mueller
+for serving on my first-year committee and whose friendly attitudes eased the
+transition into academic life at Cornell.
+A word of thanks to my external collaborators: Prof. Anders Sandvik, for
+hosting me at Boston University during my visit in September 2009 and all the
+discussions at APS March Meetings and over email; Prof. Andreas Läuchli for
+his hospitality at the University Of Innsbruck, Austria and for pushing me in a
+
+research direction which became quite fruitful. I am thankful to him for offer-
+ing me the opportunity to visit him for a few months to explore new research
+
+directions.
+I acknowledge the funding agencies that supported my research. My work
+
+has been was supported by the National Science Foundation through CHE-
+0645380 and DMR-1005466, the DOE-CMSN program, the David and Lucile
+
+Packard Foundation, the Alfred P. Sloan Foundation, and the Camille and Henry
+
+Dreyfus Foundation. My work also made use of the Cornell Center for Materi-
+als Research computer facilities which are supported through the NSF MRSEC
+
+program (DMR-1120296).
+I also wish to thank Deb Hatfield, John Miner and Kacey Bray of the Cornell
+
+Physics Department Administrative Staff who always made sure I had a Teach-
+ing Assistantship when I needed it. I thank Connie Wright, Doug Milton and
+
+Judy Wilson of the Laboratory of Atomic and Solid State Physics for their help
+with my Graduate Research Assistant appointments.
+I have had the pleasure of working with multiple student and postdoctoral
+
+collaborators during my time at Cornell. It is a pleasure to thank Prof. Hen-
+ley’s group members Shivam Ghosh, Sumiran Pujari, Zach Lamberty and Matt
+
+Lapa for all the scientific discussions and critical readings of my manuscripts
+
+vi
+
+during group meetings. I am indebted to Shivam and Sumiran for tremendous
+inputs on my projects and for being my sounding board for all my crazy (and
+some not-so-crazy) suggestions and ideas. I thank Prof. Garnet Chan’s group
+
+members: Jesse Kinder, Eric Neuscamman, Jon Dorando, Debashree Ghosh, Do-
+minika Zgid, Claire Ralph, Johannes Hachmann, Sandeep Sharma, Jun Yang
+
+and Weifeng Hu for all the discussions on DMRG and Tensor networks, the C++
+programming tips and for the wonderful times in and out of Baker laboratory. It
+is safe to say I have learnt nearly all my Fortran90 and Ubuntu Installation tips
+from Frank Petruzielo of the Umrigar group. It has been a pleasure to interact
+with him and Adam Holmes and I appreciate all the brainstorming sessions we
+had to battle our common enemy (also known as the ’sign problem’!).
+Cornell has been a wonderful place to forge friendships which I hope to
+cherish for a long time to come. To all my fellow residents of 536 Thurston Ave
+(integrated over a span of 5 years) Ravishankar Sundararaman, Benjamin Kreis,
+Stephen Poprocki, Shivam Ghosh, Kshitij Auluck, Srivatsan Ravi, Leif Ristroph,
+James Leadoux, Stefan Baur, Mark Buckley, Robert Rodriguez: a big thanks for
+making it a home away from home. To all my Physics friends: Ben Kreis, Turan
+Birol, Ravishankar Sundararaman, YJ Chen, Stephen Poprocki, Kendra Weaver,
+Colwyn Guilford, Yao Weng, Kartik Ayyer, Mihir Khadilkar: thank you for all
+the wonderful first year homework sessions, pot-lucks and weekend dinners
+that eliminated the loneliness of a graduate student’s life. To my friends in the
+Cricket Club and Cornell India Association: I am thankful for all the efforts you
+put in to make all the experiences memorable and enjoyable.
+I am sure I have not been able to thank everyone who contributed to my
+wonderful experience at Cornell, they must accept my sincerest apologies.
+
+vii
+
+Any acknowledgement would be incomplete without a warm thanks to my
+family and friends back home in India. My parents have been very supportive
+of my decision to pursue my ambitions and I can only hope that I do justice to
+their tremendous belief in me. At multiple occassions I thought I was just down
+and out only to find a renewed energy after meeting them. My sister’s presence
+in New York City has also given me a sense that I’m not too far from family after
+all.
+And finally a big thanks to my wife Suravi who has made many sacrifices
+for me along the way, and who has always completely supported me in all my
+endeavors. Her immense confidence in my abilities has been a constant driving
+force. Ami tomake bhalobhashi!
+\end{acknowledgements}
+
+\contentspage
+\tablelistpage
+\figurelistpage
+
+\normalspacing \setcounter{page}{1} \pagenumbering{arabic}
+\pagestyle{cornell} \addtolength{\parskip}{0.5\baselineskip}
+
+\chapter{Introduction}
+
+\section{SECTION 1}
+The text for Section 1 goes here, without brackets.
+
+\section{SECTION 2}
+Section 2 text.
+
+\subsection{Subsection heading goes here}
+
+Subsection 1 text
+
+\subsubsection{Subsubsection 1 heading goes here}
+Subsubsection 1 text
+
+\subsubsection{Subsubsection 2 heading goes here}
+Subsubsection 2 text
+
+\section{SECTION 3}
+Section 3 text. The dielectric constant at the air-metal interface
+determines the resonance shift as absorption or capture occurs.
+
+\begin{equation}
+k_1=\frac{\omega }{c({1/\varepsilon_m + 1/\varepsilon_i})^{1/2}}=k_2=\frac{\omega
+sin(\theta)\varepsilon_{air}^{1/2}}{c}
+\end{equation}
+
+\noindent
+where $\omega$ is the frequency of the plasmon, $c$ is the speed of
+light, $\varepsilon_m$ is the dielectric constant of the metal,
+$\varepsilon_i$ is the dielectric constant of neighboring insulator,
+and $\varepsilon_{air}$ is the dielectric constant of air.
+
+\chapter{Alice in Wonderland}
+
+\section{The Black Kitten}
+  One thing was certain, that the WHITE kitten had had nothing to
+do with it:---it was the black kitten's fault entirely~\cite{aiw}.  For the
+white kitten had been having its face washed by the old cat for
+the last quarter of an hour (and bearing it pretty well,
+considering); so you see that it COULDN'T have had any hand in
+the mischief.
+
+  The way Dinah washed her children's faces was this:  first she
+held the poor thing down by its ear with one paw, and then with
+the other paw she rubbed its face all over, the wrong way,
+beginning at the nose:  and just now, as I said, she was hard at
+work on the white kitten, which was lying quite still and trying
+to purr---no doubt feeling that it was all meant for its good.
+
+  But the black kitten had been finished with earlier in the
+afternoon, and so, while Alice was sitting curled up in a corner
+of the great arm-chair, half talking to herself and half asleep,
+the kitten had been having a grand game of romps with the ball of
+worsted Alice had been trying to wind up, and had been rolling it
+up and down till it had all come undone again; and there it was,
+spread over the hearth-rug, all knots and tangles, with the
+kitten running after its own tail in the middle.
+
+\section{The Reproach}
+
+  `Oh, you wicked little thing!' cried Alice, catching up the
+kitten, and giving it a little kiss to make it understand that it
+was in disgrace.  `Really, Dinah ought to have taught you better
+manners!  You OUGHT, Dinah, you know you ought!' she added,
+looking reproachfully at the old cat, and speaking in as cross a
+voice as she could manage---and then she scrambled back into the
+arm-chair, taking the kitten and the worsted with her, and began
+winding up the ball again.  But she didn't get on very fast, as
+she was talking all the time, sometimes to the kitten, and
+sometimes to herself.  Kitty sat very demurely on her knee,
+pretending to watch the progress of the winding, and now and then
+putting out one paw and gently touching the ball, as if it would
+be glad to help, if it might.
+
+  `Do you know what to-morrow is, Kitty?' Alice began.  `You'd
+have guessed if you'd been up in the window with me---only Dinah
+was making you tidy, so you couldn't.  I was watching the boys
+getting in stick for the bonfire---and it wants plenty of
+sticks, Kitty!  Only it got so cold, and it snowed so, they had
+to leave off.  Never mind, Kitty, we'll go and see the bonfire
+to-morrow.'  Here Alice wound two or three turns of the worsted
+round the kitten's neck, just to see how it would look:  this led
+to a scramble, in which the ball rolled down upon the floor, and
+yards and yards of it got unwound again.
+
+  `Do you know, I was so angry, Kitty,' Alice went on as soon as
+they were comfortably settled again, `when I saw all the mischief
+you had been doing, I was very nearly opening the window, and
+putting you out into the snow!  And you'd have deserved it, you
+little mischievous darling!  What have you got to say for
+yourself?  Now don't interrupt me!' she went on, holding up one
+finger.  `I'm going to tell you all your faults.  Number one:
+you squeaked twice while Dinah was washing your face this
+morning.  Now you can't deny it, Kitty:  I heard you!  What that
+you say?' (pretending that the kitten was speaking.)  `Her paw
+went into your eye?  Well, that's YOUR fault, for keeping your
+eyes open---if you'd shut them tight up, it wouldn't have
+happened.  Now don't make any more excuses, but listen!  Number
+two:  you pulled Snowdrop away by the tail just as I had put down
+the saucer of milk before her!  What, you were thirsty, were you?
+
+\chapter{Chapter 3}
+
+\chapter{Chapter 4}
+
+\appendix
+\chapter{Chapter 1 of appendix}
+Appendix chapter 1 text goes here
+
+\bibliography{sampleThesis}
+
+\end{document}
