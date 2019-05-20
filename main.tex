@@ -22,6 +22,12 @@
 \usepackage{txfonts}
 \usepackage{listings}
 \usepackage{palatino}
+\usepackage{algorithm}
+
+\usepackage{algcompatible}
+\usepackage[floatrow]{trivfloat}
+\trivfloat{algorithm}
+\renewcommand\algorithmname{ALGORITHM}
 
 \lstset{basicstyle=\small\ttfamily,breaklines=true}
 % \usepackage{ctex}
@@ -123,18 +129,17 @@ Thank you and I hope you are proud.
 
 \chapter{Introduction}
 
-\chapter{Fast Heat-Bath Configuration Interaction}
-The text for Section 1 goes here, without brackets.
+\input{docs/shci.tex}
 
 \chapter{Homogeneous Electron Gas Simulation with Fast SHCI}
 Section 2 text.
 
-\chapter{Chromium Dimer Simulation with Fast SHCI }
+\chapter{Chromium Dimer Simulation with Fast SHCI}
 
 \input{docs/blaze.tex}
 
 \chapter{Conclusion and Future Works}
 
-\bibliography{sampleThesis}
+\bibliography{sampleThesis,umrigar,toulouse,chan,needs,zhang,chemistry}
 
 \end{document}
