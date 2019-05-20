@@ -1,4 +1,5 @@
 \documentclass[phd,tocprelim]{cornell}
+
 %
 % tocprelim option must be included to put the roman numeral pages in the
 % table of contents
@@ -19,6 +20,7 @@
 \usepackage{hangcaption}
 \usepackage{txfonts}
 \usepackage{palatino}
+% \usepackage{ctex}
 
 %if you're having problems with overfull boxes, you may need to increase
 %the tolerance to 9999
@@ -76,15 +78,6 @@ he also did research in molecular dynamics and defects with professor James Seth
 
 After obtaining a master's degree at Cornell, Junhao spent a summer as an intern at Google in California in 2016.
 He then returned to Ithaca, brought back the engineering merits he learned from Google, and developed a highly efficient and extensible quantum chemistry package, Arrow, as well as several open-sourced generic high performance computing libraries.
-
-% Junhao also spent time as a summmer intern at Google.
-% working with Cyrus Umrigar, studying highly accurate electronic structure methods.
-% During his Ph.D., he was a Givens Associate at Argonne National
-% Laboratory, studying the dynamics of lossy quantum systems with Stephen Gray
-% and parallelization on novel computing architectures with Misun Min. Matthew
-% also spent time as a Livermore Graduate Scholar at Lawrence Livermore National
-% Laboratory, working jointly with Miguel Morales and Cyrus Umrigar on electronic
-% structure methods.
 \end{biosketch}
 
 \begin{dedication}
@@ -92,121 +85,144 @@ This document is dedicated to all Cornell graduate students.
 \end{dedication}
 
 \begin{acknowledgements}
-First of all, I would like to thank my advisors Professor Cyrus Umrigar and Professor James Sethna for their guidance and support during my Ph.D.
+First of all, I would like to thank my advisor Professor Cyrus Umrigar.
+His commitment to physics research is exemplary and inspiring.
+He led me into the field of quantum chemistry, which is an indispensable foundation of highly accurate numerical simulations.
+All my knowledge of quantum Monte Carlo are inherited from him, and my work on heat-bath configuration interaction is impossible without his guidance and support.
+He also taught me valuable research skills, and helped me go through the process of publishing my first first-author paper, on a top academic journal.
+I am also extremely grateful to him for always being supportive in the decisions I made, the ideas I wanted to try, and being tolerant and direct with the mistakes I made.
+He made my six years of Ph.D life a truly rewarding experience.
 
-and committment to scientific research are exemplary and have influenced me
-greatly. His vast breadth of knowledge, tremendous physical insights and unique
-way of looking at things have been a guiding force and have complemented
-my ’numerical way’ of approaching problems. I am quite grateful to him for
-convincing me to look for simple explanations even when the problem looked
-quite complex. The end results were certainly more satisfying this way than
-they would have been otherwise.
-I sincerely thank Prof. Umrigar and Prof. Garnet Chan from whom I have
+I would also like to thank Professor James Sethna.
+It was a pleasure to work with Jim on defects and molecular dynamics.
+His enthusiasm and optimism inspires me whenever I face chanllenging problems.
+I also learned a lot from his tremendous physics and data insights.
 
-inherited almost all my knowledge of the numerical machinery which was in-
-strumental in ’getting things to work’ in this thesis. I am indebted to Prof. Gar-
-net Chan for training me when I was still a young graduate student and for
+I also thank all the graduate students I worked with, especially Adam Holms, Matt Otten, and Matt Bierbaum.
+They helped me getting started in my research, patiently answered all my questions, and gave me valuable advices on my projects.
+I could not imagine how much longer it would take me to get start and how many detours I might have taken without their help.
 
-helping me overcome my fear of programming (and initial reluctance to toil
-with computer codes for long hours). I am happy to acknowledge that most of
+Special thanks to my parents for giving me birth and raising me up.
+They gave me a warm family as I grew up, and consistently support as I persue my degree at Cornell.
+Thanks also to my elementary school, middle school, high school, and undergraduate teachers and friends back in China for all the invaluable lessons I learned from them, the wonderful memories I had with them, and helps and encouragements I received from them.
 
-my knowledge of the workings of the DMRG algorithm and literature on ten-
-sor networks was gained by being a reasonably attentive observer of his group
+Finally, I acknowledge the financial support from the Cornell physics department, National Science Foundation and the Air Force Office of Scientific Research, and the computing resources support from Pittsburg Computing Center, Argonne National Lab, NERSC, and Google Cloud.
+Thank you and I hope you are proud.
 
-meetings. Prof. Cyrus Umrigar has been an excellent guide and has helped me
 
-explore the rather challenging problem of numerically simulating fermion sys-
-tems with Quantum Monte Carlo. I am grateful to him for teaching me about
+% His committment to physics research are exemplary and inspiring.
+% His vast breadth of knowledge, tremendous physical insights and unique
+% way of looking at things have been a guiding force and have complemented
+% my ’numerical way’ of approaching problems. I am quite grateful to him for
+% convincing me to look for simple explanations even when the problem looked
+% quite complex. The end results were certainly more satisfying this way than
+% they would have been otherwise.
+% I sincerely thank Prof. Umrigar and Prof. Garnet Chan from whom I have
 
-the various areas of Quantum Monte Carlo and for patiently listening to all my
-ideas. I also thank him for the excellent tomatoes and eggs I received from his
-farm as it saved me quite a few trips to the grocery shops!
+% inherited almost all my knowledge of the numerical machinery which was in-
+% strumental in ’getting things to work’ in this thesis. I am indebted to Prof. Gar-
+% net Chan for training me when I was still a young graduate student and for
 
-I would also like to thank Prof. Daniel Ralph for serving on my thesis com-
-mittee and for emphasizing to be on the lookout for experimental connections to
+% helping me overcome my fear of programming (and initial reluctance to toil
+% with computer codes for long hours). I am happy to acknowledge that most of
 
-v
+% my knowledge of the workings of the DMRG algorithm and literature on ten-
+% sor networks was gained by being a reasonably attentive observer of his group
 
-my work. I thank Prof. Piet Brouwer, Prof. Rob Thorne and Prof. Erich Mueller
-for serving on my first-year committee and whose friendly attitudes eased the
-transition into academic life at Cornell.
-A word of thanks to my external collaborators: Prof. Anders Sandvik, for
-hosting me at Boston University during my visit in September 2009 and all the
-discussions at APS March Meetings and over email; Prof. Andreas Läuchli for
-his hospitality at the University Of Innsbruck, Austria and for pushing me in a
+% meetings. Prof. Cyrus Umrigar has been an excellent guide and has helped me
 
-research direction which became quite fruitful. I am thankful to him for offer-
-ing me the opportunity to visit him for a few months to explore new research
+% explore the rather challenging problem of numerically simulating fermion sys-
+% tems with Quantum Monte Carlo. I am grateful to him for teaching me about
 
-directions.
-I acknowledge the funding agencies that supported my research. My work
+% the various areas of Quantum Monte Carlo and for patiently listening to all my
+% ideas. I also thank him for the excellent tomatoes and eggs I received from his
+% farm as it saved me quite a few trips to the grocery shops!
 
-has been was supported by the National Science Foundation through CHE-
-0645380 and DMR-1005466, the DOE-CMSN program, the David and Lucile
+% I would also like to thank Prof. Daniel Ralph for serving on my thesis com-
+% mittee and for emphasizing to be on the lookout for experimental connections to
 
-Packard Foundation, the Alfred P. Sloan Foundation, and the Camille and Henry
+% v
 
-Dreyfus Foundation. My work also made use of the Cornell Center for Materi-
-als Research computer facilities which are supported through the NSF MRSEC
+% my work. I thank Prof. Piet Brouwer, Prof. Rob Thorne and Prof. Erich Mueller
+% for serving on my first-year committee and whose friendly attitudes eased the
+% transition into academic life at Cornell.
+% A word of thanks to my external collaborators: Prof. Anders Sandvik, for
+% hosting me at Boston University during my visit in September 2009 and all the
+% discussions at APS March Meetings and over email; Prof. Andreas Läuchli for
+% his hospitality at the University Of Innsbruck, Austria and for pushing me in a
 
-program (DMR-1120296).
-I also wish to thank Deb Hatfield, John Miner and Kacey Bray of the Cornell
+% research direction which became quite fruitful. I am thankful to him for offer-
+% ing me the opportunity to visit him for a few months to explore new research
 
-Physics Department Administrative Staff who always made sure I had a Teach-
-ing Assistantship when I needed it. I thank Connie Wright, Doug Milton and
+% directions.
+% I acknowledge the funding agencies that supported my research. My work
 
-Judy Wilson of the Laboratory of Atomic and Solid State Physics for their help
-with my Graduate Research Assistant appointments.
-I have had the pleasure of working with multiple student and postdoctoral
+% has been was supported by the National Science Foundation through CHE-
+% 0645380 and DMR-1005466, the DOE-CMSN program, the David and Lucile
 
-collaborators during my time at Cornell. It is a pleasure to thank Prof. Hen-
-ley’s group members Shivam Ghosh, Sumiran Pujari, Zach Lamberty and Matt
+% Packard Foundation, the Alfred P. Sloan Foundation, and the Camille and Henry
 
-Lapa for all the scientific discussions and critical readings of my manuscripts
+% Dreyfus Foundation. My work also made use of the Cornell Center for Materi-
+% als Research computer facilities which are supported through the NSF MRSEC
 
-vi
+% program (DMR-1120296).
+% I also wish to thank Deb Hatfield, John Miner and Kacey Bray of the Cornell
 
-during group meetings. I am indebted to Shivam and Sumiran for tremendous
-inputs on my projects and for being my sounding board for all my crazy (and
-some not-so-crazy) suggestions and ideas. I thank Prof. Garnet Chan’s group
+% Physics Department Administrative Staff who always made sure I had a Teach-
+% ing Assistantship when I needed it. I thank Connie Wright, Doug Milton and
 
-members: Jesse Kinder, Eric Neuscamman, Jon Dorando, Debashree Ghosh, Do-
-minika Zgid, Claire Ralph, Johannes Hachmann, Sandeep Sharma, Jun Yang
+% Judy Wilson of the Laboratory of Atomic and Solid State Physics for their help
+% with my Graduate Research Assistant appointments.
+% I have had the pleasure of working with multiple student and postdoctoral
 
-and Weifeng Hu for all the discussions on DMRG and Tensor networks, the C++
-programming tips and for the wonderful times in and out of Baker laboratory. It
-is safe to say I have learnt nearly all my Fortran90 and Ubuntu Installation tips
-from Frank Petruzielo of the Umrigar group. It has been a pleasure to interact
-with him and Adam Holmes and I appreciate all the brainstorming sessions we
-had to battle our common enemy (also known as the ’sign problem’!).
-Cornell has been a wonderful place to forge friendships which I hope to
-cherish for a long time to come. To all my fellow residents of 536 Thurston Ave
-(integrated over a span of 5 years) Ravishankar Sundararaman, Benjamin Kreis,
-Stephen Poprocki, Shivam Ghosh, Kshitij Auluck, Srivatsan Ravi, Leif Ristroph,
-James Leadoux, Stefan Baur, Mark Buckley, Robert Rodriguez: a big thanks for
-making it a home away from home. To all my Physics friends: Ben Kreis, Turan
-Birol, Ravishankar Sundararaman, YJ Chen, Stephen Poprocki, Kendra Weaver,
-Colwyn Guilford, Yao Weng, Kartik Ayyer, Mihir Khadilkar: thank you for all
-the wonderful first year homework sessions, pot-lucks and weekend dinners
-that eliminated the loneliness of a graduate student’s life. To my friends in the
-Cricket Club and Cornell India Association: I am thankful for all the efforts you
-put in to make all the experiences memorable and enjoyable.
-I am sure I have not been able to thank everyone who contributed to my
-wonderful experience at Cornell, they must accept my sincerest apologies.
+% collaborators during my time at Cornell. It is a pleasure to thank Prof. Hen-
+% ley’s group members Shivam Ghosh, Sumiran Pujari, Zach Lamberty and Matt
 
-vii
+% Lapa for all the scientific discussions and critical readings of my manuscripts
 
-Any acknowledgement would be incomplete without a warm thanks to my
-family and friends back home in India. My parents have been very supportive
-of my decision to pursue my ambitions and I can only hope that I do justice to
-their tremendous belief in me. At multiple occassions I thought I was just down
-and out only to find a renewed energy after meeting them. My sister’s presence
-in New York City has also given me a sense that I’m not too far from family after
-all.
-And finally a big thanks to my wife Suravi who has made many sacrifices
-for me along the way, and who has always completely supported me in all my
-endeavors. Her immense confidence in my abilities has been a constant driving
-force. Ami tomake bhalobhashi!
+% vi
+
+% during group meetings. I am indebted to Shivam and Sumiran for tremendous
+% inputs on my projects and for being my sounding board for all my crazy (and
+% some not-so-crazy) suggestions and ideas. I thank Prof. Garnet Chan’s group
+
+% members: Jesse Kinder, Eric Neuscamman, Jon Dorando, Debashree Ghosh, Do-
+% minika Zgid, Claire Ralph, Johannes Hachmann, Sandeep Sharma, Jun Yang
+
+% and Weifeng Hu for all the discussions on DMRG and Tensor networks, the C++
+% programming tips and for the wonderful times in and out of Baker laboratory. It
+% is safe to say I have learnt nearly all my Fortran90 and Ubuntu Installation tips
+% from Frank Petruzielo of the Umrigar group. It has been a pleasure to interact
+% with him and Adam Holmes and I appreciate all the brainstorming sessions we
+% had to battle our common enemy (also known as the ’sign problem’!).
+% Cornell has been a wonderful place to forge friendships which I hope to
+% cherish for a long time to come. To all my fellow residents of 536 Thurston Ave
+% (integrated over a span of 5 years) Ravishankar Sundararaman, Benjamin Kreis,
+% Stephen Poprocki, Shivam Ghosh, Kshitij Auluck, Srivatsan Ravi, Leif Ristroph,
+% James Leadoux, Stefan Baur, Mark Buckley, Robert Rodriguez: a big thanks for
+% making it a home away from home. To all my Physics friends: Ben Kreis, Turan
+% Birol, Ravishankar Sundararaman, YJ Chen, Stephen Poprocki, Kendra Weaver,
+% Colwyn Guilford, Yao Weng, Kartik Ayyer, Mihir Khadilkar: thank you for all
+% the wonderful first year homework sessions, pot-lucks and weekend dinners
+% that eliminated the loneliness of a graduate student’s life. To my friends in the
+% Cricket Club and Cornell India Association: I am thankful for all the efforts you
+% put in to make all the experiences memorable and enjoyable.
+% I am sure I have not been able to thank everyone who contributed to my
+% wonderful experience at Cornell, they must accept my sincerest apologies.
+
+% vii
+
+% Any acknowledgement would be incomplete without a warm thanks to my
+% family and friends back home in India. My parents have been very supportive
+% of my decision to pursue my ambitions and I can only hope that I do justice to
+% their tremendous belief in me. At multiple occassions I thought I was just down
+% and out only to find a renewed energy after meeting them. My sister’s presence
+% in New York City has also given me a sense that I’m not too far from family after
+% all.
+% And finally a big thanks to my wife Suravi who has made many sacrifices
+% for me along the way, and who has always completely supported me in all my
+% endeavors. Her immense confidence in my abilities has been a constant driving
+% force. Ami tomake bhalobhashi!
 \end{acknowledgements}
 
 \contentspage
