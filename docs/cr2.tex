@@ -2,14 +2,22 @@
 
 \section{Introduction}
 
+In this chapter, we apply the fast heat-bath configuration interaction method to the chromium dimer, which is a challenging strongly-correlated system
+that has been used as a benchmark molecule for a variety of methods~\cite{Scu-JCP-91,KurYan-JCP-11,PurZhaKra-JCP-15,MaManOlsGag-JCTC-16,VanMalVer-JCTC-16,GuoWatHuSunCha-JCTC-16}.
+We calculate both the energy at the equilibrium geometry and entire potential energy curve.
+
+For the equilibrium geometry, we include in our variational wavefunction two billion most important determinants, which are two orders of magnitudes more than ever done in other selected-CI based methods.
+This allows us to achieve significantly higher accuracy, which even beats the accuracy of well developed methods, such as density matrix renormalization group (DMRG).
+Section~\ref{sec:eq} presents the results.
+
+For the entire potential energy curve calculation, we include in our Hilbert space 28 active eletrons with a cc-pVDZ basis.
+This Hilbert space is several orders of mangitude larger than previous calculations with other essentially exact methods.
+Our results matches perfectly with the experiments at the equilibrium and lightly deformed region.
+Section~\ref{sec:curve} presents the results.
+
 \section{Equilibrium Geometry}
-
-\label{results}
-
-In this section, we apply SHCI to the chromium dimer, which is a challenging strongly-correlated system
-that has been studied using a variety of methods~\cite{Scu-JCP-91,KurYan-JCP-11,PurZhaKra-JCP-15,MaManOlsGag-JCTC-16,VanMalVer-JCTC-16,GuoWatHuSunCha-JCTC-16}.
-We will publish the potential energy surface in a separate publication; here instead our goal is just
-to use it as a test case for the improved SHCI method.
+\label{sec:eq}
+In this section, we examine the chromium dimer in equilibrium geometry, using a bond length of 1.68 angstrom.
 %We use a cc-pVDZ basis with active semi-core electrons.
 We use a relativistic exact two-component (X2C) Hamiltonian, the cc-pVDZ-DK basis, and we correlate the valence and the semi-core electrons.
 This gives an active space of (28e, 76o) and a Hilbert space of $5\times10^{29}$ determinants, which is far beyond the reach of FCI.
@@ -54,7 +62,8 @@ These large calculations enable us to obtain an estimate of the FCI energy with 
 Table~\ref{tab:Cr2} reports the results.
 
 
-\begin{table}[h]
+\begin{table}
+  \begin{center}
   \begin{tabular}{| c | c | c | c |}
   \hline
   $\epsilon_{1}$ (Ha) & $N_\V$ & $E_{\rm var}$ (Ha) & $E_{\rm total}$ (Ha) \\
@@ -76,51 +85,7 @@ Table~\ref{tab:Cr2} reports the results.
   0.0 (Extrap.) & - & \multicolumn{2}{ c |}{-2099.9224(6)} \\
   \hline
   \end{tabular}
-%   \begin{tabular}{| c | c | c | c | c |}
-%   \hline
-%   Basis & $\epsilon_{1}$ & $|V|$ & $E_{\rm var}$ (Ha) & $E_{\rm total}$ (Ha) \\
-%   \hline\hline
-%   \multirow{8}{*}{TZ} & $5.0\times10^{-4}$ & 3.4M & -2100.000182 & -2100.280436(4) \\
-%    \cline{2-5}
-%    & $3.0\times10^{-4}$ & 6.9M & -2100.050564 & -2100.292239(10) \\
-%    \cline{2-5}
-%    & $2.0\times10^{-4}$ & 13.0M & -2100.086849 & -2100.301229(4) \\
-%    \cline{2-5}
-%    & $1.0\times10^{-4}$ & 40.7M & -2100.140331 & -2100.314712(6) \\
-%    \cline{2-5}
-%    & $5.0\times10^{-5}$ & 132M & -2100.184546 & -2100.326457(4) \\
-%    \cline{2-5}
-%    & $4.0\times10^{-5}$ & 192M & -2100.197051 & -2100.329894(4) \\
-%    \cline{2-5}
-%    & $3.0\times10^{-5}$ & 316M & -2100.212485 & -2099.889577(9) \\
-%    \cline{2-5}
-%    & $2.0\times10^{-5}$ & 644M & -2100.232505 & -2099.889577(9) \\
-%    \cline{2-5}
-%    & $1.5\times10^{-5}$ & 1.06B & -2100.245442 & -2099.889577(9) \\
-%    \cline{2-5}
-%    & 0 (Ext.) & $6\times10^{42}$ & \multicolumn{2}{ c |}{-2099.889577(9)} \\
-%    \hline
-%   \multirow{8}{*}{QZ} & $5.0\times10^{-4}$ & 2.6M & -2100.093991 & -2100.349945(19) \\
-%    \cline{2-5}
-%    & $3.0\times10^{-4}$ & 5.8M & -2100.136962 & -2100.356925(10) \\
-%    \cline{2-5}
-%    & $2.0\times10^{-4}$ & 11.6M & -2100.168104 & -2100.364967(8) \\
-%    \cline{2-5}
-%    & $1.0\times10^{-4}$ & 38.3M & -2100.214213 & -2100.378015(6) \\
-%    \cline{2-5}
-%    & $5.0\times10^{-5}$ & 122M & -2100.251234 & -2100.388998(7) \\
-%    \cline{2-5}
-%    & $4.0\times10^{-5}$ & 177M & -2100.261739 & -2100.392201(5) \\
-%    \cline{2-5}
-%    & $3.0\times10^{-5}$ & 293M & -2100.275010 & - \\
-%    \cline{2-5}
-%    & $2.0\times10^{-5}$ & 603M & -2100.292767 & - \\
-%    \cline{2-5}
-%    & $1.5\times10^{-5}$ & 1.01B & -2100.304661 & -2100.404533(7) \\
-%    \cline{2-5}
-%    & 0 (Ext.) & $5\times10^{46}$ & \multicolumn{2}{ c |}{-2099.889577(9)} \\
-%    \hline
-%   \end{tabular}
+  \end{center}
   \caption{Results for Cr$_2$ at r=1.68\AA\ in the cc-pVDZ-DK basis.
   The active space is (28e, 76o).
   $N_\V$ is the number of variational determinants.
@@ -153,12 +118,14 @@ In summary, the estimated FCI energy of Cr$_2$ in the cc-pVDZ-DK basis with 28 c
 is $-2099.9224(6)$~Ha.
 
 \begin{figure}
-  \includegraphics[width=\linewidth]{figs/excitation.eps}
+  \begin{center}
+  \includegraphics[width=0.9\linewidth]{figs/excitation.eps}
   \caption{Contribution from each excitation level to the variational wavefunction for Cr$_2$ with $2 \times 10^9$ determinants.
   Determinants with up to 15 excitations are present in the variational wavefunction.
 %  {\color{red} Leave out the top plot, since sums of squared magnitudes is meaningful, but number of nonzero magnitudes is a meaningless quantity? Well, it does mean that there were several higher-order excitations that are more important than lower-order ones.}
 }
   \label{fig:excit}
+  \end{center}
 \end{figure}
 
 We compare our result with DMRG and p-DMRG, which are the only essentially exact methods that have been applied to this large active space of the chromium dimer.
@@ -183,6 +150,6 @@ This implies that truncating the CI expansion at the double, triple or quadruple
 CI expansions), will give poor energies for such strongly correlated systems.
 
 \section{Potential Energy Surface}
-
+\label{sec:curve}
 
 \section{Conclusion}

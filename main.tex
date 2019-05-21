@@ -26,12 +26,16 @@
 \usepackage{multirow}
 \usepackage{url}
 \usepackage{bm}
+% \usepackage{siunitx}
 \usepackage{xspace}
 
 \usepackage{algcompatible}
 \usepackage[floatrow]{trivfloat}
 \trivfloat{algorithm}
 \renewcommand\algorithmname{ALGORITHM}
+
+\let\oldAA\AA
+\renewcommand{\AA}{\text{\normalfont\oldAA}}
 
 \newcommand\nd{\textsuperscript{nd}\xspace}
 \newcommand\rd{\textsuperscript{rd}\xspace}
