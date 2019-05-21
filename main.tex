@@ -23,11 +23,19 @@
 \usepackage{listings}
 \usepackage{palatino}
 \usepackage{algorithm}
+\usepackage{multirow}
+\usepackage{url}
+\usepackage{bm}
+\usepackage{xspace}
 
 \usepackage{algcompatible}
 \usepackage[floatrow]{trivfloat}
 \trivfloat{algorithm}
 \renewcommand\algorithmname{ALGORITHM}
+
+\newcommand\nd{\textsuperscript{nd}\xspace}
+\newcommand\rd{\textsuperscript{rd}\xspace}
+\newcommand\nth{\textsuperscript{th}\xspace} %\th is taken already
 
 \lstset{basicstyle=\small\ttfamily,breaklines=true}
 % \usepackage{ctex}
@@ -130,12 +138,8 @@ Thank you and I hope you are proud.
 \chapter{Introduction}
 
 \input{docs/shci.tex}
-
-\chapter{Homogeneous Electron Gas Simulation with Fast SHCI}
-Section 2 text.
-
-\chapter{Chromium Dimer Simulation with Fast SHCI}
-
+\input{docs/heg.tex}
+\input{docs/cr2.tex}
 \input{docs/blaze.tex}
 
 \chapter{Conclusion and Future Works}

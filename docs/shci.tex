@@ -374,7 +374,7 @@ generating all connections of each determinant in $\V$ and searching for the con
 When the number of determinants is not very large, the former is more efficient.
 Both of these are much too expensive for the very large number of variational determinants that we use.
 
-\begin{table}[h]
+\begin{table}
 \caption{The notation for the data structures in our current algorithm for efficiently constructing the Hamiltonian matrix.
 Analogous data structures with the alpha and beta roles reversed are also used.
 The text gives details of how they are constructed efficiently.}
@@ -523,75 +523,6 @@ The algorithm for single or double beta excitations is very similar.
     \ENDIF
   \ENDFOR
 \ENDFOR
-
-%\\
-%\FOR{$D_i$ in $\V$}
-%  \State $\alpha_i$ is the $\alpha$-string of $D_i$
-%  \State $\beta_i$ is the $\beta$-string of $D_i$
-%  \State $D_s$ is first new determinant larger than $D_i$
-%  \FOR {$\alpha_k$ in $\veca_{\alpha_i}$}
-%    \IF{number of new determinants is small}
-%%       \State $\vecD_{\alpha_k}$ is sorted by $D$
-%      \FOR {$D_j$ larger than $D_s$ in $\vecD_{\alpha_k}$ (reverse loop)}
-%        \State $\beta_j$ is the $\beta$-string of $D_j$
-%        \IF {$\beta_j$ present in $\vecb_{\beta_i}$ (binary search)}
-%          \State Add $H_{ij}$ to the sparse matrix
-%        \ENDIF
-%      \ENDFOR
-%    \ELSE
-%%       \State $\vecD_{\alpha_k}$ is sorted by $\beta$
-%      \State Find the inner join $\vecD_J$ of $\vecD_{\alpha_k}$ and $\vecb_{\beta_i}$ on $\beta$ 
-%      \FOR {$D_j$ in $\vecD_J$}
-%        \IF {$D_j > D_s$}
-%          \State Add $H_{ij}$ to the sparse matrix
-%        \ENDIF
-%      \ENDFOR
-%%       \State merge two sorted array $\vecb_{\alpha_k}$ and $\{\beta\}_{\beta_i}$
-%    \ENDIF
-%  \ENDFOR
-%\ENDFOR
-%\\
-%
-%\FOR{$D$ in $\V$}
-%  \State $\alpha$ is the alpha-string of $D$
-%  \State $\beta$ is the beta-string of $D$
-%  \State $D''$ is first new determinant such that $i_{D''} \geq i_{D}$
-%  \FOR {$\alpha'$ in $\veca_{\alpha}$}
-%    \IF{number of new determinants is small}
-%%       \State $\vecD_{\alpha_k}$ is sorted by $D$
-%      \FOR {$D'$ larger than $D''$ in $\vecD_{\alpha'}$ (reverse loop)}
-%        \State $\beta'$ is the beta-string of $D'$
-%        \IF {$\beta'$ present in $\vecb_{\beta}$ (binary search)}
-%          \State Add $\langle D' |H|D\rangle$ to the sparse matrix
-%        \ENDIF
-%      \ENDFOR
-%    \ELSE
-%%       \State $\vecD_{\alpha_k}$ is sorted by $\beta$
-%      \State Find the inner join $\vecD_J$ of $\vecD_{\alpha'}$ and $\vecb_{\beta}$ on $\beta$ 
-%      \FOR {$D'$ in $\vecD_J$}
-%        \IF {$i_{D'} > i_{D''}$}
-%          \State Add $\langle D' |H|D\rangle$ to the sparse matrix
-%        \ENDIF
-%      \ENDFOR
-%%       \State merge two sorted array $\vecb_{\alpha_k}$ and $\{\beta\}_{\beta_i}$
-%    \ENDIF
-%  \ENDFOR
-%\ENDFOR
-
-% \FOR{$\alpha_i$ in \{$\alpha$\}}
-% 	\FOR{$D_i$ in $\vecD_{\alpha_i}$ }
-%     \State $\alpha_i$ is the $\alpha$-string of $D_i$
-%     \State $\beta_i$ is the $\beta$-string of $D_i$
-% 	\FOR {$\alpha_k$ in $\veca_{\alpha_i}$}
-%     \FOR {$\beta_l$ in $\vecb_{\alpha_k}$}
-%     \IF {$\beta_l$ present in $\vecb_{\beta_i}$ (binary search)}
-%      \State $D_k$ is the determinant ($\alpha_k$)($\beta_l$) 
-%      \State Add $H_{ik}$ to the sparse matrix if $D_i > D_k$
-%      \ENDIF
-%      \ENDFOR
-%     \ENDFOR
-% \ENDFOR
-% \ENDFOR
 \end{algorithmic}
 \label{opposite_spin}
 \end{algorithm}
@@ -712,7 +643,7 @@ original SHCI method.
 %Each connection is generated only once during this process (unlike the $(\alpha-1)\beta$ algorithm in the original SHCI method).
 
 \begin{figure}
-  \includegraphics[width=\linewidth]{speedup/speedup.eps}
+  \includegraphics[width=\linewidth]{figs/speedup.eps}
   \caption{Hamiltonian matrix construction time for a copper atom in a cc-pVTZ basis. Hamiltonian construction is the performance bottleneck in the variational stage.
 %This figure shows that Fast SHCI's new Hamiltonian construction algorithm is an order of magnitude faster than SHCI and several orders of magnitude faster than brute force (loop over each pair of determinants).}
 Hamiltonian construction in our improved SHCI algorithm is an order of magnitude faster than in
@@ -770,7 +701,8 @@ When we decrease the memory by a factor of four, the total CPU time of the origi
 %Unfortunately, most interesting systems have huge Hilbert spaces, and therefore sufficiently large perturbative spaces
 %that even large memory computer clusters become memory constrained environments, leading to a performance bottleneck.
 
-\begin{table}[h]
+\begin{table}
+\begin{center}
   \begin{tabular}{| c | c | c | c |}
   \hline
   Method & Memory & \begin{tabular}{@{}c@{}}CPU Time \\ (core hours)\end{tabular} & Error ($\mu$Ha) \\
@@ -794,12 +726,13 @@ When we decrease the memory by a factor of four, the total CPU time of the origi
     % {\color{red} Can you include the sample size, number of samples and the cost/sample for atleast the original algorithm (preferably for all). The cost/sample hopefully scales linearly with the size of sample. The data in this table can be used to emphasize that even if the product sample size X the number of samples (which should be proportional to the cpu cost) is the same, the calculation with larger sample size will be more efficient. This is quite non-intuitive and is the main motivation for developing the new algorithm -- Sandeep.}\\
     Computational cost of perturbative correction for a copper atom in a cc-pVTZ basis.
     The variational space has 19 million determinants for $\epsilon_1=5\times10^{-5}$~Ha and the perturbative space has 35 billion determinants for $\epsilon_2=10^{-7}$~Ha.
-    HCI uses the deterministic perturbation of Ref.~\onlinecite{HolTubUmr-JCTC-16}.
-    SHCI uses the 2-step semistochastic perturbation algorithm of Ref.~\onlinecite{ShaHolJeaAlaUmr-JCTC-17}.
+    HCI uses the deterministic perturbation of Ref.~\cite{HolTubUmr-JCTC-16}.
+    SHCI uses the 2-step semistochastic perturbation algorithm of Ref.~\cite{ShaHolJeaAlaUmr-JCTC-17}.
     Improved SHCI introduces the 3-step batch perturbation that significantly improves the efficiency of SHCI, especially for memory constrained cases.
     The timings for the 32GB machine are obtained by running on the same 128GB large memory machine but intentionally tuning the parameters so that the memory usage is kept below 32GB throughout the run.
     We also provide the timing to reach a 1.8~$\mu$Ha uncertainty to illustrate that our statistical error goes down much faster than $1/\sqrt{T}$ since we use smaller $\epsilon^{\rm dtm}_2$ and $\epsilon^{\rm psto}_2$ values for smaller target errors.
 }
+\end{center}
   \label{tab:pt}
 \end{table}
 
@@ -1269,7 +1202,7 @@ we achieve a few orders of magnitude speedup.
 %we have a few orders of magnitude speedup compared to the original SHCI algorithm.
 
 \begin{figure}[h]
-  \includegraphics[width=\linewidth]{scalability/var}
+  \includegraphics[width=\linewidth]{figs/var.eps}
   %\includegraphics[width=\linewidth]{scalability/var.eps}
   \caption{Parallel speedup of the variational stage for a copper atom in a cc-pVTZ basis.
 There is almost perfect scaling for up to 4 nodes and 75\% parallel efficiency at 16 nodes.
@@ -1278,8 +1211,10 @@ There is almost perfect scaling for up to 4 nodes and 75\% parallel efficiency a
   \label{fig:paravar}
 \end{figure}
  
-\begin{figure}[h]
-  \includegraphics[width=\linewidth]{scalability/dtm.eps}
+\begin{figure}
+\begin{center}
+
+  \includegraphics[width=\linewidth]{figs/dtm.eps}
   \caption{
 %{\color{red} my preference is to give cpu time on the y-axis and the guiding line to show ideal parallelization. -- Sandeep}\\
 %{\color{black} This would however have the downside of not being symmetrical with the speedup of the variational stage and
@@ -1293,6 +1228,7 @@ the optimal choice of $\epsilon_2^{\rm dtm}$ and $N_d$, in Eqs.~\ref{eq:semistoc
 The ``Original" curves are scaled to reflect the relative speed of original SHCI algorithm to that of the improved algorithm.
 }
   \label{fig:parapt}
+\end{center}
 \end{figure}
 
 % \section{Fast SHCI}
@@ -1310,284 +1246,6 @@ The ``Original" curves are scaled to reflect the relative speed of original SHCI
 % Fast SHCI introduces multistep batch perturbation, which also has a small memory footprint and has similar or faster speed than SHCI on large memory machines, but orders of magnitude faster than SHCI in memory constrained cases.
 
 % The code that implements our algorithm can be found at \url{https://github.com/jl2922/shci}
-
-
-
-
-\section{Results}
-\label{results}
-
-In this section, we apply SHCI to the chromium dimer, which is a challenging strongly-correlated system
-that has been studied using a variety of methods~\cite{Scu-JCP-91,KurYan-JCP-11,PurZhaKra-JCP-15,MaManOlsGag-JCTC-16,VanMalVer-JCTC-16,GuoWatHuSunCha-JCTC-16}.
-We will publish the potential energy surface in a separate publication; here instead our goal is just
-to use it as a test case for the improved SHCI method.
-%We use a cc-pVDZ basis with active semi-core electrons.
-We use a relativistic exact two-component (X2C) Hamiltonian, the cc-pVDZ-DK basis, and we correlate the valence and the semi-core electrons.
-This gives an active space of (28e, 76o) and a Hilbert space of $5\times10^{29}$ determinants, which is far beyond the reach of FCI.
-We show how we obtain an accurate estimate of the FCI energy in this large active space with our improved SHCI algorithm.
-
-We use PySCF~\cite{SunCha_etal_PySCF-ComMolSci-18} to generate the molecular orbital integrals for orbitals that minimize the HCI variational
-energy for $\epsilon_1=2\times 10^{-4}$~Ha, using the method of Ref.~\cite{SmiMusHolSha-JCTC-17}.
-We perform SHCI with several $\epsilon_1$ values from $5\times10^{-5}$ to $3\times10^{-6}$~Ha.
-The Hamiltonian matrix is constructed only once.
-% The Hamiltonian matrix is stored in memory and so needs to be constructed only once.
-%We keep the ratio between $\epsilon_2$ and $\epsilon_1$ to $10^{-6}$ and the target error for the stochastic perturbation to 0.01 mHa.
-We use very small values of $\epsilon_2 = 10^{-6} \epsilon_1$  to ensure that the perturbative correction is exceedingly well converged,
-and choose the target error for the stochastic perturbation energy to be $10^{-5}$~Ha.
-
-%The improved SHCI is fast enough that we can use over two billion variational determinants and include at least trillions of effective perturbative determinants.
-The improved SHCI is fast enough that we can use over two billion variational determinants, and stochastically include the contributions of at least trillions of perturbative determinants.
-The largest variational calculation, where we iteratively find and diagonalize 2 billion determinants
-for $\epsilon_1=3.0\times10^{-6}$~Ha, takes only one day on 8 nodes, each of which has 4 Intel Xeon E7-8870 v4 CPUs.
-The corresponding perturbative calculation takes only 6 hours using only one of these nodes. 
-During that perturbative calculation, we skip the deterministic step, perform a pseudo-stochastic step with $\epsilon_2^{\rm psto}=1\times10^{-7}$~Ha, and a stochastic step with $\epsilon_2=3\times10^{-12}$~Ha.
-{\color{black}
-We skip the deterministic step here because $\epsilon_1=3 \times 10^{-6}$ is already close to our
-default $\epsilon_2^{\rm dtm}$ of $2 \times 10^{-6}$ so skipping this won't affect the efficiency
-of subsequent steps much.
-}
-The pseudo-stochastic step uses 25 batches, each of which has about 8.9 billion determinants.
-We evaluate only one of them, from which we obtain an estimate of the total correction for all the 25 batches (223 billion determinants) to be -0.011681(1)~Ha.
-Since the estimated error is already much smaller than our target error, we skip the remaining 24 batches.
-The pseudo-stochastic step takes 1.6 hours.
-The stochastic step uses 128 batches and 6 million variational determinants in each sample,
-which results in about 3.7 billion determinants per batch.
-We use 10 samples and obtain the additional correction from $\epsilon_2=3.0\times10^{-12}$~Ha to be -0.001203(6)~Ha.
-The combined uncertainty of the entire semistochastic perturbation stage is 6~$\mu$Ha.
-It is hard to estimate how many determinants are stochastically included for $\epsilon_2=3\times10^{-12}$~Ha,
-so we estimate a lower bound with $\epsilon_2^{\rm psto}=1.4\times10^{-8}$~Ha and obtain 1.8 trillion unique perturbative determinants.
-Hence, with $\epsilon_2=3\times10^{-12}$~Ha (the value we are actually using) we stochastically estimate contributions from
-at least trillions of unique perturbative determinants and obtain better than $10^{-5}$~Ha statistical uncertainty in 6 hours using only one node.
-%why?
-%This brings the accuracy selected-CI to a whole new level and enables us to obtain an estimation of the FCI energy with sub-millihartree uncertainty in this large active space.
-
-These large calculations enable us to obtain an estimate of the FCI energy with sub-millihartree uncertainty in this large active space.
-Table~\ref{tab:Cr2} reports the results.
-
-
-\begin{table}[h]
-  \begin{tabular}{| c | c | c | c |}
-  \hline
-  $\epsilon_{1}$ (Ha) & $N_\V$ & $E_{\rm var}$ (Ha) & $E_{\rm total}$ (Ha) \\
-  \hline\hline
-  $5.0\times10^{-5}$ & 24M & -2099.863816 & -2099.909741(7) \\
-  \hline
-  $3.0\times10^{-5}$ & 53M & -2099.875327 & -2099.912356(7) \\
-  \hline
-  $2.0\times10^{-5}$ & 102M & -2099.883027 & -2099.914132(8) \\
-  \hline
-  $1.0\times10^{-5}$ & 309M & -2099.893761 & -2099.916595(1) \\
-  \hline
-  $7.0\times10^{-6}$ & 539M & -2099.898165 & -2099.917540(1) \\
-  \hline
-  $5.0\times10^{-6}$ & 911M & -2099.901781 & -2099.918306(3) \\
-  \hline
-  $3.0\times10^{-6}$ & 2.00B & -2099.906322 & -2099.919205(6) \\
-  \hline
-  0.0 (Extrap.) & - & \multicolumn{2}{ c |}{-2099.9224(6)} \\
-  \hline
-  \end{tabular}
-%   \begin{tabular}{| c | c | c | c | c |}
-%   \hline
-%   Basis & $\epsilon_{1}$ & $|V|$ & $E_{\rm var}$ (Ha) & $E_{\rm total}$ (Ha) \\
-%   \hline\hline
-%   \multirow{8}{*}{TZ} & $5.0\times10^{-4}$ & 3.4M & -2100.000182 & -2100.280436(4) \\
-%    \cline{2-5}
-%    & $3.0\times10^{-4}$ & 6.9M & -2100.050564 & -2100.292239(10) \\
-%    \cline{2-5}
-%    & $2.0\times10^{-4}$ & 13.0M & -2100.086849 & -2100.301229(4) \\
-%    \cline{2-5}
-%    & $1.0\times10^{-4}$ & 40.7M & -2100.140331 & -2100.314712(6) \\
-%    \cline{2-5}
-%    & $5.0\times10^{-5}$ & 132M & -2100.184546 & -2100.326457(4) \\
-%    \cline{2-5}
-%    & $4.0\times10^{-5}$ & 192M & -2100.197051 & -2100.329894(4) \\
-%    \cline{2-5}
-%    & $3.0\times10^{-5}$ & 316M & -2100.212485 & -2099.889577(9) \\
-%    \cline{2-5}
-%    & $2.0\times10^{-5}$ & 644M & -2100.232505 & -2099.889577(9) \\
-%    \cline{2-5}
-%    & $1.5\times10^{-5}$ & 1.06B & -2100.245442 & -2099.889577(9) \\
-%    \cline{2-5}
-%    & 0 (Ext.) & $6\times10^{42}$ & \multicolumn{2}{ c |}{-2099.889577(9)} \\
-%    \hline
-%   \multirow{8}{*}{QZ} & $5.0\times10^{-4}$ & 2.6M & -2100.093991 & -2100.349945(19) \\
-%    \cline{2-5}
-%    & $3.0\times10^{-4}$ & 5.8M & -2100.136962 & -2100.356925(10) \\
-%    \cline{2-5}
-%    & $2.0\times10^{-4}$ & 11.6M & -2100.168104 & -2100.364967(8) \\
-%    \cline{2-5}
-%    & $1.0\times10^{-4}$ & 38.3M & -2100.214213 & -2100.378015(6) \\
-%    \cline{2-5}
-%    & $5.0\times10^{-5}$ & 122M & -2100.251234 & -2100.388998(7) \\
-%    \cline{2-5}
-%    & $4.0\times10^{-5}$ & 177M & -2100.261739 & -2100.392201(5) \\
-%    \cline{2-5}
-%    & $3.0\times10^{-5}$ & 293M & -2100.275010 & - \\
-%    \cline{2-5}
-%    & $2.0\times10^{-5}$ & 603M & -2100.292767 & - \\
-%    \cline{2-5}
-%    & $1.5\times10^{-5}$ & 1.01B & -2100.304661 & -2100.404533(7) \\
-%    \cline{2-5}
-%    & 0 (Ext.) & $5\times10^{46}$ & \multicolumn{2}{ c |}{-2099.889577(9)} \\
-%    \hline
-%   \end{tabular}
-  \caption{Results for Cr$_2$ at r=1.68\AA\ in the cc-pVDZ-DK basis.
-  The active space is (28e, 76o).
-  $N_\V$ is the number of variational determinants.
-  $\epsilon_2 = 10^{-6} \epsilon_1$.
-  We use weighted quadratic extrapolation, shown in Fig.~\ref{fig:extrapolation}, to obtain the FCI limit
-  corresponding to $\Delta E=0$.}
-  \label{tab:Cr2}
-\end{table}
-
-\begin{figure}
-  \includegraphics[width=\linewidth]{extrapolation/extrapolate.eps}
-  \caption{Weighted quadratic extrapolation of the Cr$_2$ ground state energy.
-  The weight of each point is $(E_{\rm var} - E_{\rm tot})^{-2}$.
-  The extrapolated energy is $-2099.9224(6)$, where the uncertainty comes from the difference between linear extrapolation and quadratic extrapolation.
-  The p-DMRG extrapolation and the CCSD(T) value are also shown.
-}
-  \label{fig:extrapolation}
-\end{figure}
-
-We extrapolate our results using a weighted quadratic fit
-and obtain for the ground state energy, $-2099.9224$~Ha as $\Delta E\to0$.
-The weight of each point is $(E_{\rm var} - E_{\rm tot})^{-2}$.
-Fig.~\ref{fig:extrapolation} shows the computed energies and the extrapolation.
-We also perform a weighted linear fit and use the difference of the extrapolated values from the quadratic and the linear fits (0.6~mHa) as the uncertainty.
-%If we look at the trends of the data points in Fig.~\ref{fig:extrapolation}, we can see that 0.55~mHa is a reasonable estimation of the uncertainty.
-%In summary, the estimated FCI energy of Cr$_2$ in the cc-pVDZ basis with active semi-core electrons is $-2099.9224(6)$~Ha.
-In summary, the estimated FCI energy of Cr$_2$ in the cc-pVDZ-DK basis with 28 correlated electrons and the relativistic X2C Hamiltonian
-%(the rest of the electrons are frozen in
-%Hartree-Fock orbitals)
-is $-2099.9224(6)$~Ha.
-
-\begin{figure}
-  \includegraphics[width=\linewidth]{excitation/excitation.eps}
-  \caption{Contribution from each excitation level to the variational wavefunction for Cr$_2$ with $2 \times 10^9$ determinants.
-  Determinants with up to 15 excitations are present in the variational wavefunction.
-%  {\color{red} Leave out the top plot, since sums of squared magnitudes is meaningful, but number of nonzero magnitudes is a meaningless quantity? Well, it does mean that there were several higher-order excitations that are more important than lower-order ones.}
-}
-  \label{fig:excit}
-\end{figure}
-
-We compare our result with DMRG and p-DMRG, which are the only essentially exact methods that have been applied to this large active space of the chromium dimer.
-The DMRG calculations use up to bond dimension $M=16000$ and obtain an extrapolated energy of $-2099.9195(27)$~Ha (default schedule) and $-2099.9192(24)$ (reverse schedule)~\cite{GuoLiCha-JCTC-18}.
-%These two values are similar to our most accurate data point but higher than our extrapolated result by 3~mH, which is about one standard error of the DMRG results.
-These two values are similar to our most accurate data point but higher than our extrapolated result by 3~mH, which is about the estimated error of the DMRG results.
-%The p-DMRG calculations use up to $M=4000$ and obtain an extrapolated energy of $-2099.9201$~Ha~\cite{GuoLiCha-JCTC-18}.
-The p-DMRG calculations use up to $M=4000$ and extrapolated energy obtained from a linear fit is $-2099.9201$~Ha~\cite{GuoLiCha-JCTC-18}.
-If instead, we perform a weighted quadratic fit (shown in Fig.~\ref{fig:extrapolation}), the extrapolated energy is $-2099.9225$~Ha,
-in perhaps fortuitously good agreement with our result of $-2099.9224(6)$~Ha.  However, the extrapolation uncertainty is larger than the SHCI extrapolation uncertainty.
-In contrast, the CCSD(T) energy is considerably higher.
-%In summary, our extrapolated value agrees with DMRG's and p-DMRG's extrapolated results but we achieve a smaller uncertainty.
-
-%One of the merits of selected-CI is the ability to take higher-order excitations into account accurately.
-%One of the merits of selected-CI methods is the ability to include higher-order excitations.
-One of the merits of selected-CI methods is the ability to include all excitations, regardless of excitation level.
-To see the contribution from each excitation level we plot the number of selected determinants and the $\sum_i \left|c_i\right|^2$ versus excitation level in Fig.~\ref{fig:excit}.
-Determinants with excitation levels up to 15 excitations are present in the variational wavefunction even though we are using optimized orbitals.
-(Using Hartree-Fock orbitals, we expect that determinants with even higher excitation levels will be present.)
-%This implies that truncating the CI or the CC at the double or the triple excitation level may not give reliable results for such strongly correlated systems.
-This implies that truncating the CI expansion at the double, triple or quadruple excitation levels (which is the most that is usually done in systematic
-CI expansions), will give poor energies for such strongly correlated systems.
-
-%{\color{black} We have also performed some preliminary calculations for the energy surface with larger basis sets, such as cc-pwCVTZ. However, due to the lack of reference values and because the focus of this paper is on the accuracy and performance of the improved SHCI method, we leave the extensive study of the chromium dimer to future a future paper.}
-
-
-% The smallest $\epsilon_2$ we use for the perturbative stage is $3\times10^{-9}$.
-% Due to the stochastic nature of our algorithm, we do not know exactly how much perturbative determinants are in effect during our calculation.
-% However, we can estimate the lower bound based on our largest pseudo-stochastic run.
-% In that run, we use an $\epsilon$ of $3\times10^{-8}$ and 457 batches, and we got about 39.3 billion determinants per batch.
-% Hence, the total number of effective determinants for the pseudo-stochastic stage is 18 trillion, which is also the lower bound of the number of effective determinants for $\epsilon_2=3\times10^{-9}$.
-
-% In this section, we use Fast SHCI to obtain the ground state energy of the Cr$_2$ dimer.
-% Cr$_2$ is a well-known challenging system for electronic structure methods.
-% We perform frozen core calculations with a bond-length of \SI{1.68}{\angstrom} in the cc-pVDZ-DK (28e, 76o), cc-pVTZ-DK (28e, 126o), and cc-pVQZ-DK (28e, 198o) basis.
-% The largest Hilbert space contains more than $10^{42}$ determinants.
-% We have studied Cr$_2$ before with SHCI but only with 12 active electrons~\cite{ShaHolJeaAlaUmr-JCTC-17}.
-% With Fast SHCI, we can obtain much more accurate results on these bases by correlating 28 active electrons.
-
-% \begin{table}[h]
-%   \begin{tabular}{| c | c | c | c |}
-%   \hline
-%   Basis & $\epsilon_{\rm var}$ & $E_{\rm var}$ & $E_{\rm total}$ \\
-%   \hline\hline
-%   \multirow{8}{*}{cc-pVDZ-DK} & $2.00\times10^{-4}$ & -2099.799310 & -2099.887592(10) \\
-%    \cline{2-4}
-%    & $1.50\times10^{-4}$ & -2099.810487 & -2099.889577(09) \\
-%    \cline{2-4}
-%    & $1.00\times10^{-4}$ & -2099.824867 & -2099.889577(09) \\
-%    \cline{2-4}
-%    & $7.00\times10^{-5}$ & -2099.835878 & -2099.889577(09) \\
-%    \cline{2-4}
-%    & $5.00\times10^{-5}$ & -2099.845027 & -2099.889577(09) \\
-%    \cline{2-4}
-%    & $4.00\times10^{-5}$ & -2099.850520 & -2099.889577(09) \\
-%    \cline{2-4}
-%    & $3.00\times10^{-5}$ & -2099.857019 & -2099.889577(09) \\
-%    \cline{2-4}
-%    & Extrapolated & \multicolumn{2}{ c |}{-2099.889577(09)} \\
-%    \hline
-%   \multirow{8}{*}{cc-pVTZ-DK} & $2.00\times10^{-4}$ & -2100.037667 & -2099.887592(10) \\
-%    \cline{2-4}
-%    & $1.50\times10^{-4}$ & -2100.053072 & -2099.889577(09) \\
-%    \cline{2-4}
-%    & $1.00\times10^{-4}$ & -2100.073358 & -2099.889577(09) \\
-%    \cline{2-4}
-%    & $7.00\times10^{-5}$ & -2100.089210 & -2099.889577(09) \\
-%    \cline{2-4}
-%    & $5.00\times10^{-5}$ & -2100.102756 & -2099.889577(09) \\
-%    \cline{2-4}
-%    & $4.00\times10^{-5}$ & -2100.111002 & -2099.889577(09) \\
-%    \cline{2-4}
-%    & $3.00\times10^{-5}$ & - & -2099.889577(09) \\
-%    \cline{2-4}
-%    & Extrapolated & \multicolumn{2}{ c |}{-2099.889577(09)} \\
-%    \hline
-%   \multirow{8}{*}{cc-pVQZ-DK} & $2.00\times10^{-4}$ & -2100.142048 & -2099.887592(10) \\
-%    \cline{2-4}
-%    & $1.50\times10^{-4}$ & -2100.159753 & -2099.889577(09) \\
-%    \cline{2-4}
-%    & $1.00\times10^{-4}$ & -2100.182527 & -2099.889577(09) \\
-%    \cline{2-4}
-%    & $7.00\times10^{-5}$ & -2099.810487 & -2099.889577(09) \\
-%    \cline{2-4}
-%    & $5.00\times10^{-5}$ & -2099.810487 & -2099.889577(09) \\
-%    \cline{2-4}
-%    & $4.00\times10^{-5}$ & -2099.810487 & -2099.889577(09) \\
-%    \cline{2-4}
-%    & $3.00\times10^{-5}$ & -2099.810487 & -2099.889577(09) \\
-%    \cline{2-4}
-%    & Extrapolated & \multicolumn{2}{ c |}{-2099.889577(09)} \\
-% %   HCI & 3TB & 145.0 & 0.000 \\
-% %   \hline
-% %   \multirow{2}{*}{SHCI} & 128GB & 14.5 & 0.010 \\
-% %   \cline{2-4}
-% %    & 32GB & 116.6 & 0.010 \\
-% %   \hline
-% %   \multirow{2}{*}{Fast SHCI} & 128GB & 3.7 & 0.009 \\
-% %   \cline{2-4}
-% %    & 32GB & 4.2 & 0.009 \\
-%   \hline
-  
-%   \end{tabular}
-%   \caption{Perturbation time for copper atom in cc-pVTZ basis with (19e, 88o) active space and 18.3 million variational determinants. HCI uses the usual deterministic perturbation. SHCI uses the semistochastic perturbation that solves the memory bottleneck. Fast SHCI uses the multistep batch perturbation that significantly improves the efficiency of SHCI, especially for memory constrained cases.}
-%   \label{tab:Cr2}
-% \end{table}
-
-% Table~\ref{tab:Cr2} shows the variational and total energy for each $\epsilon_{\rm var}$ and each basis set.
-% $\epsilon_{pt}$ in these calculations are all set to $0.001\epsilon_{\rm var}$.
-% The extrapolated energy is obtained from quadratic extrapolation of $E_{\rm var}$ and $E_{\rm var}-E_{\rm total}$~\cite{HolUmrSha-JCP-17}.
-% Fig~\ref{fig:ham} shows the extrapolation for each basis set.
-% We can see from the figure that all the data points lie almost perfectly on the extrapolated curves, which proves the robustness of our extrapolation and the accuracy of the results.
-
-% We also calculated the dissociation energy of Cr$_2$ in these bases at bond length \SI{1.68}{\angstrom} and compare it with other methods, including DMRG, AFQMC, MR-AQCC and DFT, and the most recent experimental values~\cite{vancoillie2016potential,purwanto2015auxiliary,simard1998photoionization}.
-% Table~\ref{tab:Cr2} summarize the results.
-% We can see that Fast SHCI results with 28 active electrons agree well with the experimental result from.
-% DFT also gives good agreement to experiments with the appropriate choice of the functional.
-% We can also see from the DMRG results that using 12 active electrons are not enough for getting the accurate energy of Cr$_2$.
 
 \section{Conclusion}
 \label{conclusion}

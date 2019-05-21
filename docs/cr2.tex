@@ -1,0 +1,188 @@
+\chapter{Chromium Dimer Simulation with Fast SHCI}
+
+\section{Introduction}
+
+\section{Equilibrium Geometry}
+
+\label{results}
+
+In this section, we apply SHCI to the chromium dimer, which is a challenging strongly-correlated system
+that has been studied using a variety of methods~\cite{Scu-JCP-91,KurYan-JCP-11,PurZhaKra-JCP-15,MaManOlsGag-JCTC-16,VanMalVer-JCTC-16,GuoWatHuSunCha-JCTC-16}.
+We will publish the potential energy surface in a separate publication; here instead our goal is just
+to use it as a test case for the improved SHCI method.
+%We use a cc-pVDZ basis with active semi-core electrons.
+We use a relativistic exact two-component (X2C) Hamiltonian, the cc-pVDZ-DK basis, and we correlate the valence and the semi-core electrons.
+This gives an active space of (28e, 76o) and a Hilbert space of $5\times10^{29}$ determinants, which is far beyond the reach of FCI.
+We show how we obtain an accurate estimate of the FCI energy in this large active space with our improved SHCI algorithm.
+
+We use PySCF~\cite{SunCha_etal_PySCF-ComMolSci-18} to generate the molecular orbital integrals for orbitals that minimize the HCI variational
+energy for $\epsilon_1=2\times 10^{-4}$~Ha, using the method of Ref.~\cite{SmiMusHolSha-JCTC-17}.
+We perform SHCI with several $\epsilon_1$ values from $5\times10^{-5}$ to $3\times10^{-6}$~Ha.
+The Hamiltonian matrix is constructed only once.
+% The Hamiltonian matrix is stored in memory and so needs to be constructed only once.
+%We keep the ratio between $\epsilon_2$ and $\epsilon_1$ to $10^{-6}$ and the target error for the stochastic perturbation to 0.01 mHa.
+We use very small values of $\epsilon_2 = 10^{-6} \epsilon_1$  to ensure that the perturbative correction is exceedingly well converged,
+and choose the target error for the stochastic perturbation energy to be $10^{-5}$~Ha.
+
+%The improved SHCI is fast enough that we can use over two billion variational determinants and include at least trillions of effective perturbative determinants.
+The improved SHCI is fast enough that we can use over two billion variational determinants, and stochastically include the contributions of at least trillions of perturbative determinants.
+The largest variational calculation, where we iteratively find and diagonalize 2 billion determinants
+for $\epsilon_1=3.0\times10^{-6}$~Ha, takes only one day on 8 nodes, each of which has 4 Intel Xeon E7-8870 v4 CPUs.
+The corresponding perturbative calculation takes only 6 hours using only one of these nodes. 
+During that perturbative calculation, we skip the deterministic step, perform a pseudo-stochastic step with $\epsilon_2^{\rm psto}=1\times10^{-7}$~Ha, and a stochastic step with $\epsilon_2=3\times10^{-12}$~Ha.
+{\color{black}
+We skip the deterministic step here because $\epsilon_1=3 \times 10^{-6}$ is already close to our
+default $\epsilon_2^{\rm dtm}$ of $2 \times 10^{-6}$ so skipping this won't affect the efficiency
+of subsequent steps much.
+}
+The pseudo-stochastic step uses 25 batches, each of which has about 8.9 billion determinants.
+We evaluate only one of them, from which we obtain an estimate of the total correction for all the 25 batches (223 billion determinants) to be -0.011681(1)~Ha.
+Since the estimated error is already much smaller than our target error, we skip the remaining 24 batches.
+The pseudo-stochastic step takes 1.6 hours.
+The stochastic step uses 128 batches and 6 million variational determinants in each sample,
+which results in about 3.7 billion determinants per batch.
+We use 10 samples and obtain the additional correction from $\epsilon_2=3.0\times10^{-12}$~Ha to be -0.001203(6)~Ha.
+The combined uncertainty of the entire semistochastic perturbation stage is 6~$\mu$Ha.
+It is hard to estimate how many determinants are stochastically included for $\epsilon_2=3\times10^{-12}$~Ha,
+so we estimate a lower bound with $\epsilon_2^{\rm psto}=1.4\times10^{-8}$~Ha and obtain 1.8 trillion unique perturbative determinants.
+Hence, with $\epsilon_2=3\times10^{-12}$~Ha (the value we are actually using) we stochastically estimate contributions from
+at least trillions of unique perturbative determinants and obtain better than $10^{-5}$~Ha statistical uncertainty in 6 hours using only one node.
+%why?
+%This brings the accuracy selected-CI to a whole new level and enables us to obtain an estimation of the FCI energy with sub-millihartree uncertainty in this large active space.
+
+These large calculations enable us to obtain an estimate of the FCI energy with sub-millihartree uncertainty in this large active space.
+Table~\ref{tab:Cr2} reports the results.
+
+
+\begin{table}[h]
+  \begin{tabular}{| c | c | c | c |}
+  \hline
+  $\epsilon_{1}$ (Ha) & $N_\V$ & $E_{\rm var}$ (Ha) & $E_{\rm total}$ (Ha) \\
+  \hline\hline
+  $5.0\times10^{-5}$ & 24M & -2099.863816 & -2099.909741(7) \\
+  \hline
+  $3.0\times10^{-5}$ & 53M & -2099.875327 & -2099.912356(7) \\
+  \hline
+  $2.0\times10^{-5}$ & 102M & -2099.883027 & -2099.914132(8) \\
+  \hline
+  $1.0\times10^{-5}$ & 309M & -2099.893761 & -2099.916595(1) \\
+  \hline
+  $7.0\times10^{-6}$ & 539M & -2099.898165 & -2099.917540(1) \\
+  \hline
+  $5.0\times10^{-6}$ & 911M & -2099.901781 & -2099.918306(3) \\
+  \hline
+  $3.0\times10^{-6}$ & 2.00B & -2099.906322 & -2099.919205(6) \\
+  \hline
+  0.0 (Extrap.) & - & \multicolumn{2}{ c |}{-2099.9224(6)} \\
+  \hline
+  \end{tabular}
+%   \begin{tabular}{| c | c | c | c | c |}
+%   \hline
+%   Basis & $\epsilon_{1}$ & $|V|$ & $E_{\rm var}$ (Ha) & $E_{\rm total}$ (Ha) \\
+%   \hline\hline
+%   \multirow{8}{*}{TZ} & $5.0\times10^{-4}$ & 3.4M & -2100.000182 & -2100.280436(4) \\
+%    \cline{2-5}
+%    & $3.0\times10^{-4}$ & 6.9M & -2100.050564 & -2100.292239(10) \\
+%    \cline{2-5}
+%    & $2.0\times10^{-4}$ & 13.0M & -2100.086849 & -2100.301229(4) \\
+%    \cline{2-5}
+%    & $1.0\times10^{-4}$ & 40.7M & -2100.140331 & -2100.314712(6) \\
+%    \cline{2-5}
+%    & $5.0\times10^{-5}$ & 132M & -2100.184546 & -2100.326457(4) \\
+%    \cline{2-5}
+%    & $4.0\times10^{-5}$ & 192M & -2100.197051 & -2100.329894(4) \\
+%    \cline{2-5}
+%    & $3.0\times10^{-5}$ & 316M & -2100.212485 & -2099.889577(9) \\
+%    \cline{2-5}
+%    & $2.0\times10^{-5}$ & 644M & -2100.232505 & -2099.889577(9) \\
+%    \cline{2-5}
+%    & $1.5\times10^{-5}$ & 1.06B & -2100.245442 & -2099.889577(9) \\
+%    \cline{2-5}
+%    & 0 (Ext.) & $6\times10^{42}$ & \multicolumn{2}{ c |}{-2099.889577(9)} \\
+%    \hline
+%   \multirow{8}{*}{QZ} & $5.0\times10^{-4}$ & 2.6M & -2100.093991 & -2100.349945(19) \\
+%    \cline{2-5}
+%    & $3.0\times10^{-4}$ & 5.8M & -2100.136962 & -2100.356925(10) \\
+%    \cline{2-5}
+%    & $2.0\times10^{-4}$ & 11.6M & -2100.168104 & -2100.364967(8) \\
+%    \cline{2-5}
+%    & $1.0\times10^{-4}$ & 38.3M & -2100.214213 & -2100.378015(6) \\
+%    \cline{2-5}
+%    & $5.0\times10^{-5}$ & 122M & -2100.251234 & -2100.388998(7) \\
+%    \cline{2-5}
+%    & $4.0\times10^{-5}$ & 177M & -2100.261739 & -2100.392201(5) \\
+%    \cline{2-5}
+%    & $3.0\times10^{-5}$ & 293M & -2100.275010 & - \\
+%    \cline{2-5}
+%    & $2.0\times10^{-5}$ & 603M & -2100.292767 & - \\
+%    \cline{2-5}
+%    & $1.5\times10^{-5}$ & 1.01B & -2100.304661 & -2100.404533(7) \\
+%    \cline{2-5}
+%    & 0 (Ext.) & $5\times10^{46}$ & \multicolumn{2}{ c |}{-2099.889577(9)} \\
+%    \hline
+%   \end{tabular}
+  \caption{Results for Cr$_2$ at r=1.68\AA\ in the cc-pVDZ-DK basis.
+  The active space is (28e, 76o).
+  $N_\V$ is the number of variational determinants.
+  $\epsilon_2 = 10^{-6} \epsilon_1$.
+  We use weighted quadratic extrapolation, shown in Fig.~\ref{fig:extrapolation}, to obtain the FCI limit
+  corresponding to $\Delta E=0$.}
+  \label{tab:Cr2}
+\end{table}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{figs/extrapolate.eps}
+  \caption{Weighted quadratic extrapolation of the Cr$_2$ ground state energy.
+  The weight of each point is $(E_{\rm var} - E_{\rm tot})^{-2}$.
+  The extrapolated energy is $-2099.9224(6)$, where the uncertainty comes from the difference between linear extrapolation and quadratic extrapolation.
+  The p-DMRG extrapolation and the CCSD(T) value are also shown.
+}
+  \label{fig:extrapolation}
+\end{figure}
+
+We extrapolate our results using a weighted quadratic fit
+and obtain for the ground state energy, $-2099.9224$~Ha as $\Delta E\to0$.
+The weight of each point is $(E_{\rm var} - E_{\rm tot})^{-2}$.
+Fig.~\ref{fig:extrapolation} shows the computed energies and the extrapolation.
+We also perform a weighted linear fit and use the difference of the extrapolated values from the quadratic and the linear fits (0.6~mHa) as the uncertainty.
+%If we look at the trends of the data points in Fig.~\ref{fig:extrapolation}, we can see that 0.55~mHa is a reasonable estimation of the uncertainty.
+%In summary, the estimated FCI energy of Cr$_2$ in the cc-pVDZ basis with active semi-core electrons is $-2099.9224(6)$~Ha.
+In summary, the estimated FCI energy of Cr$_2$ in the cc-pVDZ-DK basis with 28 correlated electrons and the relativistic X2C Hamiltonian
+%(the rest of the electrons are frozen in
+%Hartree-Fock orbitals)
+is $-2099.9224(6)$~Ha.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{figs/excitation.eps}
+  \caption{Contribution from each excitation level to the variational wavefunction for Cr$_2$ with $2 \times 10^9$ determinants.
+  Determinants with up to 15 excitations are present in the variational wavefunction.
+%  {\color{red} Leave out the top plot, since sums of squared magnitudes is meaningful, but number of nonzero magnitudes is a meaningless quantity? Well, it does mean that there were several higher-order excitations that are more important than lower-order ones.}
+}
+  \label{fig:excit}
+\end{figure}
+
+We compare our result with DMRG and p-DMRG, which are the only essentially exact methods that have been applied to this large active space of the chromium dimer.
+The DMRG calculations use up to bond dimension $M=16000$ and obtain an extrapolated energy of $-2099.9195(27)$~Ha (default schedule) and $-2099.9192(24)$ (reverse schedule)~\cite{GuoLiCha-JCTC-18}.
+%These two values are similar to our most accurate data point but higher than our extrapolated result by 3~mH, which is about one standard error of the DMRG results.
+These two values are similar to our most accurate data point but higher than our extrapolated result by 3~mH, which is about the estimated error of the DMRG results.
+%The p-DMRG calculations use up to $M=4000$ and obtain an extrapolated energy of $-2099.9201$~Ha~\cite{GuoLiCha-JCTC-18}.
+The p-DMRG calculations use up to $M=4000$ and extrapolated energy obtained from a linear fit is $-2099.9201$~Ha~\cite{GuoLiCha-JCTC-18}.
+If instead, we perform a weighted quadratic fit (shown in Fig.~\ref{fig:extrapolation}), the extrapolated energy is $-2099.9225$~Ha,
+in perhaps fortuitously good agreement with our result of $-2099.9224(6)$~Ha.  However, the extrapolation uncertainty is larger than the SHCI extrapolation uncertainty.
+In contrast, the CCSD(T) energy is considerably higher.
+%In summary, our extrapolated value agrees with DMRG's and p-DMRG's extrapolated results but we achieve a smaller uncertainty.
+
+%One of the merits of selected-CI is the ability to take higher-order excitations into account accurately.
+%One of the merits of selected-CI methods is the ability to include higher-order excitations.
+One of the merits of selected-CI methods is the ability to include all excitations, regardless of excitation level.
+To see the contribution from each excitation level we plot the number of selected determinants and the $\sum_i \left|c_i\right|^2$ versus excitation level in Fig.~\ref{fig:excit}.
+Determinants with excitation levels up to 15 excitations are present in the variational wavefunction even though we are using optimized orbitals.
+(Using Hartree-Fock orbitals, we expect that determinants with even higher excitation levels will be present.)
+%This implies that truncating the CI or the CC at the double or the triple excitation level may not give reliable results for such strongly correlated systems.
+This implies that truncating the CI expansion at the double, triple or quadruple excitation levels (which is the most that is usually done in systematic
+CI expansions), will give poor energies for such strongly correlated systems.
+
+\section{Potential Energy Surface}
+
+
+\section{Conclusion}
