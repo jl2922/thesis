@@ -378,84 +378,29 @@ Both of these are much too expensive for the very large number of variational de
 \caption{The notation for the data structures in our current algorithm for efficiently constructing the Hamiltonian matrix.
 Analogous data structures with the alpha and beta roles reversed are also used.
 The text gives details of how they are constructed efficiently.}
-\begin{tabular}{ll}
+\begin{tabularx}{\textwidth}{l | X}
 \hline
 \hline
-Notation& \multicolumn{1}{c}{Description}\\
+Notation & Description\\
 \hline
 %$D, D'$& Symbol for the Determinants\\
 %$\alpha, \alpha'$ & Symbol for the alpha strings\\
 %$\beta, \beta'$& Symbol for the beta strings\\
 %$i_D$, $i_\alpha$
-$\vecD$ & The array of determinants in $\V$, in the order\\
-& they were generated. \\
-&\\
-$\veca$ & The array of all alpha strings, without repeats\\
-& that are present in at least one determinant in\\
-& $\V$, in the order they were generated. \\
-&\\
-%\{$\alpha^{(-1)}$\} & The array of all alpha strings for $n_\alpha-1$ electrons that\\
-%&can be obtained by removing one electron from the \{$\alpha$\}. \\
-%&\\
-$\ia(\alpha)$ & Hash map that takes an alpha string, $\alpha$, \\
-& and returns its index, $\ia$, in $\veca$. \\
-&\\
-$\veciDa(\ia)$ & The array of determinant indices in $\vecD$ such\\
-& that the alpha strings of those determinants \\
-& have index $\ia$ in $\veca$. \\
-%$\veciDa(\ia)$ & The array of determinant indices $\veciDa$ \\
-%& that have $\alpha_{\ia}$ as their alpha string. \\
-%&  $i_{\alpha_i}$ is the index \\
-%& of $\alpha_i$ in $\veca$.  The determinant index $i_D$ indicates \\
-%& the order in which determinant $D$ was added to \\
-%& the variational space $\V$. The determinant indices \\
-%& in $\veciDa(i_{\alpha_i})$ are either sorted by $i_D$ or by $\ib$ \\
-%& (the indices of their beta strings in $\vecb$). \\
-& The elements of $\veciDa(\ia)$ are sorted either by\\
-& their values, or by the indices of their beta \\
-& strings in $\vecb$. (See text for details.)\\
-&\\
-$\veciba(\ia)$ & The array of all beta string indices in $\beta$ that\\
-& appear with $\alpha_{\ia}$ in a determinant. \\
-& It is sorted so that the elements of $\veciDa(\ia)$ \\
-& and $\veciba(\ia)$ are always in correspondence.\\
-&\\
-%$\vecia(\alpha^{(-1)})$ & Hash map that gives the array of indices of \\
-%& alpha strings in the array $\veca$ that can give $\alpha^{(-1)}$ \\
-%& upon removing an electron.\\
-%&\\
-$\vecia(\alpha^{(-1)})$ & Hash map that takes an alpha string with one \\
-& less electron, $\alpha^{(-1)}$, and returns an array of  \\
-& indices of alpha strings in $\veca$ that can give  \\
-& $\alpha^{(-1)}$ upon removing an electron.  These are \\
-& generated only for the $\alpha$'s present in the new \\
-& determinants.\\
-% &\\
-% $\vecb_{\alpha_i}$ & The array of all $\beta$ string that are coupled with\\
-% & the alpha string $\alpha_i$ to give a Determinant\\
-% & in the space $\V$\\
-&\\
-$\veciaa(j_\alpha)$ & The array of indices of alpha strings in the \\
-& array $\veca$, connected by a single excitation to the \\
-& $j_\alpha^{th}$ alpha string of array $\veca$, sorted in ascending \\
-& order. These are generated only for the $j_\alpha$'s \\
-& present in the new determinants.\\
-% I sort by the indices in the unique alpha array, but I don't think we need to mention that, which will double the length of the section.
-% $\veca_{\alpha_i}$ & A array of all $\alpha$ string sorted according to\\
-% & their indices in \{$\alpha$\} and that are  connected to \\
-% & the alpha string $\alpha_i$  by a single excitation\\
-&\\
+$\vecD$ & The array of determinants in $\V$, in the order they were generated. \\
+$\veca$ & The array of all alpha strings, without repeats that are present in at least one determinant in $\V$, in the order they were generated. \\
+$\ia(\alpha)$ & Hash map that takes an alpha string, $\alpha$, and returns its index, $\ia$, in $\veca$. \\
+$\veciDa(\ia)$ & The array of determinant indices in $\vecD$ such that the alpha strings of those determinants have index $\ia$ in $\veca$. The elements of $\veciDa(\ia)$ are sorted either by their values, or by the indices of their beta strings in $\vecb$. (See text for details.)\\
+$\veciba(\ia)$ & The array of all beta string indices in $\beta$ that appear with $\alpha_{\ia}$ in a determinant. It is sorted so that the elements of $\veciDa(\ia)$ and $\veciba(\ia)$ are always in correspondence.\\
+$\vecia(\alpha^{(-1)})$ & Hash map that takes an alpha string with one less electron, $\alpha^{(-1)}$, and returns an array of indices of alpha strings in $\veca$ that can give $\alpha^{(-1)}$ upon removing an electron.  These are generated only for the $\alpha$'s present in the new determinants.\\
+$\veciaa(j_\alpha)$ & The array of indices of alpha strings in the array $\veca$, connected by a single excitation to the $j_\alpha^{th}$ alpha string of array $\veca$, sorted in ascending order. These are generated only for the $j_\alpha$'s present in the new determinants.\\
 $i_D, j_D, \cdots$ & Indices of $\vecD$.\\
-&\\
 $\ia, j_\alpha, \cdots$ & Indices of $\veca$.\\
-&\\
 $\alpha(D_i)$ & Alpha string of determinant $D_i$.\\
-&\\
 \hline
-\end{tabular}
+\end{tabularx}
 \label{auxiliary}
 \end{table}
-
 
 \begin{algorithm}
 \caption{Hamiltonian matrix update for determinants connected by single or double alpha excitations.
@@ -643,7 +588,8 @@ original SHCI method.
 %Each connection is generated only once during this process (unlike the $(\alpha-1)\beta$ algorithm in the original SHCI method).
 
 \begin{figure}
-  \includegraphics[width=\linewidth]{figs/speedup.eps}
+  \begin{center}
+  \includegraphics[width=0.9\linewidth]{figs/speedup.eps}
   \caption{Hamiltonian matrix construction time for a copper atom in a cc-pVTZ basis. Hamiltonian construction is the performance bottleneck in the variational stage.
 %This figure shows that Fast SHCI's new Hamiltonian construction algorithm is an order of magnitude faster than SHCI and several orders of magnitude faster than brute force (loop over each pair of determinants).}
 Hamiltonian construction in our improved SHCI algorithm is an order of magnitude faster than in
@@ -652,6 +598,7 @@ approaches (loop over each pair of determinants).
 Also shown is the number of nonzero elements in the Hamiltonian, scaled so that the first point coincides with
 the first point of the improved SHCI CPU time.}
   \label{fig:ham}
+  \end{center}
 \end{figure}
 
 In Fig~\ref{fig:ham}, we use a copper atom with a pseudopotential~\cite{TraNee-JCP-15}~\footnote{We employ the Trail-Needs pseudopotential~\cite{TraNee-JCP-15},
