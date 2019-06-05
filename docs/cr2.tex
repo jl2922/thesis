@@ -150,6 +150,46 @@ This implies that truncating the CI expansion at the double, triple or quadruple
 CI expansions), will give poor energies for such strongly correlated systems.
 
 \section{Potential Energy Surface}
-\label{sec:curve}
+In addition to the energy at equilibrium geometry, I also obtain the entire potential energy curve of the chromium dimer.
 
-\section{Conclusion}
+We use a relativistic exact two-component (X2C) Hamiltonian, the cc-pVDZ-DK basis and the cc-pVTZ-DK basis, and we exam the results of correlating only the 12 valence electrons and correlating 28 electrons from both the valence and the semi-core.
+The largest active space in our calculation is (28e, 76o), which gives a Hilbert space of $5\times10^{29}$ determinants, and it is far beyond the reach of FCI.
+Due to the high efficiency of our algorithm, we can obtain the entire potential energy curve by calculating each data point on this curve with such huge active space.
+
+We use both PySCF~\cite{SunCha_etal_PySCF-ComMolSci-18} and our program to generate the molecular orbital integrals for orbitals that minimize the HCI variational
+energy for $\epsilon_1=2\times 10^{-4}$~Ha, using the method of Ref.~\cite{SmiMusHolSha-JCTC-17}.
+We perform SHCI with several $\epsilon_1$ values from $5\times10^{-5}$ to $5\times10^{-6}$~Ha.
+The Hamiltonian matrix is constructed only once for each geometry.
+% The Hamiltonian matrix is stored in memory and so needs to be constructed only once.
+%We keep the ratio between $\epsilon_2$ and $\epsilon_1$ to $10^{-6}$ and the target error for the stochastic perturbation to 0.01 mHa.
+For the 28 electron calculations, we use very small values of $\epsilon_2 = 10^{-6} \epsilon_1$  to ensure that the perturbative correction is exceedingly well converged.
+For the 12 electron calculations, we include the entire perturbative space by setting $\epsilon_2=0$.
+
+%The improved SHCI is fast enough that we can use over two billion variational determinants and include at least trillions of effective perturbative determinants.
+The improved SHCI is fast enough that we can use over one billion variational determinants and stochastically include the contributions of at least trillions of perturbative determinants for each geometry.
+
+We extrapolate the energies for each geometry with a weighted quadratic fit
+and obtain for the ground state energy as $\Delta E\to0$.
+The weight of each point is $(E_{\rm var} - E_{\rm tot})^{-2}$.
+Fig.~\ref{fig:cr2curve} shows the results calculated with different active spaces and the experimental data.
+The experimental data come from negative-ion photoelectron spectroscopy~\cite{casey1993negative}.
+We can see that using only 12 active electrons from the shell cannot produce good agreement to the experimental data.
+By including the 10 additional electrons from the semi-core into the active space, SHCI can achieve a much better agreement.
+This indicates that the semi-core plays an important role in the molecular bond of Cr$_2$.
+Given the resources that we have right now, 28 electrons in a cc-pVDZ basis is the largest configuration that we can do for the entire potiential energy curve.
+In the future, as our method keep envolving and we get more computing resources, we expect SHCI to give even better agreement to the experimental data and can even be used to benchmark the accuracy of experiments on stretches geometries.
+
+\label{sec:curve}
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.9\linewidth]{figs/cr2curve.eps}
+  \caption{Potential energy curve of Cr$_2$.
+  The experimental data come from negative-ion photoelectron spectroscopy~\cite{casey1993negative}.
+  We can see that using only 12 active electrons from the shell cannot produce good agreement to the experimental data.
+  By including 10 additional electrons from the semi-core into the active space, the agreement with experimental data is much better.
+%  {\color{red} Leave out the top plot, since sums of squared magnitudes is meaningful, but number of nonzero magnitudes is a meaningless quantity? Well, it does mean that there were several higher-order excitations that are more important than lower-order ones.}
+}
+  \label{fig:cr2curve}
+  \end{center}
+\end{figure}
+
