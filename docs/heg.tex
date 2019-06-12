@@ -41,9 +41,9 @@ Finally, we apply the revised algorithm to HEG with up to 39,886 orbitals, which
 This reduces the extrapolation distances in the complete basis extrapolation significantly and thus gives more accurate and reliable results.
 
 We organize this paper as follows:
-In section \ref{SHCI}, we briefly review the SHCI algorithm and its recent improvements.
-In section \ref{HEG}, we adapt SHCI to the homogeneous electron gas problem (HEG).
-In section \ref{results}, we use the revised algorithm to obtain accurate HEG results in the mid-to-high density regime.
+In section~\ref{app:heg}, we formulate the HEG problem and give the Hamiltonian of HEG in a periodic boundary condition with a plane wave basis.
+In section \ref{HEG}, we revise SHCI for the homogeneous electron gas problem (HEG).
+In section \ref{heg:results}, we use the revised algorithm to obtain accurate HEG results in the mid-to-high density regime.
 Section \ref{conclusions} concludes the paper.
 
 \section{Homogeneous Electron Gas Hamiltonian}
@@ -61,31 +61,35 @@ And $V(\mathbf{q})$ is the Fourier transform of the Yukawa potential at $\kappa\
 For $d=3$, $V(\mathbf{q})=\frac{4\pi}{q^2}$. \cite{giuliani2005quantum}
 
 To convert the Hamiltonian into its second quantization form
-$$\hat{H}=\sum_{PQ}f_{PQ}a_P^\dag a_Q+\frac{1}{2}\sum_{PQRS}g_{PQRS}a_P^\dag a_R^\dag a_Qa_S$$
+\beq
+\hat{H}=\sum_{PQ}f_{PQ}a_P^\dag a_Q+\frac{1}{2}\sum_{PQRS}g_{PQRS}a_P^\dag a_Q^\dag a_Ra_S
+\eeq
 we use the planewave basis set
-$$\phi_P(x)=\frac{1}{\sqrt{L^d}}e^{-i\mathbf{k}_P\cdot\mathbf{r}}\sigma_P(m_s)$$
+\beq
+\phi_P(x)=\frac{1}{\sqrt{L^d}}e^{-i\mathbf{k}_P\cdot\mathbf{r}}\sigma_P(m_s)
+\eeq
 where $\sigma_P(m_s)$ is the spin eigenfunction and $\mathbf{k}_P=\frac{2\pi}{L}(n_{P_1}, n_{P_2},\cdots, n_{P_d})$, $n_{P_i}\in\mathbb{Z}$.
 
 After simplification, we can get the coefficients of the second quantization terms
 \begin{align*}
 f_{PQ}= & \frac{\mathbf{k}_Q^2}{2}\delta_{\sigma_P\sigma_Q}\delta_{\mathbf{k}_P\mathbf{k}_Q}\\
-g_{PQRS}= & \frac{1}{L^d}\delta_{\sigma_P\sigma_Q}\delta_{\sigma_R\sigma_S}V(\mathbf{k}_{PQ})\\
-& (1-\delta_{\mathbf{k}_Q\mathbf{k}_P})\delta_{\mathbf{k}_Q+\mathbf{k}_S,\mathbf{k}_P+\mathbf{k}_R}
+g_{PQRS}= & \frac{1}{L^d}\delta_{\sigma_P\sigma_R}\delta_{\sigma_Q\sigma_S}V(\mathbf{k}_{PR})\\
+& (1-\delta_{\mathbf{k}_R\mathbf{k}_P})\delta_{\mathbf{k}_R+\mathbf{k}_S,\mathbf{k}_P+\mathbf{k}_Q}
 \end{align*}
 
 Hence, the Hamiltonian matrix elements between a pair of Slater determinants are
 \begin{align*}
-\langle i|\hat{H}|i\rangle  = & \sum_{P}i_P\frac{\mathbf{k}_P^2}{2}-\frac{1}{2L^d}\sum_{P\ne R}i_Pi_R\delta_{\sigma_P\sigma_R}V(\mathbf{k}_{RP})\\
+\langle i|\hat{H}|i\rangle  = & \sum_{P}i_P\frac{\mathbf{k}_P^2}{2}-\frac{1}{2L^d}\sum_{P\ne Q}i_Pi_Q\delta_{\sigma_P\sigma_Q}V(\mathbf{k}_{QP})\\
 \langle i_1|\hat{H}|i_2\rangle  = &  \Gamma_I^{i_1}\Gamma_J^{i_1}\Gamma_K^{i_2}\Gamma_L^{i_2}\delta_{\mathbf{k}_K+\mathbf{k}_L,\mathbf{k}_I+\mathbf{k}_J}\frac{1}{L^d}\\
 &  \lbrack\delta_{\sigma_I\sigma_K}\delta_{\sigma_J\sigma_L}V(\mathbf{k}_{IK})-\delta_{\sigma_I\sigma_L}\delta_{\sigma_J\sigma_K}V(\mathbf{k}_{IL})\rbrack
 \end{align*}
-where $i_P=1$ if and only if orbital $i$ is occupied, $\Gamma_P^i=\sum_{l=1}^{P-1}(-1)^{i_l}$. $|i_1\rangle$ has orbitals $I,J$ occupied while $|i_2\rangle$ has orbitals $K,L$ occupied, $I<J$, $K<L$, and all the other orbitals of $|i_1\rangle$ and $|i_2\rangle$ are the same.
+where $i_P=1$ if and only if orbital $P$ is occupied, $\Gamma_P^i=\sum_{l=1}^{P-1}(-1)^{i_l}$. $|i_1\rangle$ has orbitals $I,J$ occupied while $|i_2\rangle$ has orbitals $K,L$ occupied, $I<J$, $K<L$, and all the other orbitals of $|i_1\rangle$ and $|i_2\rangle$ are the same.
 
 \section{Revising SHCI for Homogeneous Electron Gas}
 \label{HEG}
 
 In this section, we describe how we adapt our SHCI algorithm to the homogeneous electron gas problem in the mid to high density region.
-Appendix~\ref{app:heg} gives the Hamiltonian matrix elements of HEG.
+Section~\ref{app:heg} gives the Hamiltonian matrix elements of HEG.
 HEG systems differ from other chemical systems that SHCI has been applied to in two ways: a large number of orbitals and plane wave basis sets.
 
 \subsection{Large Basis Set}
@@ -120,16 +124,16 @@ The usage of this hybrid structure gives us high performance and compact storage
 We solve HEG under a plane wave basis set and periodic boundary condition.
 One property of this basis set is that each orbital have a specific momentum associated with it, and thus we can use momentum conservation to reduce the storage of the HCI double excitation helper lists.
 
-First, we find all the possible differences between the momentum of two orbitals.
-Let $M$ be the number of orbitals ($k$ points), then the number of distinct differences between them is also of order $O(M)$.
-For an orbital $i$, we denote the momentum of that orbital to be $k_{i}$.
+First, we find all the possible differences between the momenta of two orbitals.
+Let $M$ be the number of orbitals ($\mathbf{k}$ points), then the number of distinct differences between them is also of order $O(M)$.
+For an orbital $i$, we denote the momentum of that orbital to be $\mathbf{k}_{i}$.
 We use $p$ and $q$ to denote the pair of occupied orbitals during excitation, and $r$ and $s$ to denote the pair of unoccupied orbitals to which the electrons are excited.
-Then we have $k_p + k_q = k_r + k_s$.
-For HEG, as shown in Appendix~\ref{app:heg}, $k_p - k_q$ and $k_p - k_r$ uniquely determines the magnitude of the Hamiltonian matrix element associated with excitation $pq\to rs$.
-Hence, for each possible momentum difference $k_{pq}$, we associate with it a list of $\langle k_{pr}, |H_{pqrs}|\rangle$ pairs in descending order of $|H_{pqrs}|$.
+Then we have $\mathbf{k}_p + \mathbf{k}_q = \mathbf{k}_r + \mathbf{k}_s$.
+For HEG, as shown in Appendix~\ref{app:heg}, $\mathbf{k}_p - \mathbf{k}_q$ and $\mathbf{k}_p - \mathbf{k}_r$ uniquely determines the magnitude of the Hamiltonian matrix element associated with excitation $pq\to rs$.
+Hence, for each possible momentum difference $\mathbf{k}_{pq}$, we associate with it a list of $\langle \mathbf{k}_{pr}, |H_{pqrs}|\rangle$ pairs in descending order of $|H_{pqrs}|$.
 Fig.~\ref{fig:helper} illustrates the structure of these helper lists.
-Finally, when using these helper lists to find important connected determinants to a given reference determinant, we perform the following for each pair of occupied orbitals $p$ and $q$: we go through the list associated with $k_{pq} = k_p - k_q$ to get $k_{pr}$ until the corresponding $|H_{pqrs}|$ falls below a given threshold.
-Using $k_{pr}$ and momentum conservation, we can easily get $r$ and $s$, and thus the connected determinant which satisfies the SHCI criteria.
+Finally, when using these helper lists to find important connected determinants to a given reference determinant, we perform the following for each pair of occupied orbitals $p$ and $q$: we go through the list associated with $\mathbf{k}_{pq} = \mathbf{k}_p - \mathbf{k}_q$ to get $\mathbf{k}_{pr}$ until the corresponding $|H_{pqrs}|$ falls below a given threshold.
+Using $\mathbf{k}_{pr}$ and momentum conservation, we can easily get $r$ and $s$, and thus the connected determinant which satisfies the SHCI criteria.
 \begin{figure}
   \begin{center}
   \includegraphics[width=0.9\linewidth]{figs/HelperList.eps}
@@ -147,7 +151,7 @@ The storage complexity of these helper lists is $O(M^2)$, as opposed to $O(M^4)$
 The time complexity of finding determinants connected to a given determinant in descending order of importance is the same as in chemistry, which is $O(n_e^2 + n_D)$, where $n_e$ is the number of electrons and $n_D$ is the number of new determinants found.
 
 \section{Results}
-\label{results}
+\label{heg:results}
 We apply our revised algorithm to HEG of several different $r_s$ values in the mid to high density region and both the 14-electron and the 54-electron supercell sizes.
 In each case, we calculate the correlation energies in several basis sets of different momentum cutoffs, and perform a complete basis set (CBS) extrapolation in the end.
 
