@@ -222,7 +222,7 @@ where $E_a=H_{aa}$.
 
 It is expensive to evaluate the expression in Eq.~\ref{eq:PTa} because the outer summation includes all determinants in the space $\P$ and their number is
 ${\cal O}(n^2v^2N_\V)$, where $N_\V$ is the number of variational determinants, $n$ is the number of electrons and $v$ is
-the number of virtual orbitals. For the calculation on Cr$_2$, described in Section~\ref{results},
+the number of virtual orbitals. For the calculation on Cr$_2$, described in Section~\ref{sec:eq},
 $n=28$, $v=62$ and $N_\V=2 \times 10^9$, so the number of determinants in $\P$ is huge.
 The straightforward
 and time-efficient approach to computing the perturbative correction requires storing
@@ -583,7 +583,7 @@ and the cc-pVTZ basis to compare the improved SHCI algorithm to the original SHC
 and to the brute force algorithm where we loop over each pair of determinants.
 The improved algorithm
 is about an order of magnitude faster than the original SHCI for medium size calculations.
-For large calculations, e.g. the Cr$_2$ calculation described in Section~\ref{results}
+For large calculations, e.g. the Cr$_2$ calculation described in Section~\ref{sec:eq}
 where we use billions of variational determinants, the speedup is even greater.
 
 \section{3-step Perturbation Energy}
@@ -1124,7 +1124,7 @@ we achieve a few orders of magnitude speedup.
 %for memory contrained environments where we need lots of samples orignally,
 %we have a few orders of magnitude speedup compared to the original SHCI algorithm.
 
-\begin{figure}[h]
+\begin{figure}
   \includegraphics[width=\linewidth]{figs/var.eps}
   %\includegraphics[width=\linewidth]{scalability/var.eps}
   \caption{Parallel speedup of the variational stage for a copper atom in a cc-pVTZ basis.
