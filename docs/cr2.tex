@@ -191,6 +191,20 @@ The experimental data come from negative-ion photoelectron spectroscopy~\cite{ca
   \end{center}
 \end{figure}
 
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=0.9\linewidth]{figs/hfcc.eps}
+  \caption{Potential energy curve of Cr$_2$ with 28 electrons in a cc-pVDZ basis calculated by different methods.
+  The experimental data come from negative-ion photoelectron spectroscopy~\cite{casey1993negative}.
+  We can see that using UHF and CCSD cannot produce a good agreement to the experimental data.
+  CCSD(T) can produce better agreement at stretched geometry but still not good enough near the equilibrium geometry.
+  By using SHCI, the agreement with experimental data is much better.
+%  {\color{red} Leave out the top plot, since sums of squared magnitudes is meaningful, but number of nonzero magnitudes is a meaningless quantity? Well, it does mean that there were several higher-order excitations that are more important than lower-order ones.}
+}
+  \label{fig:cr2curve}
+  \end{center}
+\end{figure}
+
 We can see that using only 12 active electrons from the shell cannot produce a good agreement to the experimental data.
 Using a larger basis set helps bring the curve closer to the experimental data, but is still not enough to produce a good agreement.
 
