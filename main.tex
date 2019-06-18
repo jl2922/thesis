@@ -96,7 +96,7 @@
 \makecopyright
 
 \begin{abstract}
-In this thesis, I present my work on the fast semistochastic heat-bath configuration interaction (Fast SHCI), which is an efficient algorithm for electronic structure calculations on large clusters.
+In this thesis, I present my work on the fast semistochastic heatbath configuration interaction (Fast SHCI), which is an efficient algorithm for electronic structure calculations on large clusters.
 
 Fast SHCI is more than an order of magnitude faster than other algorithms in its category (selected configuration interaction plus perturbation theory), and also much faster than other essentially exact algorithms for many chemical systems.
 This thesis provides an in-depth description of the Fast SHCI algorithm and its implementation. I use SHCI to compute electronic structures of several chemical systems and the homogeneous electron gas.
@@ -120,7 +120,7 @@ While an undergraduate, he did research in various fields, including semiconduct
 
 In the fall of 2013, Junhao came to Cornell University to persue a Ph.D. in physics.
 During his Ph.D., he mainly worked with professor Cyrus Umrigar on the development and application of highly accurate quantum chemistry methods.
-He developed the fast heat-bath configuration interaction method, which is more than an order of magnitude faster than other methods in its category, and achieved significantly higher accuracy than other well developed methods, such as DMRG and FCIQMC, on several systems.
+He developed the fast heatbath configuration interaction method, which is more than an order of magnitude faster than other methods in its category, and achieved significantly higher accuracy than other well developed methods, such as DMRG and FCIQMC, on several systems.
 he also did research in molecular dynamics and defects with professor James Sethna.
 
 After obtaining a master's degree at Cornell, Junhao spent a summer as an intern at Google in California in 2016.
@@ -135,7 +135,7 @@ This document is dedicated to all Cornell graduate students.
 First of all, I would like to thank my advisor Professor Cyrus Umrigar.
 His commitment to physics research is exemplary and inspiring.
 He led me into the field of quantum chemistry, which is an indispensable foundation of highly accurate numerical simulations.
-All my knowledge of quantum Monte Carlo are inherited from him, and my work on heat-bath configuration interaction is impossible without his guidance and support.
+All my knowledge of quantum Monte Carlo are inherited from him, and my work on heatbath configuration interaction is impossible without his guidance and support.
 He taught me valuable research skills, and helped me go through the process of publishing my first first-author paper, on a top academic journal.
 I am also extremely grateful to him for always being supportive in the decisions I made, the ideas I wanted to try, and being tolerant and direct when I made mistakes.
 He made my six years of Ph.D. life a truly rewarding experience.
@@ -166,18 +166,20 @@ Thank you and I hope you are proud.
 
 \chapter{Introduction}
 \label{ch:intro}
-A major problem in the electronic structure theory is solving the many-body Shr\"{o}dinger's equation accurately and efficiently, and there is usually a trade-off between accuracy and efficiency.
-Density functional theory (DFT)~\cite{ParYan-BOOK-89,DreGro-BOOK-90,kohn1999nobel} is one of the most popular and very efficient methods, but it uses approximate density functionals to model the observables, and thus it is often not accurate enough.
-In addition, the choice of pseudopotentials relies a lot on empirical experiences.
-Coupled cluster with single, double, and perturbative triple excitations CCSD(T)~\cite{raghavachari1989fifth} is often considered as the golden standard of quantum chemistry.
-It is very accurate for single reference systems, such as many organic molecules, but not for multireference or strongly-correlated systems.
+A major problem in the electronic structure theory is solving the many-body Schr\"{o}dinger's equation accurately and efficiently, and there is usually a trade-off between accuracy and efficiency.
+Density functional theory (DFT)~\cite{ParYan-BOOK-89,DreGro-BOOK-90,kohn1999nobel} is the most popular method and it is very efficient,
+but it uses approximate density functionals, and thus it is often not accurate enough.
+%In addition, the choice of pseudopotentials relies a lot on empirical experiences.
+Coupled cluster with single, double, and perturbative triple excitations CCSD(T)~\cite{raghavachari1989fifth} is often considered as the gold standard of quantum chemistry.
+It is very accurate for single reference systems where a single determinant in the many-body wavefunction has a large amplitude, such as many organic molecules, but not for multireference or strongly-correlated systems.
 Density matrix renormalization group (DMRG)~\cite{white1993density,white1999ab,chan2002highly,chan2011density,ShaCha-JCP-12,olivares2015ab,schollwock2005density,GuoLiCha-JCTC-18}
 and full configuration interaction quantum Monte Carlo (FCIQMC)~\cite{BooThoAla-JCP-09,CleBooAla-JCP-10,PetHolChaNigUmr-PRL-12,BooGruKreAla-Nat-13,HolChaUmr-JCTC-16}
-are two esstentially exact methods.
-They are systematically improvable and can give exact solutions when given infinite computing resources, but rapidly get expensive with the number of electrons and the size of the basis set.
+are
+systematically improvable and can give exact solutions given infinite computing resources, but rapidly get expensive with the number of electrons and the size of the basis set.
 
-Fast heat-bath configuration interaction (SHCI)~\cite{HolTubUmr-JCTC-16,ShaHolJeaAlaUmr-JCTC-17,HolUmrSha-JCP-17,SmiMusHolSha-JCTC-17,MusSha-JCTC-17,ChiHolOttUmrShaZim-JPCA-18} is another systematically improvable method capable of providing essentially exact energies for small chemical systems.
-In common with FCIQMC, the computational cost of the method scales exponentially in the number of electrons, but in many cases, SHCI is much faster than FCIQMC.
+Fast heatbath configuration interaction (SHCI)~\cite{HolTubUmr-JCTC-16,ShaHolJeaAlaUmr-JCTC-17,HolUmrSha-JCP-17,SmiMusHolSha-JCTC-17,MusSha-JCTC-17,ChiHolOttUmrShaZim-JPCA-18,LiOttHolShaUmr-JCP-18}
+is another systematically improvable method capable of providing essentially exact energies for small chemical systems.
+In common with FCIQMC, the computational cost of the method scales exponentially in the number of electrons, but SHCI is much faster than FCIQMC.
 The comparison with DMRG is more involved.
 SHCI is much faster than DMRG for small moderately correlated systems.
 SHCI scales exponentially with system size with a prefactor that is typically small, but the prefactor grows with
@@ -194,14 +196,16 @@ Each iteration of the variational stage has three steps: the selection of import
 iterative diagonalization of the Hamiltonian matrix.
 In the second stage, 2$^{\rm nd}$-order perturbation theory is used to improve upon the variational energy.
 
-The Fast SHCI algorithm has greatly improved the efficiency of both stages.
+The Fast SHCI algorithm has greatly improved the efficiency of both stages of SCI+PT calculations.
 First, it greatly speeds up the determinant selection and Hamiltonian construction by using the heat-bath selection criterion and the fast Hamiltonian construction algorithm, and, second, it drastically reduces the central processing unit (CPU) cost as well as the memory cost of performing the perturbation step by using a 3-step perturbation algorithm.
-With fast SHCI, we can achieve two orders of magnitude larger variational wavefunction than previous SCI+PT methods and can incorporate the entire Hilbert space into the perturbative correction calculation.
+%The Fast SHCI algorithm~\cite{LiOttHolShaUmr-JCP-18} has greatly improved the efficiency of both stages of SHCI~\cite{HolTubUmr-JCTC-16,ShaHolJeaAlaUmr-JCTC-17,HolUmrSha-JCP-17,SmiMusHolSha-JCTC-17,MusSha-JCTC-17,ChiHolOttUmrShaZim-JPCA-18}.
+%First, it greatly speeds up the determinant selection and Hamiltonian construction by using the heatbath selection criterion and the fast Hamiltonian construction algorithm, and, second, it drastically reduces the central processing unit (CPU) cost as well as the memory cost of performing the perturbation step by using a 3-step perturbation algorithm.
+With fast SHCI, we can employ two orders of magnitude larger variational wavefunctions than other SCI+PT methods and can incorporate the entire Hilbert space in the perturbative correction calculation.
 
 I apply fast SHCI to the homogeneous electron gas (HEG) system.
 HEG is one of the most fundamental models in condensed-matter physics and is commonly used for benchmarking new methods.
 With a tunable parameter controlling the density of the electrons, HEG provides a wide range of interacting fermion systems from weakly correlated to strongly correlated.
-HEG is also a foundation of the density functional theory (DFT).
+HEG is also the foundation of density functional theory (DFT).
 In this thesis, I focus on the HEG systems in the mid to high-density region.
 In this region, the basis set incompleteness error is the dominating error for most quantum chemistry methods.
 SHCI works well with large basis sets and thus naturally solves the basis set incompleteness problem.
@@ -212,12 +216,12 @@ Chromium dimer is a challenging strongly-correlated system that has been used as
 I calculate both the energy at the Cr$_2$ equilibrium geometry and its entire potential energy curve.
 For the equilibrium geometry, with 2 billion variational determinants, we achieve extremely high accuracy, which beats the accuracy of well-developed methods, such as the density matrix renormalization group (DMRG).
 For the potential energy curve, we include in our Hilbert space up to 28 active electrons with a cc-pVDZ basis.
-This Hilbert space is several orders of magnitude larger than the Hilbert space used in previous calculations.
+This Hilbert space is several orders of magnitude larger than the Hilbert space used in other systematically improvable methods.
 
 One of the core components of our SHCI software is a generic cluster computing library, which consists of a high-performance implementation of MapReduce and several parallel data containers.
-MapReduce~\cite{dean2008mapreduce,dean2010mapreduce} provides users a high-level abstraction for defining their parallel computation and taking care of the intricate low-level execution steps internally.
+MapReduce~\cite{dean2008mapreduce,dean2010mapreduce} provides users a high-level abstraction for defining their parallel computation and takes care of the intricate low-level execution steps internally.
 Each MapReduce operation consists of two phases: a map phase where each input is mapped to a set of intermediate key/value pairs, and a reduce phase where the pairs with the same key are reduced to a single key/value pair according to a user-specified reduce function.
-Many algorithms are expressible with this model, including the algorithm for finding important determinants and evaluating the perturbative correction in our SHCI.
+Many algorithms are expressible with this model, including the algorithm for finding important determinants and evaluating the perturbative correction in our SHCI method.
 MapReduce implementations can automatically allocate resources and execute these algorithms in parallel.
 Most industrial implementations focus on handling big data rather than achieving higher performance.
 Our library focuses on high performance, and to achieve better performance, we introduce three main improvements to the MapReduce algorithm: eager reduction, fast serialization, and special treatment for a small fixed key range.
@@ -226,7 +230,7 @@ Our library achieves an order of magnitude faster performance than popular clust
 The usage of software engineering techniques is also essential to the successful development and maintenance of the SHCI software.
 Software engineering studies the management of the software development process in a scientific and systematic way.
 It helps to make the software development faster, easier and making the software more robust and more extensible.
-Software engineering is especially important to scientific software development because if the software has poor quality, the results may be unreliable, which can lead to wrong conclusions and mislead future researches.
+Software engineering is especially important to scientific software development because if the software has poor quality, the results may be unreliable, which can lead to wrong conclusions and mislead future research.
 There are many software engineering practices in the industry.
 I exam the most common ones and discuss their applicability in the setting of scientific software development.
 
@@ -240,12 +244,12 @@ I exam the most common ones and discuss their applicability in the setting of sc
 \chapter{Conclusion}
 \label{ch:con}
 
-Fast semistochastic heat-bath configuration interaction (Fast SHCI) is an efficient algorithm for electronic structure calculations.
+Fast semistochastic heatbath configuration interaction (Fast SHCI) is an efficient algorithm for electronic structure calculations.
 It is more than an order of magnitude faster than other selected configuration interaction plus perturbation theory algorithms, and also much faster than other essentially exact quantum chemistry methods, such as DMRG or FCIQMC, in many cases.
 
 The key reasons that fast SHCI is fast are:
 \begin{itemize}
-    \item The heat-bath criterion is easy to evaluate, and important determinants that meet this criterion can be found efficiently by using precomputed double excitation lists.
+    \item The heatbath criterion is easy to evaluate, and important determinants that meet this criterion can be found efficiently by using precomputed double excitation lists.
     \item The fast Hamiltonian construction algorithm significantly speeds up the Hamiltonian construction process by using helper arrays.
     \item The 3-step perturbation algorithm speeds up the perturbation correction calculation regardless of the memory of the system.
 \end{itemize}

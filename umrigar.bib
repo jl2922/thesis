@@ -1,8 +1,30 @@
-﻿@article{LiOttHolShaUmr-ARX-18,
+﻿@misc{LiHolOttShaUmr-unpub-19,
+note ={unpublished}
+}
+
+@misc{YaoLiUmr-unpub-19,
+Author = {Yuan Yao and Junhao Li and C. J. Umrigar},
+note = {unpublished}
+}
+
+@article{LiLiDatUmrCha-JCP-18,
+Author = {Zhendong Li and Junhao Li and Nikesh S. Dattani and C. J. Umrigar and Garnet Kin-Lic Chan},
+Title = {The electronic complexity of the ground-state of the FeMo cofactor of nitrogenase as relevant to quantum simulations},
+Journal = {J. Chem. Phys.},
+Year = {2019},
+Volume = {150},
+Pages = {024302}
+}
+
+@article{LiOttHolShaUmr-JCP-18,
 Author = {Junhao Li and  Matthew Otten and Adam A. Holmes and Sandeep Sharma and C. J. Umrigar},
 Title = {Fast Semistochastic Heat-Bath Configuration Interaction},
-note={https://arxiv.org/pdf/1809.04600}
+Journal = {J. Chem. Phys.},
+Year = {2018},
+Volume = {148},
+Pages = {214110}
 }
+note={https://arxiv.org/pdf/1809.04600}
 
 @article{ChiHolOttUmrShaZim-JPCA-18,
 Author = {Alan D. Chien and Adam A. Holmes and Matthew Otten and C. J. Umrigar and Sandeep Sharma and Paul M. Zimmerman},
@@ -10,7 +32,146 @@ Title = {Excited States of Methylene, Polyenes, and Ozone from Heat-Bath Configu
 Journal = {J. Phys. Chem. A},
 Year = {2018},
 Volume = {122},
-Pages = {2714},
+Pages = {2714}
+}
+
+@incollection{MusCocAssOttUmrTou-AQC-17,
+author    = {B. Mussard and E. Coccia and R. Assaraf and M. Otten and C. J. Umrigar and J. Toulouse},
+title     = {Time-dependent linear-response variational Monte Carlo},
+booktitle = {Novel Electronic Structure Theory: General Innovations and Strongly Correlated Systems},
+series    = {Advances in Quantum Chemistry Vol. XX},
+editor    = {P. E. Hoggan},
+publisher = {Academic Press},
+pages    = {},
+year    = {2017},
+doi = {},
+note = {http://hal.upmc.fr/hal-01528081}
+}
+Volume 76, 2018, Pages 255-270
+Advances in Quantum Chemistry
+Chapter Fourteen - Time-Dependent Linear-Response Variational Monte Carlo
+Author links open overlay panelBastienMussard*†
+EmanueleCoccia*‡RolandAssaraf*MatthewOtten§Cyrus J.Umrigar§JulienToulouse*
+
+@article{HolUmrSha-JCP-17,
+Author = {Holmes, Adam A. and Umrigar, C. J. and Sharma, Sandeep},
+Title = {Excited states using semistochastic heat-bath configuration interaction},
+Journal = {J. Chem. Phys.},
+Year = {2017},
+Volume = {147},
+Number = {16},
+Month = {OCT 28},
+Abstract = {We extend our recently developed heat-bath configuration interaction
+   (HCI) algorithm, and our semistochastic algorithm for performing
+   multireference perturbation theory, to calculate excited-state
+   wavefunctions and energies. We employ time-reversal symmetry, which
+   reduces the memory requirements by more than a factor of two. An
+   extrapolation technique is introduced to reliably extrapolate HCI
+   energies to the full CI limit. The resulting algorithm is used to
+   compute fourteen low-lying potential energy surfaces of the carbon dimer
+   using the cc-pV5Z basis set, with an estimated error in energy of 30-50
+   mu Ha compared to full CI. The excitation energies obtained using our
+   algorithm have a mean absolute deviation of 0.02 eV compared to
+   experimental values. Published by AIP Publishing.},
+Article-Number = {164111},
+ISSN = {0021-9606},
+EISSN = {1089-7690},
+Unique-ID = {ISI:000414177600045}
+}
+DOI = {10.1063/1.4998614},
+
+@article{ShaHolJeaAlaUmr-JCTC-17,
+Author = {Sandeep Sharma and Adam A. Holmes and Guillaume Jeanmairet and Ali Alavi and C. J. Umrigar},
+Title = {Semistochastic Heat-Bath Configuration Interaction Method: Selected
+   Configuration Interaction with Semistochastic Perturbation Theory},
+Journal = {J. Chem. Theory Comput.},
+Year = {2017},
+Volume = {13},
+Number = {4},
+Pages = {1595-1604},
+Month = {APR},
+Abstract = {We extend the recently proposed heat-bath configuration interaction
+   (HCI) method {[}Holmes, Tubman, Umrigar, J. Chem. Theory Comput. 2016,
+   12, 3674], by introducing a semistochastic algorithm for performing
+   multireference Epstein -Nesbet perturbation theory, in order to
+   completely eliminate the severe memory bottleneck of the original
+   method. The proposed algorithm has several attractive features. First,
+   there is no sign problem that plagues several quantum Monte Carlo
+   methods. Second, instead of using Metropolis Hastings sampling, we use
+   the Alias method to directly sample determinants from the reference wave
+   function, thus avoiding correlations between consecutive samples. Third,
+   in addition to removing the memory bottleneck, semistochastic HCI (SHCI)
+   is faster than the deterministic variant for many systems if a
+   stochastic error of 0.1 mHa is acceptable. Fourth, within the SHCI
+   algorithm one can trade memory for a modest increase in computer time.
+   Fifth, the perturbative calculation is embarrassingly parallel. The SHCI
+   algorithm extends the range of applicability of the original algorithm,
+   allowing us to calculate the correlation energy of very large active
+   spaces. We demonstrate this by performing calculations on several first
+   row dimers including F-2 with an active space of (14e, 108o), Mn-Salen
+   cluster with an active space of (28e, 22o), and Cr-2 dimer with up to a
+   quadruple-zeta( basis set with an active space of (12e, 190o). For these
+   systems we were able to obtain better than 1 mHa accuracy with a wall
+   time of merely 55 s, 37 s, and 56 min on 1, 1, and 4 nodes,
+   respectively.},
+DOI = {10.1021/acs.jctc.6b01028},
+ISSN = {1549-9618},
+EISSN = {1549-9626},
+Unique-ID = {ISI:000399264200011}
+}
+note = {http://arxiv.org/abs/1610.06660}
+
+@article{HolTubUmr-JCTC-16,
+Author = {Adam A. Holmes and Norm M. Tubman and C. J. Umrigar},
+Title = {Heat-bath Configuration Interaction: An efficient selected CI algorithm inspired by heat-bath sampling},
+Journal = {J. Chem. Theory Comput.},
+Volume = {12},
+Pages = {3674-3680},
+Year = {2016}}
+Abstract = {We introduce a new selected configuration interaction plus perturbation
+   theory algorithm that is based on a deterministic analog of our recent
+   efficient heat-bath sampling algorithm. This Heat-bath Configuration
+   Interaction (HCI) algorithm makes use of two parameters that control the
+   trade-off between speed and accuracy, one which controls the selection
+   of determinants to add to a variational wave function and one which
+   controls the selection of determinants used to compute the perturbative
+   correction to the variational energy. We show that HCI provides an
+   accurate treatment of both static and dynamic correlation by computing
+   the potential energy curve of the multireference carbon dimer in the
+   cc-pVDZ basis. We then demonstrate the speed and accuracy of HCI by
+   recovering the full configuration interaction energy of both the carbon
+   dimer in the cc-pVTZ basis and the strongly correlated chromium dimer in
+   the Ahlrichs VDZ basis, correlating all electrons, to an accuracy of
+   better than 1 mHa, in just a few minutes on a single core. These systems
+   have full variational spaces of 3 x 10(14) and 2 x 10(22) determinants,
+   respectively.},
+}
+note = {http://arxiv.org/abs/1606.07453}
+
+@article{HolChaUmr-JCTC-16,
+Author = {A. A. Holmes and Hitesh J. Changlani and C. J. Umrigar},
+Title = {Efficient Heat-Bath Sampling in Fock Space},
+Journal = {J. Chem. Theory Comput.},
+Year = {2016},
+Volume = {12},
+Abstract = {We introduce an algorithm for sampling many-body
+quantum states in Fock space. The algorithm efficiently samples states
+with probability approximately proportional to an arbitrary function of the
+second-quantized Hamiltonian matrix element connecting the sampled
+state to the current state. We apply the new sampling algorithm to the
+recently developed semistochastic full configuration interaction quantum
+Monte Carlo (S-FCIQMC) method, a semistochastic implementation of
+the power method for projecting out the ground state energy in a basis of
+Slater determinants. Our new sampling method requires modest additional
+computational time and memory compared to uniform sampling but
+results in newly spawned weights that are approximately of the same
+magnitude, thereby greatly improving the efficiency of projection. A
+comparison in efficiency between our sampling algorithm and uniform
+sampling is performed on the all-electron nitrogen dimer at equilibrium in Dunning’s cc-pVXZ basis sets with X ∈ {D, T, Q , 5},
+demonstrating a large gain in efficiency that increases with basis set size. In addition, a comparison in efficiency is performed on
+three all-electron first-row dimers, B$_2$ , N$_2$, and F$_2$, in a cc-pVQZ basis, demonstrating that the gain in efficiency compared to
+uniform sampling also increases dramatically with the number of electrons.},
+Pages = {1561}
 }
 note = {http://arxiv.org/abs/1512.03757}
 
@@ -21,7 +182,7 @@ Journal = {J. Chem. Phys.},
 Year = {2015},
 Volume = {143},
 Abstract = {Variational Monte Carlo and various projector Monte Carlo (PMC) methods are presented in a unified manner. Similarities and differences between the methods and choices made in designing the methods are discussed. Both methods where the Monte Carlo walk is performed in a discrete space and methods where it is performed in a continuous space are considered. It is pointed out that the usual prescription for importance sampling may not be advantageous depending on the particular quantum Monte Carlo method used and the observables of interest, so alternate prescriptions are presented. The nature of the sign problem is discussed for various versions of PMC methods. A prescription for an exact PMC method in real space, i.e., a method that does not make a fixed-node or similar approximation and does not have a finite basis error, is presented. This method is likely to be practical for systems with a small number of electrons. Approximate PMC methods that are applicable to larger systems and go beyond the fixed-node approximation are also discussed.},
-Article-Number = {164105},
+Article-Number = {164105}
 }
 
 @INPROCEEDINGS{TouAssUmr-AQC-15,
@@ -42,7 +203,7 @@ accurate approximation to the ground-state wave function. Throughout this review
 the statistical methods used for evaluating expectation values and statistical uncertainties. In
 particular, we show how to estimate nonlinear functions of expectation values and their statis-
 tical uncertainties.},
-Pages = {285},
+Pages = {285}
 }
 
 A. He{\ss}elmann, Julien Toulouse, Michael Towler, C. J. Umrigar and Andreas G\"orling
@@ -70,7 +231,7 @@ variational Monte Carlo energy. Using separate approximations for the Laplacian 
 orbitals increases the accuracy sufficiently to justify the increased memory requirement,
 making smoothing B-splines, with separate approximation for the Laplacian, the preferred
 choice for approximating planewave-represented orbitals in QMC calculations.},
-Pages = {77},
+Pages = {77}
 }
 
 @article{MirUmrMorGor-JCP-14,
@@ -93,7 +254,7 @@ potentials, thus also providing useful reference data close to and at the quantu
 show that our functional is able to bind H− and to capture in general the physics of loosely bound
 anions, with a tendency to strongly overbind that can be proven mathematically. We also include
 corrections based on the uniform electron gas which improve the results.},
-Article-Number = {18A532},
+Article-Number = {18A532}
 }
 
 @article{ShaYanBooUmrCha-JCP-14,
@@ -175,6 +336,30 @@ DOI = {10.1103/PhysRevLett.110.246802},
 Article-Number = {246802},
 ISSN = {0031-9007},
 Unique-ID = {ISI:000320282600016},
+}
+
+@article{PetHolChaNigUmr-PRL-12,
+Author = {F. R. Petruzielo and A. A. Holmes and Hitesh J. Changlani and M. P. Nightingale and C. J. Umrigar},
+Title = {Semistochastic Projector Monte Carlo Method},
+Journal = {Phys. Rev. Lett.},
+Year = {2012},
+Volume = {109},
+Number = {23},
+Month = {Dec 4},
+Abstract = {We introduce a semistochastic implementation of the power method to
+   compute, for very large matrices, the dominant eigenvalue and
+   expectation values involving the corresponding eigenvector. The method
+   is semistochastic in that the matrix multiplication is partially
+   implemented numerically exactly and partially stochastically with
+   respect to expectation values only. Compared to a fully stochastic
+   method, the semistochastic approach significantly reduces the
+   computational time required to obtain the eigenvalue to a specified
+   statistical uncertainty. This is demonstrated by the application of the
+   semistochastic quantum Monte Carlo method to systems with a sign
+   problem: the fermion Hubbard model and the carbon dimer.},
+Article-Number = {230201},
+ISSN = {0031-9007},
+Unique-ID = {ISI:000312011200001},
 }
 
 @article{PetTouUmr-JCP-12,
@@ -573,6 +758,45 @@ ResearcherID-Numbers = {Toulouse, Julien/A-1376-2010},
 Unique-ID = {ISI:000270380300007},
 }
 
+@article{UmrTou-APACS-09,
+Author = {Umrigar, Cyrus J. and Toulouse, Julien},
+Title = {Static and dynamic correlation effects in quantum Monte Carlo methods},
+Journal = {ABSTRACTS OF PAPERS OF THE AMERICAN CHEMICAL SOCIETY},
+Year = {2009},
+Volume = {238},
+Meeting Abstract = {266-PHYS},
+Month = {Aug 16},
+ISSN = {0065-7727},
+Unique-ID = {ISI:000207861909482},
+}
+
+@article{ZhaLawJafUmrTou-APACS-09,
+Author = {Zhang, Zhiyong and Lawson, John and Jaffe, Richard L. and Umrigar, Cyrus
+   J. and Toulouse, Julien},
+Title = {Quantum Monte Carlo study of low-lying electronic states and
+   thermochemistry of small molecules},
+Journal = {ABSTRACTS OF PAPERS OF THE AMERICAN CHEMICAL SOCIETY},
+Year = {2009},
+Volume = {238},
+Meeting Abstract = {343-COMP},
+Month = {Aug 16},
+ISSN = {0065-7727},
+Unique-ID = {ISI:000207861904274},
+}
+
+@article{ZimZhaMusTouUmr-APACS-09,
+Author = {Zimmerman, Paul and Zhang, Zhiyong and Musgrave, Charles and Toulouse,
+   Julien and Umrigar, Cyrus J.},
+Title = {Quantum Monte Carlo study of methylene excited states},
+Journal = {ABSTRACTS OF PAPERS OF THE AMERICAN CHEMICAL SOCIETY},
+Year = {2009},
+Volume = {238},
+Meeting Abstract = {344-COMP},
+Month = {Aug 16},
+ISSN = {0065-7727},
+Unique-ID = {ISI:000207861904263},
+}
+
 @article{ZenGeiRuaUmrCho-PRB-09,
 Author = {Zeng, Lang and Geist, W. and Ruan, W. Y. and Umrigar, C. J. and Chou, M.
    Y.},
@@ -595,6 +819,31 @@ Article-Number = {235334},
 ISSN = {1098-0121},
 ResearcherID-Numbers = {Chou, Mei-Yin/D-3898-2012},
 Unique-ID = {ISI:000267699500104},
+}
+
+@article{TouUmrAss-APACS-09,
+Author = {Toulouse, Julien and Umrigar, Cyrus J. and Assaraf, Roland},
+Title = {Recent advances in quantum Monte Carlo for quantum chemistry:
+   Optimization of wave functions and calculation of observables},
+Journal = {ABSTRACTS OF PAPERS OF THE AMERICAN CHEMICAL SOCIETY},
+Year = {2009},
+Volume = {237},
+Meeting Abstract = {89-COMP},
+Month = {Mar 22},
+ISSN = {0065-7727},
+Unique-ID = {ISI:000207857803531},
+}
+
+@article{UmrTouNig-APACS-09,
+Author = {Umrigar, Cyrus J. and Toulouse, Julien and Nightingale, Peter},
+Title = {Optimal wave functions for diffusion Monte Carlo},
+Journal = {ABSTRACTS OF PAPERS OF THE AMERICAN CHEMICAL SOCIETY},
+Year = {2009},
+Volume = {237},
+Meeting Abstract = {87-COMP},
+Month = {Mar 22},
+ISSN = {0065-7727},
+Unique-ID = {ISI:000207857803647},
 }
 
 @article{LawBauTouFilUmr-CPL-08,
@@ -1099,8 +1348,9 @@ Abstract = {Composite fermion wave functions projected onto the lowest Landau le
    understanding of experimental addition spectra.},
 DOI = {10.1103/PhysRevB.72.205327},
 Article-Number = {205327},
+note = "See Eq. 3 and 5.",
 ISSN = {1098-0121},
-Unique-ID = {ISI:000233603900080},
+Unique-ID = {ISI:000233603900080}
 }
 
 @article{GucUmr-PRB-05,
@@ -1181,6 +1431,24 @@ DOI = {10.1103/PhysRevLett.94.150201},
 Article-Number = {150201},
 ISSN = {0031-9007},
 Unique-ID = {ISI:000228632500001},
+}
+
+@article{Umr-APACS-03,
+Author = {Umrigar, CJ},
+Title = {Diffusion Monte Carlo studies of excitation energies in solids and
+   quantum dots.},
+Journal = {ABSTRACTS OF PAPERS OF THE AMERICAN CHEMICAL SOCIETY},
+Year = {2003},
+Volume = {226},
+Number = {2},
+Meeting Abstract = {456-PHYS},
+Pages = {U338},
+Month = {Sep},
+Note = {226th National Meeting of the American-Chemical-Society, NEW YORK, NEW
+   YORK, Sep 07-11, 2003},
+Organization = {Amer Chem Soc},
+ISSN = {0065-7727},
+Unique-ID = {ISI:000187062501738},
 }
 
 @article{ColPedLipUmr-EPJB-02,
@@ -1843,9 +2111,9 @@ ISSN = {0020-7608},
 Unique-ID = {ISI:A1989CG50700024},
 }
 
-@article{UMRWILWIL-PRL-88,
-Author = {UMRIGAR, CJ and WILSON, KG and WILKINS, JW},
-Title = {OPTIMIZED TRIAL WAVE-FUNCTIONS FOR QUANTUM MONTE-CARLO CALCULATIONS},
+@article{UmrWilWil-PRL-88,
+Author = {Umrigar, CJ and Wilson, KG and Wilkins, JW},
+Title = {Optimized trial wave functions for Quantum Monte Carlo calculations},
 Journal = {Phys. Rev. Lett.},
 Year = {1988},
 Volume = {60},
@@ -2036,3 +2304,103 @@ ISSN = {0140-6566},
 ResearcherID-Numbers = {Ketterson, John/B-7234-2009},
 Unique-ID = {ISI:A1977DS82700006},
 }
+
+Our programs
+@misc{CHAMP_github,
+note ={https://github.com/QMC-Cornell/CHAMP}
+}
+
+@misc{SQMC_github,
+note ={https://github.com/QMC-Cornell/sqmc}
+}
+
+@misc{Arrow_github,
+note ={https://github.com/QMC-Cornell/shci}
+}
+
+@misc{HandsOn_Princeton17,
+note ={http://chemlabs.princeton.edu/es2017/schedule/}
+}
+
+@misc{HandsOn_Telluride17,
+note ={https://www.telluridescience.org/meetings/workshop-details?wid=628}
+}
+Our programs end
+
+Junhao Computational
+@article{LiZha-ARX-19,
+  title={Blaze: Simplified High Performance Cluster Computing},
+  author={Junhao Li and Hang Zhang},
+  journal={arXiv preprint arXiv:1901.01437},
+  year={2019}
+}
+
+@article{Li-ARX-18b,
+  title={Comparing Spark vs MPI/OpenMP On Word Count MapReduce},
+  author={Junhao Li},
+  journal={arXiv preprint arXiv:1811.04875},
+  year={2018}
+}
+
+@article{Li-ARX-18a,
+  title={HPS: A C++11 High Performance Serialization Library},
+  author={Junhao Li},
+  journal={arXiv preprint arXiv:1811.04556},
+  year={2018}
+}
+
+@misc{Li-HighPerformanceSerialization,
+  author={Junhao Li},
+  title = {A C++11 High Performance Serialization Library},
+  howpublished = {\url{https://github.com/jl2922/hps}},
+}
+
+@misc{Li-FGPL,
+  author={Junhao Li},
+  title = {Fast Generic Parallel Library},
+  howpublished = {\url{https://github.com/jl2922/fgpl}},
+}
+Junhao computational end
+
+Varios computational:
+@misc{C++best,
+  howpublished = {\url{https://days2011.scala-lang.org/sites/days2011/files/ws3-1-Hundt.pdf}},
+}
+
+@misc{VariableByteEncoding,
+  howpublished = {\url{https://nlp.stanford.edu/IR-book/html/htmledition/variable-byte-codes-1.html}},
+}
+
+@misc{DynamicLoadBalancing,
+  howpublished = {\url{https://en.wikipedia.org/wiki/Load_balancing_(computing)}},
+}
+
+@misc{ThreadPooling,
+  howpublished = {\url{https://en.wikipedia.org/wiki/Thread_pool}},
+}
+
+@misc{DHT,
+  title = {Distributed hash table},
+  howpublished = {\url{https://en.wikipedia.org/wiki/Distributed_hash_table}},
+  note = {Accessed: 2018-10-12}
+}
+
+@misc{LockFree,
+  title = {Non-blocking algorithm},
+  howpublished = {\url{https://en.wikipedia.org/wiki/Non-blocking_algorithm}},
+  note = {Accessed: 2018-10-12}
+}
+
+@misc{OpenAddressing,
+  title = {Open addressing},
+  howpublished = {\url{https://en.wikipedia.org/wiki/Open_addressing}},
+  note = {Accessed: 2018-10-12}
+}
+
+@misc{LinearProbing,
+  title = {Linear probing},
+  howpublished = {\url{https://en.wikipedia.org/wiki/Linear_probing}},
+  note = {Accessed: 2018-10-12}
+}
+Various computational end
+
