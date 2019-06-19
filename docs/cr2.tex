@@ -201,7 +201,7 @@ The experimental data come from negative-ion photoelectron spectroscopy~\cite{ca
   By using SHCI, the agreement with experimental data is much better.
 %  {\color{red} Leave out the top plot, since sums of squared magnitudes is meaningful, but number of nonzero magnitudes is a meaningless quantity? Well, it does mean that there were several higher-order excitations that are more important than lower-order ones.}
 }
-  \label{fig:cr2curve}
+  \label{fig:hfcc}
   \end{center}
 \end{figure}
 
@@ -210,6 +210,12 @@ Using a larger basis set helps bring the curve closer to the experimental data, 
 
 By including the 10 additional electrons from the semi-core into the active space, SHCI can achieve a much better agreement.
 This indicates that the semi-core plays an important role in the molecular bond of Cr$_2$.
+
+We also compare SHCI results with unrestricted Hartree-Fock (UHF) and low order coupled cluster methods.
+Fig.~\ref{fig:hfcc} shows the comparison.
+We can see UHF cannot give a good agreement with the experimental data.
+CCSD and CCSD(T) give better agreements for the stretched geometries, but still cannot reach good agreements with the experimental data at compressed or equilibrium geometries.
+SHCI gives good agreement to the experimental data along the entire curve.
 
 Given the resources that we have right now, 28 electrons in a cc-pVDZ basis are the largest configuration that we can do for the entire potential energy curve.
 In the future, as our method keep evolving, and we get more computing resources, we expect SHCI to give even better agreement to the experimental data and can even be used to benchmark the accuracy of experiments on stretches geometries.
