@@ -12,14 +12,16 @@ For the equilibrium geometry, we include in our variational wavefunction two bil
 This allows us to achieve significantly higher accuracy, which even beats the accuracy of well-developed methods, such as the density matrix renormalization group (DMRG).
 Section~\ref{sec:eq} presents the results.
 
-For the entire potential energy curve calculation, we include in our Hilbert space up to 28 active electrons with a cc-pVDZ basis.
-This Hilbert space is several orders of magnitude larger than previous calculations with other essentially exact methods.
-Our results match well with the experiments at the equilibrium and lightly deformed region.
+%For the entire potential energy curve calculation, we include in our Hilbert space up to 28 active electrons with a cc-pVDZ basis.
+For the entire potential energy curve calculation, we correlate up to 28 electrons in a cc-pVDZ basis.
+The resulting Hilbert space of $5 \times 10^{29}$ determinants is several orders of magnitude larger than that used in other
+systematically improvable methods.
+Our results match well with the experiments at and near the equilibrium geometry.
 Section~\ref{sec:curve} presents the results.
 
 \section{Equilibrium Geometry}
 \label{sec:eq}
-In this section, we examine the chromium dimer in equilibrium geometry, using a bond length of 1.68 angstroms.
+In this section, we examine the chromium dimer at the equilibrium bond length of 1.68 $\AA$. % angstroms.
 %We use a cc-pVDZ basis with active semi-core electrons.
 We use a relativistic exact two-component (X2C) Hamiltonian, the cc-pVDZ-DK basis, and we correlate the valence and the semi-core electrons.
 This gives an active space of (28e, 76o) and a Hilbert space of $5\times10^{29}$ determinants, which is far beyond the reach of FCI.
@@ -103,6 +105,7 @@ Table~\ref{tab:Cr2} reports the results.
   The weight of each point is $(E_{\rm var} - E_{\rm tot})^{-2}$.
   The extrapolated energy is $-2099.9224(6)$, where the uncertainty comes from the difference between linear extrapolation and quadratic extrapolation.
   The p-DMRG extrapolation and the CCSD(T) value are also shown.
+  {\color{red} I don't remember -- where did this CCSD(T) value come from?  Does it matter if it is CCSD(T) or UCCSD(T)?}
 }
   \label{fig:extrapolation}
 \end{figure}
@@ -154,18 +157,22 @@ CI expansions), will give poor energies for such strongly correlated systems.
 \section{Potential Energy Surface}
 In addition to the energy at equilibrium geometry, I also obtain the entire potential energy curve of the chromium dimer.
 
-We exam the results from using the cc-pVDZ-DK basis and the cc-pVTZ-DK basis, and also the effects of correlating only the 12 valence electrons and correlating 28 electrons from both the valence and the semi-core.
-The largest active space in our calculation is (28e, 76o), which gives a Hilbert space of $5\times10^{29}$ determinants, and it is far beyond the reach of FCI.
-Due to the high efficiency of our algorithm, we can calculate each data point on this curve with such huge active space and obtain the entire potential energy curve.
+We calculate the potential energy curves, first correlating just the 12 valence (3d,4s) electrons, and then correlating
+also the semi-core (3s,3p) electrons, making a total of 28 correlated electrons.
+For 12 correlated electrons we study the basis set dependence by calculating the curves for cc-pVDZ, cc-pVTZ and cc-pVQZ basis sets.
+%We examine the effect of correlating the semi-core electrons, i.e., we
+%We exam the results from using the cc-pVDZ-DK basis and the cc-pVTZ-DK basis, and also the effects of correlating only the 12 valence electrons and correlating 28 electrons from both the valence and the semi-core.
+The largest active space in our calculations is (28e, 76o), which gives a Hilbert space of $5\times10^{29}$ determinants, far beyond the reach of FCI.
+%Due to the high efficiency of our algorithm, we can calculate each data point on this curve with such huge active space and obtain the entire potential energy curve.
 
 We use both PySCF~\cite{SunCha_etal_PySCF-ComMolSci-18} and our program to generate the molecular orbital integrals for orbitals that minimize the HCI variational
-energy for $\epsilon_1=2\times 10^{-4}$~Ha, using the method of Ref.~\cite{SmiMusHolSha-JCTC-17}.
+energy for $\epsilon_1=2\times 10^{-4}$~Ha, using an improved version of the method of Ref.~\cite{SmiMusHolSha-JCTC-17}.
 We perform SHCI with several $\epsilon_1$ values from $2\times10^{-4}$ to $5\times10^{-6}$~Ha.
-The Hamiltonian matrix is constructed only once for each geometry and each active space.
-% The Hamiltonian matrix is stored in memory and so needs to be constructed only once.
+%The Hamiltonian matrix is constructed only once for each geometry and each active space.
+The sparse Hamiltonian matrix is stored in memory and so needs to be constructed only once for each geometry and each active space.
 %We keep the ratio between $\epsilon_2$ and $\epsilon_1$ to $10^{-6}$ and the target error for the stochastic perturbation to 0.01 mHa.
-For the 28 electron calculations, we use very small values of $\epsilon_2 = 10^{-6} \epsilon_1$  to ensure that the perturbative correction is exceedingly well converged.
-For the 12 electron calculations, we include the entire perturbative space by setting $\epsilon_2=0$.
+For the 28-electron calculations, we use very small values of $\epsilon_2 = 10^{-6} \epsilon_1$  to ensure that the perturbative correction is exceedingly well converged.
+For the 12-electron calculations, we include the entire perturbative space by setting $\epsilon_2=0$.
 
 %The improved SHCI is fast enough that we can use over two billion variational determinants and include at least trillions of effective perturbative determinants.
 The improved SHCI is fast enough that we can use more than one billion variational determinants and stochastically include the contributions of at least trillions of perturbative determinants for each geometry.
@@ -175,17 +182,23 @@ and obtain for the ground state energy as $\Delta E\to0$.
 The weight of each point is $(E_{\rm var} - E_{\rm tot})^{-2}$.
 Then we interpolate the points for each active space with cubic spline interpolation.
 Fig.~\ref{fig:cr2curve} shows the results calculated with different active spaces and the experimental data.
-The experimental data come from negative-ion photoelectron spectroscopy~\cite{casey1993negative}.
+The shape of the experimental curve is deduced from measuring 30 vibrational states using negative-ion photoelectron spectroscopy~\cite{casey1993negative}.
+The measured 29 vibrational states were assigned to $\nu=1-9$ and $\nu=24-43$.
+The depth of the experimental curve is ...
+There is some uncertainty in the experimental curve due to uncertainty in the assignment of the higher vibrational levels
+as well as due to uncertainty in the depth of the potential.
 
 \label{sec:curve}
 \begin{figure}
   \begin{center}
   \includegraphics[width=0.9\linewidth]{figs/cr2curve.eps}
-  \caption{Potential energy curve of Cr$_2$.
-  The experimental data come from negative-ion photoelectron spectroscopy~\cite{casey1993negative}.
-  We can see that using only 12 active electrons from the shell cannot produce a good agreement to the experimental data.
-  By including 10 additional electrons from the semi-core into the active space, the agreement with experimental data is much better.
-%  {\color{red} Leave out the top plot, since sums of squared magnitudes is meaningful, but number of nonzero magnitudes is a meaningless quantity? Well, it does mean that there were several higher-order excitations that are more important than lower-order ones.}
+  \caption{Comparison of SHCI potential energy curves of Cr$_2$, correlating 12 or 28 electrons, with experiment.
+  The shape of the experimental data is deduced from measuring 30 vibrational states using negative-ion photoelectron spectroscopy~\cite{casey1993negative}.
+  %We can see that using only 12 active electrons from the shell cannot produce a good agreement to the experimental data.
+  %By including 10 additional electrons from the semi-core into the active space, the agreement with experimental data is much better.
+  The potential energy curves from the 12-correlated-electron calculations agree poorly with experiment, though the agreement
+  improves upon increasing the basis size.
+  The 28-correlated-electron calculation agrees much better with experiment.
 }
   \label{fig:cr2curve}
   \end{center}
@@ -194,12 +207,14 @@ The experimental data come from negative-ion photoelectron spectroscopy~\cite{ca
 \begin{figure}
   \begin{center}
   \includegraphics[width=0.9\linewidth]{figs/hfcc.eps}
-  \caption{Potential energy curve of Cr$_2$ with 28 electrons in a cc-pVDZ basis calculated by different methods.
+  \caption{Potential energy curve of Cr$_2$ with 28 electrons in a cc-pVDZ basis calculated from various methods.
   The experimental data come from negative-ion photoelectron spectroscopy~\cite{casey1993negative}.
-  We can see that using UHF and CCSD cannot produce a good agreement to the experimental data.
-  CCSD(T) can produce better agreement at stretched geometry but still not good enough near the equilibrium geometry.
-  By using SHCI, the agreement with experimental data is much better.
-%  {\color{red} Leave out the top plot, since sums of squared magnitudes is meaningful, but number of nonzero magnitudes is a meaningless quantity? Well, it does mean that there were several higher-order excitations that are more important than lower-order ones.}
+  %We can see that using UHF and CCSD cannot produce a good agreement to the experimental data.
+  %CCSD(T) can produce better agreement at stretched geometry but still not good enough near the equilibrium geometry.
+  %By using SHCI, the agreement with experimental data is much better.
+  The UHF curve bears no resemblance to the experimental curve.
+  The UCCSD and UCCSD(T) curves are better, especially at long bond lengths, but even UCCSD(T) which is considered to be the ``gold standard" for single-reference
+  systems, agrees poorly with experiment.  In contrast the SHCI curve is in reasonable agreement with experiment.
 }
   \label{fig:hfcc}
   \end{center}
@@ -208,17 +223,22 @@ The experimental data come from negative-ion photoelectron spectroscopy~\cite{ca
 We can see that using only 12 active electrons from the shell cannot produce a good agreement to the experimental data.
 Using a larger basis set helps bring the curve closer to the experimental data, but is still not enough to produce a good agreement.
 
-By including the 10 additional electrons from the semi-core into the active space, SHCI can achieve a much better agreement.
-This indicates that the semi-core plays an important role in the molecular bond of Cr$_2$.
+By including the 10 additional electrons from the semi-core into the active space, SHCI achieves much better agreement,
+demonstrating that semi-core correlation plays an important role in the molecular bond of Cr$_2$.
 
-We also compare SHCI results with unrestricted Hartree-Fock (UHF) and low order coupled cluster methods.
-Fig.~\ref{fig:hfcc} shows the comparison.
-We can see UHF cannot give a good agreement with the experimental data.
-CCSD and CCSD(T) give better agreements for the stretched geometries, but still cannot reach good agreements with the experimental data at compressed or equilibrium geometries.
-SHCI gives good agreement to the experimental data along the entire curve.
+%We also compare SHCI results with unrestricted Hartree-Fock (UHF) and low order coupled cluster methods.
+We also compare in Fig.~\ref{fig:hfcc} SHCI results to unrestricted Hartree-Fock (UHF) and unrestricted coupled cluster methods, UCCSD and UCCSD(T).
+%Fig.~\ref{fig:hfcc} shows the comparison.
+%We can see UHF cannot give a good agreement with the experimental data.
+%CCSD and CCSD(T) give better agreements for the stretched geometries, but still cannot reach good agreements with the experimental data at compressed or equilibrium geometries.
+%SHCI gives good agreement to the experimental data along the entire curve.
+As expected, the UHF curve bears no resemblance to the experimental curve.
+The UCCSD and UCCSD(T) curves are better, but even UCCSD(T) which is considered to be the ``gold standard" for single-reference
+systems, agrees poorly with experiment.  In contrast the SHCI curve is in reasonable agreement with experiment, perhaps
+fortuitously so, since the cc-pVDZ basis used is expected to have a significant finite-basis error.
+With our current computer resources, we cannot obtain a well converged curve with larger basis sets,
+but with further improvements in the method and larger computers we hope to obtain basis set converged curves
+that agree yet better with experiment, and perhaps even provide information about experimental inaccuracies.
 
-Given the resources that we have right now, 28 electrons in a cc-pVDZ basis are the largest configuration that we can do for the entire potential energy curve.
-In the future, as our method keep evolving, and we get more computing resources, we expect SHCI to give even better agreement to the experimental data and can even be used to benchmark the accuracy of experiments on stretches geometries.
-
-
-
+%Given the resources that we have right now, 28 electrons in a cc-pVDZ basis are the largest configuration that we can do for the entire potential energy curve.
+%In the future, as our method keep evolving, and we get more computing resources, we expect SHCI to give even better agreement to the experimental data and can even be used to benchmark the accuracy of experiments on stretches geometries.
