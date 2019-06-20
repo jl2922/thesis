@@ -15,21 +15,30 @@ The methods that we compare include self-energy embedding theory (SEED), auxilia
 
 We use SHCI results as the reference values for these systems.
 The SHCI results are systematically converged to less than 1~mHa uncertainty.
-Fig.~\ref{fig:benchmark} presents the results.
+Fig.~\ref{fig:benchmark} and \ref{fig:benchmark_be} presents the results.
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=\linewidth]{figs/benchmark.png}
-  \caption{Percent of Correlation Energy Recovered By Approximate Quantum Chemsitry Methods~\cite{williams2019direct}.
+  \includegraphics[width=\linewidth]{figs/correlation_energybar.pdf}
+  \caption{Percent of correlation energy recovered by approximate quantum chemsitry methods, using SHCI as a reference~\cite{williams2019direct}.
 }
   \label{fig:benchmark}
+  \end{center}
+\end{figure}
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=\linewidth]{figs/BE_IP_SHCI.pdf}
+  \caption{Deviation of approximate quantum chemsitry methods from SHCI reference values~\cite{williams2019direct}.
+}
+  \label{fig:benchmark_be}
   \end{center}
 \end{figure}
 
 We can see that all the systematic methods, including FCIQMC, DMRG, and SHCI, agree exceptionally well with each other.
 This is as expected since they use the same Hamiltonian.
 
-Systematic methods like these can only be applied to relatively small systems due to their high computational cost, so it is also essential to study the errors in other more efficient methods.
+However, systematic methods like these can only be applied to relatively small systems due to their high computational cost, so it is also important to study the errors in other more efficient methods.
 These errors are often canceled out in previous studies, and the results from our study make these errors directly accessible.
 
 We can see from these results that both AFQMC and CCSD(T) also give good agreement to the reference values and their computation costs increase much slower with the system size than the three essentially exact methods.
@@ -37,4 +46,4 @@ Other methods are much less accurate and thus may not produce reliable results f
 However, they may still provide reasonably accurate results for structural optimization.
 
 In many cases, using less accurate methods can be the only option due to the high computational cost of more accurate methods.
-In such cases, benchmark results from some sample systems can provide useful information on which approximate method within a computational cost budget is the most accurate one for targeted systems.
+In such cases, benchmark results from some sample systems can provide useful information on which approximate method to choose.

@@ -38,7 +38,7 @@ the computed energies are directly in the infinite-basis limit.
 However, in order to control the Fermion sign problem, DMC is usually performed with the fixed-node approximation
 and consequently the energies have a fixed-node error which depends on the
 quality of the trial wavefunctions.
-Backflow wavefunctions have been used to reduce the error~\cite{KwoCepMar-PRB-98,RioMaDruTowNee-PRE-06}
+Backflow wavefunctions have been used to reduce the error~\cite{kwon1998effects,RioMaDruTowNee-PRE-06}
 %Backflow wavefunctions have been used to reduce the error~\cite{RioMaDruTowNee-PRE-06}
 but the magnitude of the remaining error is unclear.
 
@@ -56,7 +56,7 @@ but the magnitude of the remaining error is unclear.
 In order to assess the magnitude of the DMC fixed-node error, other quantum Monte Carlo (QMC) methods
 have been applied to the HEG.
 In contrast to DMC, the random walk in the full configuration interaction quantum Monte Carlo (FCIQMC)
-method~\cite{BooThoAla-JCP-09,CleBooAla-JCP-10,SheBooAla-JCP-12,SheBooGruAla-PRB-12} is in the space of
+method~\cite{BooThoAla-JCP-09,CleBooAla-JCP-10,SheBooGruAla-PRB-12,SheBooGruAla-PRB-12} is in the space of
 occupation numbers of a finite number of orbitals.
 The finite basis set energies need to be extrapolated to obtain the complete basis set (CBS) energies.
 The Fermion sign problem in FCIQMC is controlled by making an {\it initiator approximation}.
@@ -67,7 +67,7 @@ For example, for the HEG with $r_s=0.5$ and 14 electrons in each periodic cell, 
 calculations, which use 778 and 1850 orbitals yield correlation energies $-0.5893(3)$~Ha and $-0.5936(3)$~Ha
 respectively, a $4.3$~mHa difference, which is larger than the estimated initiator and statistical errors.
 
-The coupled cluster Monte Carlo (CCMC) method~\cite{Tho-PRL-10,neufeld2017study} is closely related
+The coupled cluster Monte Carlo (CCMC) method~\cite{neufeld2017study} is closely related
 to FCIQMC but yields coupled cluster energies in the infinite walker limit.
 It has been used~\cite{neufeld2017study} to compute the correlation energy of the HEG with a 14-electron periodic cell for
 $r_s$ in the range $0.5 - 5.0\ a_0$ with excitation orders up to five, i.e., CCSDTQ5, and 358 orbitals.
