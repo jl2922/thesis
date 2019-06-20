@@ -188,14 +188,15 @@ Then we interpolate the points for each active space with cubic spline interpola
   \begin{center}
   \includegraphics[width=0.9\linewidth]{figs/cr2curve.png}
   \caption{Comparison of SHCI potential energy curves of Cr$_2$, correlating 12 or 28 electrons, with experiment.
-  The shape of the experimental data is deduced from measuring 30 vibrational states using negative-ion photoelectron spectroscopy~\cite{casey1993negative}.
+  The shape of the experimental data is deduced from measuring 29 vibrational states using negative-ion photoelectron spectroscopy~\cite{casey1993negative}.
   %We can see that using only 12 active electrons from the shell cannot produce a good agreement to the experimental data.
   %By including 10 additional electrons from the semi-core into the active space, the agreement with experimental data is much better.
   The potential energy curves from the 12-correlated-electron calculations agree poorly with experiment, though the agreement
   improves upon increasing the basis size.
   The 28-correlated-electron calculation agrees much better with experiment.
-}
-%   {\color{red} Use updated 28-electron curve, add 4z 12-electron curve.  I think it better to use solid rather than dashed lines.  One uses dashed lines just to distinguish between curves, which is not the case here.}
+   {\color{red} For the 12-electron curves you should keep in the Fig. legend CAS-core, since for 12 electrons
+there is a large difference between CAS and HF cores.}
+  }
   \label{fig:cr2curve}
   \end{center}
 \end{figure}
