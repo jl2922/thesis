@@ -184,6 +184,7 @@ We extrapolate the energies for each geometry with a weighted quadratic fit
 and obtain for the ground state energy as $\Delta E\to0$.
 The weight of each point is $(E_{\rm var} - E_{\rm tot})^{-2}$.
 Then we interpolate the points for each active space with cubic spline interpolation.
+Fig.~\ref{fig:cr2raw} presents the most accurate raw data points and the extrapolated curve for the 28 correlated electrons case.
 
 \label{sec:curve}
 \begin{figure}
@@ -231,8 +232,8 @@ Then we interpolate the points for each active space with cubic spline interpola
   %CCSD(T) can produce better agreement at stretched geometry but still not good enough near the equilibrium geometry.
   %By using SHCI, the agreement with experimental data is much better.
   The UHF curve bears no resemblance to the experimental curve.
-  The UCCSD and UCCSD(T) curves are better, especially at long bond lengths, but even UCCSD(T) which is considered to be the ``gold standard" for single-reference
-  systems, agrees poorly with experiment.  In contrast the SHCI curve is in reasonable agreement with experiment.
+  The UCCSD and UCCSD(T) curves are better, especially at long bond lengths, but even UCCSD(T), which is considered to be the ``gold standard" for single-reference
+  systems, agrees poorly with experiment.  In contrast, the SHCI curve is in reasonable agreement with experiment.
 }
   \label{fig:hfcc}
   \end{center}
@@ -247,7 +248,7 @@ There is uncertainty in the shape of the experimental curve because of the missi
 about the assignment of the observed peaks to the higher vibrational levels.
 The depth of the experimental curve is estimated from adding an estimate of the zero-point energy
 to experimentally determined bond dissociation energies.
-Unfortunately there is a considerable spread in the estimates of the latter.
+Unfortunately, there is a considerable spread in the estimates of the latter.
 Here we use the well depth estimate of 1.56 eV from Ref.~\cite{VanMalVer-JCTC-16}, which is based on the bond dissociation
 energy of Ref.~\cite{simard1998photoionization}.
 This well depth is deeper than the estimate of 1.47 eV used in Ref.~\cite{GuoWatHuSunCha-JCTC-16} based on
@@ -260,6 +261,9 @@ demonstrating that semi-core correlation plays an important role in the molecula
 At large bond lengths one would expect that semi-core correlation is not important and in fact the 12 active electron
 and the 28 active electron energies become nearly coincident there.
 
+Fig.~\ref{fig:cashf} shows the difference between using HF-core orbitals and using CAS-core orbital, under the setting of 12 correlated electrons and cc-pVTZ basis sets.
+We can see that both the energy and the shape of the curve from using CAS-core is much closer to the experimental curve than using just the HF-core.
+
 % We can also see from Fig.~\ref{fig:cr2curve} that the effect of using HF core or CAS core for orbital optimization matters little to the 28 electrons SHCI calculation.
 
 %We also compare SHCI results with unrestricted Hartree-Fock (UHF) and low order coupled cluster methods.
@@ -269,11 +273,11 @@ In Fig.~\ref{fig:hfcc}, we compare SHCI results to unrestricted Hartree-Fock (UH
 %CCSD and CCSD(T) give better agreements for the stretched geometries, but still cannot reach good agreements with the experimental data at compressed or equilibrium geometries.
 %SHCI gives good agreement to the experimental data along the entire curve.
 As expected, the UHF curve bears no resemblance to the experimental curve.
-The UCCSD and UCCSD(T) curves are better, but even UCCSD(T) which is considered to be the ``gold standard" for single-reference
-systems, agrees poorly with experiment.  In contrast the SHCI curve is in reasonable agreement with experiment, perhaps
+The UCCSD and UCCSD(T) curves are better, but even UCCSD(T), which is considered to be the ``gold standard" for single-reference
+systems, agrees poorly with experiment.  In contrast, the SHCI curve is in reasonable agreement with experiment, perhaps
 fortuitously so, since the cc-pVDZ basis used is expected to have a significant finite-basis error.
-With our current computer resources, we cannot obtain a well converged curve with larger basis sets,
-but with further improvements in the method and larger computers we hope to obtain basis set converged curves
+With our current computer resources, we cannot obtain a well-converged curve with larger basis sets,
+but with further improvements in the method and larger computers, we hope to obtain basis set converged curves
 that agree yet better with experiment, and perhaps even provide information about experimental inaccuracies.
 
 %Given the resources that we have right now, 28 electrons in a cc-pVDZ basis are the largest configuration that we can do for the entire potential energy curve.
