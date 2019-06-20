@@ -122,7 +122,7 @@ While an undergraduate, he did research in various fields, including semiconduct
 
 In the fall of 2013, Junhao came to Cornell University to persue a Ph.D. in physics.
 During his Ph.D., he mainly worked with professor Cyrus Umrigar on the development and application of highly accurate quantum chemistry methods.
-He developed the fast heatbath configuration interaction method, which is more than an order of magnitude faster than other methods in its category, and achieved significantly higher accuracy than other well developed methods, such as DMRG and FCIQMC, on several systems.
+He developed the fast heatbath configuration interaction method, which is more than an order of magnitude faster than other methods in its category, and achieved significantly higher accuracy than other well developed methods, such as DMRG and FCIQMC, on many systems.
 he also did research in molecular dynamics and defects with professor James Sethna.
 
 After obtaining a master's degree at Cornell, Junhao spent a summer as an intern at Google in California in 2016.
@@ -136,7 +136,7 @@ This document is dedicated to all Cornell graduate students.
 \begin{acknowledgements}
 First of all, I would like to thank my advisor Professor Cyrus Umrigar.
 His commitment to physics research is exemplary and inspiring.
-He led me into the field of quantum chemistry, which is an indispensable foundation of highly accurate numerical simulations.
+He led me into the field of quantum chemistry, which is an indispensable foundation of highly accurate quantum simulations.
 All my knowledge of quantum Monte Carlo are inherited from him, and my work on heatbath configuration interaction is impossible without his guidance and support.
 He taught me valuable research skills, and helped me go through the process of publishing my first first-author paper, on a top academic journal.
 I am also extremely grateful to him for always being supportive in the decisions I made, the ideas I wanted to try, and being tolerant and direct when I made mistakes.
@@ -256,12 +256,12 @@ The key reasons that fast SHCI is fast are:
     \item The 3-step perturbation algorithm speeds up the perturbation correction calculation regardless of the memory of the system.
 \end{itemize}
 
-SHCI achieves more accurate results on homogeneous electron gas in the mid to high-density region due to its high efficiency and ability to work with large basis sets.
-SHCI also successfully produces accurate results on huge Hilbert spaces of Chromium dimer.
+SHCI achieves accurate results on homogeneous electron gas in the mid to high-density region due to its high efficiency and ability to work with large basis sets.
+SHCI also successfully produces accurate results on huge Hilbert spaces of Chromium dimers.
 
 Modular design makes the SHCI code easy to maintain and extend, and also produces several generic distributed computing building blocks, which makes writing high-performance parallel software much easier than using raw MPI routines directly.
 
-Finally, regarding scientific software engineering, it is important to see that scientific software is becoming more and more complex, and thus it is crucial to keep quality of the code high so that the scientific results from this software are reliable and the process of extending the software in order to experiment new scientific ideas is easy.
+Finally, regarding scientific software engineering, it is important to see that scientific software is becoming more and more complex, and thus it is crucial to keep quality of the code high so that the scientific results from this software are reliable and the process of extending the software in order to experiment new scientific ideas is efficient.
 We can borrow the experience from industrial software engineering, but due to the differences between industrial and scientific research, some common practices which are generally believed to be beneficial to industrial software engineering will have to be adjusted to really benefit scientific software development.
 
 \bibliography{sampleThesis,umrigar,toulouse,chan,needs,zhang,chemistry}
