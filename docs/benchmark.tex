@@ -9,8 +9,38 @@ In this project, we apply a set of electronic structure methods to a set of smal
 I perform the SHCI calculations and other calculations are performed by our collaborators, who are experts in the corresponding methods.
 For each system, the Hamiltonian is carefully controlled to ensure all the methods are calculating exactly the same system with the same system-level approximations.
 This approach allows us to access methodological differences directly without obfuscation from other errors.
+Table~\ref{table:abbreviations} presents the methods that we include in this project.
 
-The methods that we compare include self-energy embedding theory (SEED), auxiliary field quantum Monte Carlo (AFQMC), coupled cluster with singles, doubles and perturbative triples (CCSD(T)), full configuration interaction quantum Monte Carlo (FCIQMC), density matrix renormalization group (DMRG), fast semistochastic heat-bath configuration interaction (SHCI), configuration interaction with singles and doubles (CISD), second order Green function (GF2), coupled cluster with singles and doubles (CCSD), multireference linearized coupled cluster (MRLCC), quasi-particle self-consistent GW approximation (QSGW), Hartree-Fock random-phase approximation (HF+RPA),  self-consistent GW approximation (SC-GW), diffusion Monte Carlo with single determinant nodal surface (DMC(SD)), DFT in local density approximation (LDA), DFT in PBE approximation (PBE), DFT with HSE06 functional (HSE06), DFT with B3LYP functional (B3LYP), and DFT with SCAN functional (SCAN).
+ \begin{table}
+ \caption{A list of abbreviations used in this benchmark.
+ In Column A, the largest basis set performed by that method for the transition metal atoms is listed, and in Column B the same for the monoxide
+ molecules. }\label{table:abbreviations}
+ \begin{tabular} {l|p{0.68\columnwidth}|c|c}
+ Method & Full Name & A & B \\
+ \hline
+ AFQMC & Auxilliary field quantum Monte Carlo & 5 & 5\\
+ iFCIQMC & Full configuration interaction quantum Monte Carlo & q & d\\
+ DMRG & Density matrix renormalization group & t & d \\
+ SHCI & Semistochastic heatbath configuration interaction & 5 &5 \\
+ CCSD(T) & Coupled cluster with singles, doubles, and perturbative triples & 5 & 5 \\
+ SEET & Self-energy embedding theory & q & q \\
+ CISD & Configuration interaction with singles and doubles & 5 & 5 \\
+ QSGW & quasiparticle self-consistent GW approximation & t & t \\
+ HF+RPA & Hartree-Fock random phase approximation &t & t \\
+ SC-GW & Self-consistent GW approximation & d & - \\
+ GF2 & Second order Green function & q & q \\
+ CCSD & Couple cluster with singles and doubles & 5 &5 \\
+ MRLCC & multireference localized coupled cluster &5 & 5\\
+ DMC & Fixed Node Diffusion Monte Carlo (single determinant) & c & c\\
+ LDA & DFT in the local density approximation & 5 & 5\\
+ PBE & DFT in the PBE approximation &5 & 5  \\
+ HSE06 & DFT with the HSE06 functional &t & t\\
+ B3LYP & DFT with the B3LYP functional &5 & 5\\
+ SCAN & DFT with SCAN functional & 5 & 5\\
+ HF & Hartree-Fock & 5 & 5\\
+     \end{tabular}
+ \end{table}
+
 
 \section{Results}
 
