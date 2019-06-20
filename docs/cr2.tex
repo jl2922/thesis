@@ -160,7 +160,7 @@ In addition to the energy at equilibrium geometry, I also obtain the entire pote
 We calculate the potential energy curves, first correlating just the 12 valence (3d, 4s) electrons, and then correlating
 also the semi-core (3s,
 3p) electrons, making a total of 28 correlated electrons.
-For 12 correlated electrons we study the basis set dependence by calculating the curves for cc-pVDZ, cc-pVTZ and cc-pVQZ basis sets.
+For 12 correlated electrons, we study the basis set dependence by calculating the curves for cc-pVDZ, cc-pVTZ and cc-pVQZ basis sets.
 %We examine the effect of correlating the semi-core electrons, i.e., we
 %We exam the results from using the cc-pVDZ-DK basis and the cc-pVTZ-DK basis, and also the effects of correlating only the 12 valence electrons and correlating 28 electrons from both the valence and the semi-core.
 The largest active space in our calculations is (28e, 76o), which gives a Hilbert space of $5\times10^{29}$ determinants, far beyond the reach of FCI.
@@ -168,15 +168,15 @@ The largest active space in our calculations is (28e, 76o), which gives a Hilber
 
 We use both PySCF~\cite{SunCha_etal_PySCF-ComMolSci-18} and our program to generate the molecular orbital integrals for orbitals that minimize the HCI variational
 energy for $\epsilon_1=2\times 10^{-4}$~Ha, using an improved version of the method of Ref.~\cite{SmiMusHolSha-JCTC-17}.
+For 12 correlated electrons, we use the CAS core optimized orbitals, and for 28 correlated electrons, we use the HF core.
 We perform SHCI with several $\epsilon_1$ values from $2\times10^{-4}$ to $5\times10^{-6}$~Ha.
 %The Hamiltonian matrix is constructed only once for each geometry and each active space.
 The sparse Hamiltonian matrix is stored in memory and so needs to be constructed only once for each geometry and each active space.
 %We keep the ratio between $\epsilon_2$ and $\epsilon_1$ to $10^{-6}$ and the target error for the stochastic perturbation to 0.01 mHa.
-For the 28-electron calculations, we use very small values of $\epsilon_2 = 10^{-6} \epsilon_1$  to ensure that the perturbative correction is exceedingly well converged.
-For the 12-electron calculations, we include the entire perturbative space by setting $\epsilon_2=0$.
+For the perturbative correction calculation, we set $\epsilon_2 = 0$  to include the entire Hilbert space.
 
 %The improved SHCI is fast enough that we can use over two billion variational determinants and include at least trillions of effective perturbative determinants.
-The improved SHCI is fast enough that we can use more than one billion variational determinants and stochastically include the contributions of at least trillions of perturbative determinants for each geometry.
+The improved SHCI is fast enough that we can use more than one billion variational determinants and stochastically include the corrections from at least trillions of perturbative determinants for each geometry.
 
 We extrapolate the energies for each geometry with a weighted quadratic fit
 and obtain for the ground state energy as $\Delta E\to0$.
