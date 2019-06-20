@@ -157,8 +157,9 @@ CI expansions), will give poor energies for such strongly correlated systems.
 \section{Potential Energy Surface}
 In addition to the energy at equilibrium geometry, I also obtain the entire potential energy curve of the chromium dimer.
 
-We calculate the potential energy curves, first correlating just the 12 valence (3d,4s) electrons, and then correlating
-also the semi-core (3s,3p) electrons, making a total of 28 correlated electrons.
+We calculate the potential energy curves, first correlating just the 12 valence (3d, 4s) electrons, and then correlating
+also the semi-core (3s,
+3p) electrons, making a total of 28 correlated electrons.
 For 12 correlated electrons we study the basis set dependence by calculating the curves for cc-pVDZ, cc-pVTZ and cc-pVQZ basis sets.
 %We examine the effect of correlating the semi-core electrons, i.e., we
 %We exam the results from using the cc-pVDZ-DK basis and the cc-pVTZ-DK basis, and also the effects of correlating only the 12 valence electrons and correlating 28 electrons from both the valence and the semi-core.
@@ -184,14 +185,14 @@ Then we interpolate the points for each active space with cubic spline interpola
 Fig.~\ref{fig:cr2curve} shows the results calculated with different active spaces and the experimental data.
 The shape of the experimental curve is deduced from measuring 30 vibrational states using negative-ion photoelectron spectroscopy~\cite{casey1993negative}.
 The measured 29 vibrational states were assigned to $\nu=1-9$ and $\nu=24-43$.
-The depth of the experimental curve is ...
+The depth of the experimental curve is 1.53(6)~eV.
 There is some uncertainty in the experimental curve due to uncertainty in the assignment of the higher vibrational levels
 as well as due to uncertainty in the depth of the potential.
 
 \label{sec:curve}
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.9\linewidth]{figs/cr2curve.eps}
+  \includegraphics[width=0.9\linewidth]{figs/cr2curve.png}
   \caption{Comparison of SHCI potential energy curves of Cr$_2$, correlating 12 or 28 electrons, with experiment.
   The shape of the experimental data is deduced from measuring 30 vibrational states using negative-ion photoelectron spectroscopy~\cite{casey1993negative}.
   %We can see that using only 12 active electrons from the shell cannot produce a good agreement to the experimental data.
@@ -226,8 +227,10 @@ Using a larger basis set helps bring the curve closer to the experimental data, 
 By including the 10 additional electrons from the semi-core into the active space, SHCI achieves much better agreement,
 demonstrating that semi-core correlation plays an important role in the molecular bond of Cr$_2$.
 
+We can also see from Fig.~\ref{fig:cr2curve} that the effect of using HF core or CAS core for orbital optimization matters little to the 28 electrons SHCI calculation.
+
 %We also compare SHCI results with unrestricted Hartree-Fock (UHF) and low order coupled cluster methods.
-We also compare in Fig.~\ref{fig:hfcc} SHCI results to unrestricted Hartree-Fock (UHF) and unrestricted coupled cluster methods, UCCSD and UCCSD(T).
+In Fig.~\ref{fig:hfcc}, we compare SHCI results to unrestricted Hartree-Fock (UHF) and unrestricted coupled cluster methods, UCCSD and UCCSD(T).
 %Fig.~\ref{fig:hfcc} shows the comparison.
 %We can see UHF cannot give a good agreement with the experimental data.
 %CCSD and CCSD(T) give better agreements for the stretched geometries, but still cannot reach good agreements with the experimental data at compressed or equilibrium geometries.
