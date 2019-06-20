@@ -168,7 +168,9 @@ The largest active space in our calculations is (28e, 76o), which gives a Hilber
 
 We use both PySCF~\cite{SunCha_etal_PySCF-ComMolSci-18} and our program to generate the molecular orbital integrals for orbitals that minimize the HCI variational
 energy for $\epsilon_1=2\times 10^{-4}$~Ha, using an improved version of the method of Ref.~\cite{SmiMusHolSha-JCTC-17}.
-For 12 correlated electrons, we use the CAS core optimized orbitals, and for 28 correlated electrons, we use the HF core.
+For 12 correlated electrons, we use CAS-core orbitals, and for 28 correlated electrons, we use the HF-core orbitals.
+For the former, the potential energy curves obtained from HF-core and CAS-core orbitals differ greatly,
+whereas for the latter there is essentially no difference between HF-core and CAS-core curves.
 We perform SHCI with several $\epsilon_1$ values from $2\times10^{-4}$ to $5\times10^{-6}$~Ha.
 %The Hamiltonian matrix is constructed only once for each geometry and each active space.
 The sparse Hamiltonian matrix is stored in memory and so needs to be constructed only once for each geometry and each active space.
