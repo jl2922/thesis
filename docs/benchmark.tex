@@ -2,7 +2,7 @@
 \label{ch:benchmark}
 \section{Introduction}
 I participated in a large multi-institutional collaboration that used 21 different electronic structure methods
-on 21 transition metal atoms, ions and oxides, each of them for basis sets ranging from $d\zeta$) to $5\zeta$).
+on 21 transition metal atoms, ions and oxides, each of them for basis sets ranging from $d\zeta$ to $5\zeta$.
 The goal of the project was to have 3 methods that provide essentially exact energies for these systems
 (within the chosen basis sets) but at a cost that scales exponentially with system size, and use these
 energies to assess the accuracy of 18 other methods that are approximate but exhibit better scaling.
@@ -25,26 +25,26 @@ exact energies, and in fact the only method that was able to compute all the sys
 
 \begin{table}
 \caption{A list of abbreviations used in this benchmark.
-Details are available in the Supplementary Information.
+%Details are available in the Supplementary Information.
 In Column A, the maximum basis set performed by that method for the transition metal atoms is listed, and in Column B the same for the monoxide 
 molecules. }\label{table:abbreviations}
-\begin{tabular} {l|p{0.5\columnwidth}|c|c}
+\begin{tabular} {l|p{0.68\columnwidth}|c|c}
 Abbreviation & Method & A & B \\
 \hline
-AFQMC(MD) & Auxilliary field quantum Monte Carlo\cite{ShiweiPhaseless,Mario-WIRES-2018} & 5 & 5\\
+AFQMC & Auxilliary field quantum Monte Carlo & 5 & 5\\
 iFCIQMC & Full configuration interaction quantum Monte Carlo & q & d\\
 DMRG & Density matrix renormalization group & t & d \\
 SHCI & Semistochastic heatbath configuration interaction & 5 &5 \\
-CCSD(T) & Coupled cluster with singles, doubles, and perturbative triples\cite{bartlett_coupled-cluster_2007} & 5 & 5 \\
-SEET(FCI/GF2) & Self-energy embedding theory & q & q \\
+CCSD(T) & Coupled cluster with singles, doubles, and perturbative triples & 5 & 5 \\
+SEET & Self-energy embedding theory & q & q \\
 CISD & Configuration interaction with singles and doubles & 5 & 5 \\
 QSGW & quasiparticle self-consistent GW approximation & t & t \\
 HF+RPA & Hartree-Fock random phase approximation &t & t \\
 SC-GW & Self-consistent GW approximation & d & - \\
 GF2 & Second order Green function & q & q \\
-CCSD & Couple cluster with singles and doubles\cite{bartlett_coupled-cluster_2007} & 5 &5 \\
+CCSD & Couple cluster with singles and doubles & 5 &5 \\
 MRLCC & multireference localized coupled cluster &5 & 5\\ 
-DMC(SD)& Fixed node diffusion Monte Carlo with a single determinant nodal surface\cite{foulkes_quantum_2001,wagner_qwalk:_2009} & c & c\\
+DMC& Diffusion Monte Carlo (single determinant)& c & c\\
 LDA & DFT in the local density approximation & 5 & 5\\
 PBE & DFT in the PBE approximation &5 & 5  \\
 HSE06 & DFT with the HSE06 functional &t & t\\
@@ -127,8 +127,8 @@ Among these three, only SHCI was performed for all basis sets and all systems an
 \begin{center}
     \includegraphics[width=\linewidth]{figs/BE_IP_SHCI}
     \caption{Kernel density estimation plot of binding energy and ionization potential of molecules and atoms to SHCI complete basis reference calculations. 
-	Each technique is listed with the largest basis set available, so long as the basis set is triple-$\zeta$ or larger.
-	Methods are ordered according to the clustering in Fig~\ref{fig:clustermap}.
+    Each technique is listed with the largest basis set available, so long as the basis set is triple-$\zeta$ or larger.
+    Methods are ordered according to the clustering in Fig~\ref{fig:clustermap}.
  }\label{fig:be_ip}
 \end{center}
 \end{figure*}
@@ -164,7 +164,7 @@ At 100\% of the correlation energy, the exact result is obtained.
 %To our knowledge, such an agreement on systems of this size is unprecedented for first principles calculations of transition metals.
 %We were able to directly compare a method that works in the complete basis set, FN-DMC, to basis set methods, for transition metal systems, as well as provide a high quality reference for density functional theory calculations.
 %The carefully defined Hamiltonian and reference total energy values enabled the comparison of approximate, but more computationally efficient, many-body techniques without the necessity of experimental references.
-%This database is available to researchers, and we expect will be a signifant asset in the development of new more efficient and compact many-body computational frameworks. 
+%This database is available to researchers, and we expect will be a significant asset in the development of new more efficient and compact many-body computational frameworks. 
 %Indeed several of the techniques tested are emerging, and benefited from the comparison.
 %These systems are a useful test for future quantum computing algorithms for quantum simulation, since they are extremely well controlled. 
 %To enable such comparisons, we include PySCF scripts that can execute the benchmark for any density functionals available in libxc\cite{marques_libxc:_2012}, and can export the many-body Hamiltonian for these systems.
@@ -271,4 +271,4 @@ However, they may still provide sufficient accuracy for some systems.
 %reasonably accurate results for structural optimization.
 
 In many cases, using less accurate methods can be the only option due to the high computational cost of more accurate methods.
-In such cases, benchmark results from some sample systems of similar kind can provide useful information on which approximate method to choose.
+In such cases, benchmark results from some sample systems of a similar kind can provide useful information on which approximate method to choose.
