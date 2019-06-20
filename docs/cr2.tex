@@ -181,12 +181,6 @@ We extrapolate the energies for each geometry with a weighted quadratic fit
 and obtain for the ground state energy as $\Delta E\to0$.
 The weight of each point is $(E_{\rm var} - E_{\rm tot})^{-2}$.
 Then we interpolate the points for each active space with cubic spline interpolation.
-Fig.~\ref{fig:cr2curve} shows the results calculated with different active spaces and the experimental data.
-The shape of the experimental curve is deduced from measuring 30 vibrational states using negative-ion photoelectron spectroscopy~\cite{casey1993negative}.
-The measured 29 vibrational states were assigned to $\nu=1-9$ and $\nu=24-43$.
-The depth of the experimental curve is ...
-There is some uncertainty in the experimental curve due to uncertainty in the assignment of the higher vibrational levels
-as well as due to uncertainty in the depth of the potential.
 
 \label{sec:curve}
 \begin{figure}
@@ -199,6 +193,7 @@ as well as due to uncertainty in the depth of the potential.
   The potential energy curves from the 12-correlated-electron calculations agree poorly with experiment, though the agreement
   improves upon increasing the basis size.
   The 28-correlated-electron calculation agrees much better with experiment.
+  {\color{red} Use updated 28-electron curve, add 4z 12-electron curve.  I think it better to use solid rather than dashed lines.  One uses dashed lines just to distinguish between curves, which is not the case here.}
 }
   \label{fig:cr2curve}
   \end{center}
@@ -220,11 +215,18 @@ as well as due to uncertainty in the depth of the potential.
   \end{center}
 \end{figure}
 
-We can see that using only 12 active electrons from the shell cannot produce a good agreement to the experimental data.
-Using a larger basis set helps bring the curve closer to the experimental data, but is still not enough to produce a good agreement.
-
-By including the 10 additional electrons from the semi-core into the active space, SHCI achieves much better agreement,
+Fig.~\ref{fig:cr2curve} compares the energies calculated with different active spaces to the experimental data.
+The shape of the experimental curve is deduced from 29 vibrational states using negative-ion photoelectron spectroscopy~\cite{casey1993negative}.
+The measured 29 vibrational states were assigned to $\nu=1-9$ and $\nu=24-43$.
+The depth of the experimental curve is ...
+There is some uncertainty in the experimental curve due to uncertainty in the assignment of the higher vibrational levels
+as well as due to uncertainty in the depth of the potential.
+The 12-active-electron curves do not agree well with experiment.
+Using a larger basis sets helps bring the curve closer to the experimental data, but is not enough to produce a good agreement.
+By including the 10 additional electrons from the semi-core in the active space, SHCI achieves much better agreement,
 demonstrating that semi-core correlation plays an important role in the molecular bond of Cr$_2$.
+At large bond lengths one would expect that semi-core correlation is not important and in fact the 12 active electron
+and the 28 active electron energies become nearly coincident there.
 
 %We also compare SHCI results with unrestricted Hartree-Fock (UHF) and low order coupled cluster methods.
 We also compare in Fig.~\ref{fig:hfcc} SHCI results to unrestricted Hartree-Fock (UHF) and unrestricted coupled cluster methods, UCCSD and UCCSD(T).
