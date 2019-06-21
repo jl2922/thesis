@@ -160,7 +160,7 @@ In addition to the energy at equilibrium geometry, I also obtain the entire pote
 We calculate the potential energy curves, first correlating just the 12 valence (3d, 4s) electrons, and then correlating
 also the semi-core (3s,
 3p) electrons, making a total of 28 correlated electrons.
-For 12 correlated electrons, we study the basis set dependence by calculating the curves for cc-pVDZ, cc-pVTZ and cc-pVQZ basis sets.
+For 12 correlated electrons, we study the basis set dependence by calculating the curves for cc-pVDZ, cc-pVTZ, and cc-pVQZ basis sets.
 %We examine the effect of correlating the semi-core electrons, i.e., we
 %We exam the results from using the cc-pVDZ-DK basis and the cc-pVTZ-DK basis, and also the effects of correlating only the 12 valence electrons and correlating 28 electrons from both the valence and the semi-core.
 The largest active space in our calculations is (28e, 76o), which gives a Hilbert space of $5\times10^{29}$ determinants, far beyond the reach of FCI.
@@ -170,7 +170,7 @@ We use both PySCF~\cite{SunCha_etal_PySCF-ComMolSci-18} and our program to gener
 energy for $\epsilon_1=2\times 10^{-4}$~Ha, using an improved version of the method of Ref.~\cite{SmiMusHolSha-JCTC-17}.
 For 12 correlated electrons, we use CAS-core orbitals, and for 28 correlated electrons, we use the HF-core orbitals.
 For the former, the potential energy curves obtained from HF-core and CAS-core orbitals differ greatly,
-whereas for the latter there is essentially no difference between HF-core and CAS-core curves.
+whereas for the latter, there is essentially no difference between HF-core and CAS-core curves.
 We perform SHCI with several $\epsilon_1$ values from $2\times10^{-4}$ to $5\times10^{-6}$~Ha.
 %The Hamiltonian matrix is constructed only once for each geometry and each active space.
 The sparse Hamiltonian matrix is stored in memory and so needs to be constructed only once for each geometry and each active space.
@@ -254,7 +254,7 @@ energy of Ref.~\cite{simard1998photoionization}.
 This well depth is deeper than the estimate of 1.47 eV used in Ref.~\cite{GuoWatHuSunCha-JCTC-16} based on
 the bond energy of 1.44 eV reported in Ref.~\cite{casey1993negative}.
 
-Fig..~\ref{fig:cr2curve} shows that the 12-active-electron curves do not agree well with experiment.
+Fig.~\ref{fig:cr2curve} shows that the 12-active-electron curves do not agree well with experiment.
 Using a larger basis sets helps bring the curve closer to the experimental data, but is not enough to produce a good agreement.
 By including the 10 additional electrons from the semi-core in the active space, SHCI achieves much better agreement,
 demonstrating that semi-core correlation plays an important role in the molecular bond of Cr$_2$.
@@ -263,7 +263,7 @@ and the 28 active electron energies become nearly coincident there.
 
 Fig.~\ref{fig:cashf} shows the difference between using HF-core orbitals and using CAS-core orbital, under the setting of 12 correlated electrons and cc-pVTZ basis sets.
 We can see that the CAS-core curve gives a lower potential energy, closer to experiment, but has the wrong minimum location.
-The HF-core calculation results in a potential energy curve whose overall shape and the location of the minimum are much closer to experiment.
+The HF-core calculation results in a potential energy curve whose overall shape and the location of the minimum are much closer to the experiment.
                                                                                                                                                                                                                                                                                                                                                                                                
 % We can also see from Fig.~\ref{fig:cr2curve} that the effect of using HF core or CAS core for orbital optimization matters little to the 28 electrons SHCI calculation.
 

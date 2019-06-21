@@ -109,24 +109,24 @@ In this thesis, I also describe my design and implementation of these generic co
 
 Finally, I also provide a brief discussion of the usability of general software engineering best practices for the development of medium-scale scientific software packages with lessons learned from designing, developing, and leading the development of our SHCI package.
 Medium-scale scientific software packages are common in scientific research where a small group of researchers works on the same code base.
-Due to the differences in the requirements, some best practices that are common in industry need to be adjusted to be useful for these projects.
+Due to the differences in the requirements, some best practices that are common in the industry need to be adjusted to be useful for these projects.
 
 \end{abstract}
 
 \begin{biosketch}
 Junhao Li was born and grew up in Shanghai, China.
-From a young age, he had a strong interest in science and engineering, and enjoyed disassembling all kinds of home appliances.
+From a young age, he had a strong interest in science and engineering and enjoyed disassembling all kinds of home appliances.
 
 Junhao attended Shanghai Jiao Tong University from 2009, graduating with a B.S. in physics and a B.S.E in computer science in 2013.
 While an undergraduate, he did research in various fields, including semiconductor fabrication, photovoltaics, finite element analysis of electromagnetic field, density functional theory, and social networks.
 
 In the fall of 2013, Junhao came to Cornell University to persue a Ph.D. in physics.
 During his Ph.D., he mainly worked with professor Cyrus Umrigar on the development and application of highly accurate quantum chemistry methods.
-He developed the fast heatbath configuration interaction method, which is more than an order of magnitude faster than other methods in its category, and achieved significantly higher accuracy than other well developed methods, such as DMRG and FCIQMC, on many systems.
-he also did research in molecular dynamics and defects with professor James Sethna.
+He developed the fast heatbath configuration interaction method, which is more than an order of magnitude faster than other methods in its category, and achieved significantly higher accuracy than other well-developed methods, such as DMRG and FCIQMC, on many systems.
+He also did research in molecular dynamics and defects with professor James Sethna.
 
 After obtaining a master's degree at Cornell, Junhao spent a summer as an intern at Google in California in 2016.
-He then returned to Ithaca, brought back the engineering merits he learned from Google, and developed a highly efficient and extensible quantum chemistry package, Arrow, as well as several open-sourced generic high performance computing libraries.
+He then returned to Ithaca, brought back the engineering merits he learned from Google, and developed a highly efficient and extensible quantum chemistry package, Arrow, as well as several open-sourced generic high-performance computing libraries.
 \end{biosketch}
 
 \begin{dedication}
@@ -138,25 +138,25 @@ First of all, I would like to thank my advisor Professor Cyrus Umrigar.
 His commitment to physics research is exemplary and inspiring.
 He led me into the field of quantum chemistry, which is an indispensable foundation of highly accurate quantum simulations.
 All my knowledge of quantum Monte Carlo are inherited from him, and my work on heatbath configuration interaction is impossible without his guidance and support.
-He taught me valuable research skills, and helped me go through the process of publishing my first first-author paper, on a top academic journal.
+He taught me valuable research skills and helped me go through the process of publishing my first first-author paper, on a top academic journal.
 I am also extremely grateful to him for always being supportive in the decisions I made, the ideas I wanted to try, and being tolerant and direct when I made mistakes.
 He made my six years of Ph.D. life a truly rewarding experience.
 
 I would also like to thank Professor James Sethna.
 It was a pleasure to work with Jim on defects and molecular dynamics.
-His enthusiasm and optimism inspires me whenever I face chanllenging problems.
-I also learned a lot from his tremendous insights on physics and data analysis.
+His enthusiasm and optimism inspire me whenever I face challenging problems.
+I also learned a lot from his tremendous insights into physics and data analysis.
 
 I also thank all the graduate students I worked with, especially Adam Holms, Matt Otten, and Matt Bierbaum.
-They helped me getting started in my research, patiently answered all my questions, and gave me valuable advices on my projects.
-I could not imagine how much longer it would take me to get start and how many detours I might have taken without their help.
+They helped me get started in my research, patiently answered all my questions, and gave me valuable advice on my projects.
+I could not imagine how much longer it would take me to get started and how many detours I might have taken without their help.
 
 I would like to give special thanks to my parents for giving me birth and raising me up.
-They gave me a warm family as I grew up, and consistently supported me as I persue my degree at Cornell.
+They gave me a warm family as I grew up and consistently supported me as I pursue my degree at Cornell.
 Thanks also to my elementary school, middle school, high school, and undergraduate teachers and friends back in China for all the invaluable lessons I learned from them, the wonderful memories I had with them, and helps and encouragements I received from them.
 
 Finally, I acknowledge the financial support from Cornell University physics department, National Science Foundation and the Air Force Office of Scientific Research, and the computing resources support from Pittsburg Computing Center, the Argonne National Lab, NERSC, and Google Cloud.
-Thank you and I hope you are proud.
+Thank you, and I hope you are proud.
 \end{acknowledgements}
 
 \contentspage
@@ -169,8 +169,8 @@ Thank you and I hope you are proud.
 \chapter{Introduction}
 \label{ch:intro}
 A major problem in the electronic structure theory is solving the many-body Schr\"{o}dinger's equation accurately and efficiently, and there is usually a trade-off between accuracy and efficiency.
-Density functional theory (DFT)~\cite{ParYan-BOOK-89,DreGro-BOOK-90,kohn1999nobel} is the most popular method and it is very efficient,
-but it uses approximate density functionals, and thus it is often not accurate enough.
+Density functional theory (DFT)~\cite{ParYan-BOOK-89,DreGro-BOOK-90,kohn1999nobel} is the most popular method, and it is very efficient,
+but it uses approximate density functionals, and thus, it is often not accurate enough.
 %In addition, the choice of pseudopotentials relies a lot on empirical experiences.
 Coupled cluster with single, double, and perturbative triple excitations CCSD(T)~\cite{raghavachari1989fifth} is often considered as the gold standard of quantum chemistry.
 It is very accurate for single reference systems where a single determinant in the many-body wavefunction has a large amplitude, such as many organic molecules, but not for multireference or strongly-correlated systems.

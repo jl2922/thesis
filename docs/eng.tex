@@ -48,10 +48,10 @@ Many successful industrial products use object-oriented design, such as the Wind
 In scientific software engineering, there are also many related data and functions, and by grouping them into higher level logical units with object-oriented programming, we can get a similar benefit as in the industrial cases.
 
 Most object-oriented languages allow granular access control of each member variable and each member function of objects.
-From my experience of developing SHCI, it is usually more convenient and efficient to relax the access control data related objects in scientific programming.
+From my experience of developing SHCI, it is usually more convenient and efficient to relax the access control of data related objects in scientific programming.
 There are two reasons for this:
 1) the nature of scientific research imposes lots of uncertainty to whether some member variables in an object may be related to another object or not and making the access control more relaxed can make it much easy to experiment new algorithms and speed up the research.
-2) most software in scientific programming is only for internal users, and thus there are much fewer risks associated with accessing private variables;
+2) most software in scientific programming is only for internal users, and thus there are much fewer risks associated with accessing private variables.
 
 \subsection{Unit Tests}
 Unit tests are common practices in industrial software engineering.
@@ -75,7 +75,7 @@ The main drawback of code review is that it takes some time to understand other'
 
 For scientific software engineering, code review is also helpful due to the same reason as for industrial software engineering.
 However, for some codes which involve fancy algorithms or specialized knowledge of a certain team member, other team members may need to spend a significant amount of time to acquire the background knowledge.
-Code review, in this case, can slow down the overall progress of the research significantly, but sometimes it is may still be beneficial to keep doing code review in such case for educational reasons.
+Code review, in this case, can slow down the overall progress of the research significantly, but sometimes it is may still be beneficial to keep doing code review in such case for educational purposes.
 
 \subsection{Refactoring}
 Software development is usually an iterative process, and during incremental development, software changes drastically.
@@ -87,7 +87,7 @@ Although they seem to stop making progress during these periods, their overall s
 Refactoring is especially important to scientific software engineering because when doing scientific programming, we are often not sure whether a new change is useful or not, 
 so we tend to care less about the quality of the code and focus more on implementing and testing new ideas as soon as possible.
 However, this will result in a poor code quality, which makes software less maintainable.
-Hence, by keeping and refactoring what has been tested to be useful, the entire code base can become much more readable and extensible.
+Hence, by keeping and refactoring what has been tested to be useful, the entire code base can become much more readable and reusable in the future.
 Even in the case when we are developing production components rather than experimental functions, it may still be more efficient to first focus on implementation to produce the correct results, and then refactor the implementation to make it easier to read and extend in the future.
 
 \subsection{Continuous Integration}
