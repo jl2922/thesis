@@ -1,8 +1,8 @@
 \chapter{Simplified High Performance Cluster Computing}
 MapReduce and its variants have significantly simplified and accelerated the process of developing parallel programs.
 However, most MapReduce implementations focus on data-intensive tasks while many real-world tasks are compute intensive and their data can fit distributedly into the memory.
-For these tasks, the speed of MapReduce programs can be much slower than those hand-optimized ones.
-We present Blaze, a C++ library that makes it easy to develop high performance parallel programs for such compute intensive tasks.
+For these tasks, MapReduce programs can be much slower than hand-optimized ones.
+We have developed Blaze, a C++ library that makes it easy to develop high performance parallel programs for such compute intensive tasks.
 At the core of Blaze is a highly-optimized in-memory MapReduce function, which has three main improvements over conventional MapReduce implementations:
 eager reduction, fast serialization, and special treatment for a small fixed key range.
 We also offer additional conveniences that make developing parallel programs similar to developing serial programs.
@@ -94,13 +94,13 @@ DistRange does not store the whole data but only the start, the end, and the ste
 DistVector distributedly stores an array of elements.
 DistHashMap distributedly stores key/value pairs.
 
-All of the three containers support the \lstinline{foreach} operation, where a custom function can be applied to each of its element in parallel.
-This function can either change the value of the element itself or use the value of the element to perform external operations.
+All three containers support the \lstinline{foreach} operation, where a custom function can be applied to each of its element in parallel.
+This function can either change the value of the element, or use the value of the element to perform external operations.
 
 Both the DistVector and the DistHashMap can be converted to and from C++ standard library containers with Blaze utility functions \lstinline{distribute} and \lstinline{collect}.
-DistVector can also be created from the \lstinline{load_file} utility function, which can load text files from the file system parallelly into a distributed vector of lines.
+DistVector can also be created from the \lstinline{load_file} utility function, which can load text files from the file system in parallel into a distributed vector of lines.
 
-DistVector also has a \lstinline{topk} method, which can return the top k elements from the distributedly stored vector in $O(n+k\log k)$ time and $O(k)$ space.
+DistVector also has a \lstinline{topk} method, which can return the top k elements from the distributed vector in $O(n+k\log k)$ time and $O(k)$ space.
 Users can provide a custom comparison function to determine the priority of the elements.
 
 \subsection{MapReduce}
@@ -108,14 +108,14 @@ Users can provide a custom comparison function to determine the priority of the 
 The MapReduce function uses a functional style interface.
 It takes four parameters:
 \begin{enumerate}
-    \item Input. One of the Blaze distributed container.
+    \item Input. One of the Blaze distributed containers.
     \item Mapper. When the input is a DistRange, the mapper should be a function that accepts two parameters: a value from the DistRange and a handler function for emitting key/value pairs.
     When the input is a DistVector or a DistHashMap, the mapper should be a function that accepts three parameters: a key from the input, the corresponding value, and an emit handler.
     \item Reducer. The function that reduce two values to one value.
     Blaze provides several built-in reducers, including \lstinline{sum}, \lstinline{prod}, \lstinline{min}, and \lstinline{max}, which can cover most use cases.
     These reducers can be used by providing the reducer name as a string, for example, \lstinline{"sum"}.
     Users can also provide custom reduce functions, which should take two parameters, the first one is a reference to the existing value which needs to be updated, and the second one is a constant reference to the new value.
-    \item Target. One of the Blaze distributed container or a vector from the standard library.
+    \item Target. One of the Blaze distributed containers or a vector from the standard library.
     The target container should be mutable and it is not cleared before performing MapReduce.
     New results from the MapReduce operation are merged/reduced into the target container.
 \end{enumerate}
@@ -131,7 +131,7 @@ We introduce several optimizations to make the MapReduce function faster, includ
 
 \subsubsection{Eager Reduction}
 
-Conventional MapReduce performs the map phase first and saves all the emitted pair from the mapper function.
+Conventional MapReduce performs the map phase first and saves all the emitted pairs from the mapper function.
 Then, it shuffles all the emitted pairs across the networks directly, which could incur a large amount of network traffics.
 
 \begin{figure}
@@ -177,7 +177,7 @@ The smaller size in the serialized message means less network traffics, so that 
 \subsubsection{Optimization for Small Key Range}
 
 For small key range, we create a thread-local cache for each key at the beginning and set that as the reduce target during the local map/reduce phase.
-After the local map/reduce phase finished, we perform parallel tree based reduce operations: first locally and then across multiple machines.
+After the local map/reduce phase finishes, we perform parallel tree based reduce operations: first locally and then across multiple machines.
 The resulting execution plan is essentially the same as hand-optimized parallel for loops with thread-local intermediate results.
 
 \begin{table}
@@ -221,7 +221,7 @@ All the source code of our implementation is included in our GitHub repository~\
 
 \subsubsection{Word Frequency Count}
 
-This task counts the number of occurrences of each unique English words in a text file.
+This task counts the number of occurrences of each unique English word in a text file.
 We use the Bible and Shakespeare's works as the testing text.
 Since Spark has significant overhead in starting the MapReduce tasks, we repeat the Bible and the Shakespeare 200 times, so that the input file contains about 0.4 billion words.
 
@@ -397,7 +397,7 @@ However, without using TCMalloc, the performance has more fluctuations and can o
 \subsection{Memory Consumption}
 
 We measure the memory consumption for running these tasks on a single local machine of 12 logical cores, using the same versions for all the software as the tests on AWS.
-As shown in Fig~\ref{fig:mem}, we can see that both Blaze and Blaze TCM consumes much smaller amount of memory than Spark during the runs, especially for PageRank, K-Means, and expectation maximization (GMM), where Spark uses 10 times more memory than Blaze.
+As shown in Fig~\ref{fig:mem}, we can see that both Blaze and Blaze TCM consume much less memory than Spark during the runs, especially for PageRank, K-Means, and expectation maximization (GMM), where Spark uses 10 times more memory than Blaze.
 The only case where the memory consumption between Spark and Blaze is close is the k-nearest neighbors search, which does not involve intermediate key/value pairs.
 
 The memory consumption between Blaze and Blaze TCM are always on the same order of magnitude, although in one case, Blaze consumes 40\% more memory when linked against TCMalloc.
@@ -420,10 +420,10 @@ The memory consumption between Blaze and Blaze TCM are always on the same order 
 
 \subsection{Cognitive Load}
 
-Cognitive load refers to the efforts needed to develop or understand the code.
+Cognitive load refers to the effort needed to develop or understand the code.
 Minimizing the cognitive load is the ultimate goal that MapReduce and its variants try to achieve.
 
-There are lots of different measures for cognitive efforts.
+There are lots of different measures for cognitive effort.
 Source lines of code is not a good measure here as Spark/Scala supports chaining functions and can put several consecutive operations on a single line.
 Hence, a line of Spark/Scala may be much more difficult to understand than a line of C++.
 Here we use the number of distinct APIs used as the indicator for cognitive load.
@@ -448,7 +448,7 @@ Users can write parallel programs with Blaze's high-level MapReduce abstraction 
 
 % It is originally designed for compute intensive quantum simulations but we find it is also useful to many data mining tasks.
 We use Blaze to implement 5 common data mining algorithms.
-By writing only a few lines of serial code and apply the Blaze MapReduce function, we achieve over 10 times higher performance than Spark on these compute intensive tasks, even though we only use the MapReduce function and 3 utility functions in our Blaze implementation while Spark uses almost 30 different parallel primitives for different tasks in its official implementation.
+By writing only a few lines of serial code and applying the Blaze MapReduce function, we achieve over 10 times higher performance than Spark on these compute intensive tasks, even though we only use the MapReduce function and 3 utility functions in our Blaze implementation while Spark uses almost 30 different parallel primitives for different tasks in its official implementation.
 
 The high-level abstraction and the high performance makes Blaze an appealing choice for compute intensive tasks in data mining and related fields.
 

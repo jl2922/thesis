@@ -1,14 +1,14 @@
 \chapter{Scientific Software Engineering in Small Research Groups}
-With the development of computer technology, more and more scientific researches involve developing and using scientific software.
-From natural sciences, such as physics and chemistry, to social sciences, such as economics and finance, software open new fields for researchers and bring new results and insights to the world that are impossible or too costly with conventional theoretical and experimental approaches.
+With the development of computer technology, more and more scientific research involves developing and using scientific software.
+From the natural sciences, such as physics and chemistry, to the social sciences, such as economics and finance, software open new fields for researchers and brings new results and insights to the world that are impossible or too costly with conventional theoretical and experimental approaches.
 Therefore, many researchers are devoting increasingly more time and resources to software development, and this scientific software becomes more and more complicated.
 
 Software engineering is a computer science subject that studies how to manage complicated software development in a systematic and structured way so that software is easier to develop, maintain, and extend, and the software developers can cooperate more efficiently.
-Software engineering is especially crucial to scientific software development, because if the software has poor quality, the results may be wrong, which can lead to wrong conclusions and mislead future researches.
+Software engineering is especially crucial to scientific software development, because if the software has poor quality, the results may be wrong, which can lead to wrong conclusions and mislead future research.
 
-In this chapter, I look back on my experience of developing quantum chemistry software for my PhD researches and my experiences of working at Google, a software company famous for its excellent engineering practices, to provide a brief discussion of the differences between industrial software engineering and scientific software engineering, common industrial software engineering tools and practices, and their applicability in scientific software engineering.
+In this chapter, I look back on my experience of developing quantum chemistry software for my PhD research and my experiences of working at Google, a software company famous for its excellent engineering practices, to provide a brief discussion of the differences between industrial software engineering and scientific software engineering, common industrial software engineering tools and practices, and their applicability in scientific software engineering.
 
-\section{Differences Between Industrial and Scientific Softwares}
+\section{Differences Between Industrial and Scientific Software}
 
 There are many differences between industrial and scientific software development.
 This section tries to discuss the ones that matter the most to the software engineering practices.
@@ -16,28 +16,28 @@ This section tries to discuss the ones that matter the most to the software engi
 \subsection{Feature Requirements}
 The clarity of the feature requirements is one of the biggest difference between industrial and scientific software development.
 In industrial software engineering, before writing the first line of code, project managers or user experience teams first come up with detailed designs through market research, and the software requirements for implementing the design are clearly documented in a design document written by professional managers and technical leaders.
-This is completely different from scientific research, where the input and output of the software are often uncertain, developers may have to make lots of feature decisions when writing the code, and the algorithms involved are consistently changing to improve the results or speed up the calculation.
+This is completely different from scientific research, where the input and output of the software are often uncertain, developers may have to make lots of feature decisions when writing the code, and the algorithms involved are constantly changing to improve the results or speed up the calculation.
 
 In some rare cases, features in the industrial software also change during the development process.
 However, additional features can usually be incorporated without changing the overall architecture.
-In contrast, during the development of scientific software, as researchers diving deeper into the problem they are solving, it is common that they may use their existing code as a component to explore more generalized problems or dependent problems, which can require an overall restructuring of the program.
+In contrast, during the development of scientific software, as researchers dive deeper into the problem they are solving, it is common that they may use their existing code as a component to explore more generalized problems or related problems, which can require an overall restructuring of the program.
 
 \subsection{Users}
 We focus on software development in small research groups.
-For these groups, the software being developed are usually used internally.
-The users know each other, and the communication cost between developers and users are extremely low.
+For these groups, the software being developed is usually used internally.
+The users know each other, and the communication cost between developers and users is extremely low.
 Developers often focus on implementing new algorithms and using them to answer new scientific problems that have not been solved before and pay less attention to the user experience.
-However, in industrial software engineering, the communication cost between users and developers are extremely high and sometimes even impossible.
+However, in industrial software engineering, the communication cost between users and developers is extremely high and sometimes even impossible.
 Therefore, many industrial software engineering practices focus a lot on creating a smooth user experience, both for common use cases and edge cases.
 Many companies may even sacrifice new features or technologies until they become mature in order to avoid unexpected behaviors.
 
 \subsection{Lifecycle}
 
-In the industry, the usual length of the lifecycle of software is usually from several months to several years.
+In industry, the usual length of the lifecycle of software is usually from several months to several years.
 
-However, in scientific software engineering, due to the nature of the research works, some software developed in small research groups are often used only during the period of a specific research project.
-While some other software based on mature algorithms can be used as basics tools for application-based researches may last much longer.
-It is worthwhile for researchers to determine the lifecycle of the software under development and apply software engineering techniques accordingly.
+However, in scientific software engineering, depending to the nature of the research, some software developed in small research groups is used only during the period of a specific research project,
+while other software based on mature algorithms serve as basics tools for application-based research and may be used for much longer.
+It is worthwhile for researchers to determine the likely lifecycle of the software under development and apply software engineering techniques accordingly.
 
 \section{Applicability of Industrial Software Engineering Practices}
 
@@ -50,8 +50,8 @@ In scientific software engineering, there are also many related data and functio
 Most object-oriented languages allow granular access control of each member variable and each member function of objects.
 From my experience of developing SHCI, it is usually more convenient and efficient to relax the access control of data related objects in scientific programming.
 There are two reasons for this:
-1) the nature of scientific research imposes lots of uncertainty to whether some member variables in an object may be related to another object or not and making the access control more relaxed can make it much easy to experiment new algorithms and speed up the research.
-2) most software in scientific programming is only for internal users, and thus there are much fewer risks associated with accessing private variables.
+1) the nature of scientific research imposes lots of uncertainty to whether some member variables in an object may be related to another object or not and making the access control more relaxed can make it much easier to experiment with new algorithms and speed up the research.
+2) most software in scientific programming is only for internal users, and thus there are many fewer risks associated with accessing private variables.
 
 \subsection{Unit Tests}
 Unit tests are common practices in industrial software engineering.
