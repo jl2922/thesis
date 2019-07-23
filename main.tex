@@ -103,7 +103,14 @@ In this thesis, I present my work on the fast semistochastic heatbath configurat
 %electronic structure calculations on large clusters.
 doing essentially exact electronic structure calculations within a finite basis.
 
-Fast SHCI is more than an order of magnitude faster than other algorithms in its category (selected configuration interaction plus perturbation theory), and also much faster than other essentially exact algorithms for many chemical systems.
+There are Hamiltonians for which the entire Hilbert space is enormous, but the important part of Hilbert space
+is of manageable size, say $10^{12}$.
+Quantum chemistry Hamiltonians, for reasonably small systems, have this property.
+For such Hamiltonians, selected configuration interaction plus perturbation theory (SCI+PT) methods can be useful.
+The most important part of the Hilbert space is treated variationally, and the resulting energy is improved by
+using perturbation theory.
+%Fast SHCI is more than an order of magnitude faster than other algorithms in its category (selected configuration interaction plus perturbation theory), and also much faster than other essentially exact algorithms for many chemical systems.
+Fast SHCI is more than an order of magnitude faster than other SCI+PT algorithms, and also much faster than other essentially exact algorithms for many chemical systems.
 This thesis provides an in-depth description of the Fast SHCI algorithm and its implementation. I use SHCI to compute the electronic structure of several chemical systems and the homogeneous electron gas.
 Some of these calculations are more accurate than those achieved by other high-order quantum chemistry methods.  Others treat systems larger than those that can be treated by other equally accurate methods.
 
