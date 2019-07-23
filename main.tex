@@ -99,10 +99,12 @@
 \makecopyright
 
 \begin{abstract}
-In this thesis, I present my work on the fast semistochastic heatbath configuration interaction (Fast SHCI), which is an efficient algorithm for electronic structure calculations on large clusters.
+In this thesis, I present my work on the fast semistochastic heatbath configuration interaction (Fast SHCI), which is an efficient algorithm for
+%electronic structure calculations on large clusters.
+doing essentially exact electronic structure calculations within a finite basis.
 
 Fast SHCI is more than an order of magnitude faster than other algorithms in its category (selected configuration interaction plus perturbation theory), and also much faster than other essentially exact algorithms for many chemical systems.
-This thesis provides an in-depth description of the Fast SHCI algorithm and its implementation. I use SHCI to compute electronic structures of several chemical systems and the homogeneous electron gas.
+This thesis provides an in-depth description of the Fast SHCI algorithm and its implementation. I use SHCI to compute the electronic structure of several chemical systems and the homogeneous electron gas.
 Some of these calculations are more accurate than those achieved by other high-order quantum chemistry methods.  Others treat systems larger than those that can be treated by other equally accurate methods.
 
 My implementation of SHCI uses a modular design, which not only makes the library highly extensible but also contributes several generic distributed computing building blocks to the open-source community. 
@@ -127,7 +129,7 @@ He developed the fast heatbath configuration interaction method, which is more t
 He also did research in molecular dynamics and defects with professor James Sethna.
 
 After obtaining a master's degree at Cornell, Junhao spent a summer as an intern at Google in California in 2016.
-He then returned to Ithaca, brought back the engineering merits he learned from Google, and developed a highly efficient and extensible quantum chemistry package, Arrow, as well as several open-sourced generic high-performance computing libraries.
+He then returned to Ithaca, brought back the softeware engineering skills he learned from Google, and developed a highly efficient and extensible quantum chemistry package, Arrow, as well as several open-sourced generic high-performance computing libraries.
 \end{biosketch}
 
 \begin{dedication}
@@ -139,8 +141,8 @@ First of all, I would like to thank my advisor Professor Cyrus Umrigar.
 His commitment to physics research is exemplary and inspiring.
 He led me into the field of quantum chemistry, which is an indispensable foundation of highly accurate quantum simulations.
 All my knowledge of quantum Monte Carlo are inherited from him, and my work on heatbath configuration interaction is impossible without his guidance and support.
-He taught me valuable research skills and helped me go through the process of publishing my first first-author paper, on a top academic journal.
-I am also extremely grateful to him for always being supportive in the decisions I made, the ideas I wanted to try, and being tolerant and direct when I made mistakes.
+He taught me valuable research skills and helped me go through the process of publishing my first first-author paper, in a top academic journal.
+I am also extremely grateful to him for always being supportive of the decisions I made, the ideas I wanted to try, and being tolerant and direct when I made mistakes.
 He made my six years of Ph.D. life a truly rewarding experience.
 
 I would also like to thank Professor James Sethna.
@@ -148,13 +150,13 @@ It was a pleasure to work with Jim on defects and molecular dynamics.
 His enthusiasm and optimism inspire me whenever I face challenging problems.
 I also learned a lot from his tremendous insights into physics and data analysis.
 
-I also thank all the graduate students I worked with, especially Adam Holms, Matt Otten, and Matt Bierbaum.
+I also thank all the graduate students I worked with, especially Adam Holmes, Matt Otten, and Matt Bierbaum.
 They helped me get started in my research, patiently answered all my questions, and gave me valuable advice on my projects.
-I could not imagine how much longer it would take me to get started and how many detours I might have taken without their help.
+I cannot imagine how much longer it would have taken me to get started and how many detours I might have taken without their help.
 
-I would like to give special thanks to my parents for giving me birth and raising me up.
-They gave me a warm family as I grew up and consistently supported me as I pursue my degree at Cornell.
-Thanks also to my elementary school, middle school, high school, and undergraduate teachers and friends back in China for all the invaluable lessons I learned from them, the wonderful memories I had with them, and helps and encouragements I received from them.
+I would like to give special thanks to my parents for giving me birth and raising me.
+They gave me a warm family as I grew up and consistently supported me as I pursued my degree at Cornell.
+Thanks also to my elementary school, middle school, high school, and undergraduate teachers and friends back in China for all the invaluable lessons I learned from them, the wonderful memories I have of the time I spent with them, and all the help and encouragement I received from them.
 
 Finally, I acknowledge the financial support from Cornell University physics department, National Science Foundation and the Air Force Office of Scientific Research, and the computing resources support from Pittsburg Computing Center, the Argonne National Lab, NERSC, and Google Cloud.
 Thank you, and I hope you are proud.
@@ -169,16 +171,19 @@ Thank you, and I hope you are proud.
 
 \chapter{Introduction}
 \label{ch:intro}
-A major problem in the electronic structure theory is solving the many-body Schr\"{o}dinger's equation accurately and efficiently, and there is usually a trade-off between accuracy and efficiency.
+A major problem in the electronic structure theory is solving the many-body Schr\"{o}dinger's equation accurately and efficiently since there is usually a trade-off between accuracy and efficiency.
 Density functional theory (DFT)~\cite{ParYan-BOOK-89,DreGro-BOOK-90,kohn1999nobel} is the most popular method, and it is very efficient,
-but it uses approximate density functionals, and thus, it is often not accurate enough.
+but it uses approximate density functionals, and thus it is often not sufficiently accurate.
 %In addition, the choice of pseudopotentials relies a lot on empirical experiences.
 Coupled cluster with single, double, and perturbative triple excitations CCSD(T)~\cite{raghavachari1989fifth} is often considered as the gold standard of quantum chemistry.
 It is very accurate for single reference systems where a single determinant in the many-body wavefunction has a large amplitude, such as many organic molecules, but not for multireference or strongly-correlated systems.
 Density matrix renormalization group (DMRG)~\cite{white1993density,white1999ab,chan2002highly,chan2011density,ShaCha-JCP-12,olivares2015ab,schollwock2005density,GuoLiCha-JCTC-18}
 and full configuration interaction quantum Monte Carlo (FCIQMC)~\cite{BooThoAla-JCP-09,CleBooAla-JCP-10,PetHolChaNigUmr-PRL-12,BooGruKreAla-Nat-13,HolChaUmr-JCTC-16}
 are
-systematically improvable and can give exact solutions given infinite computing resources, but rapidly get expensive with the number of electrons and the size of the basis set.
+systematically improvable and
+%can give exact solutions given infinite computing resources,
+give nearly exact solutions for small systems,
+but rapidly get expensive with the number of electrons and the size of the basis set.
 
 Fast heatbath configuration interaction (SHCI)~\cite{HolTubUmr-JCTC-16,ShaHolJeaAlaUmr-JCTC-17,HolUmrSha-JCP-17,SmiMusHolSha-JCTC-17,MusSha-JCTC-17,ChiHolOttUmrShaZim-JPCA-18,LiOttHolShaUmr-JCP-18}
 is another systematically improvable method capable of providing essentially exact energies for small chemical systems.
@@ -189,8 +194,9 @@ SHCI scales exponentially with system size with a prefactor that is typically sm
 the strength of the correlation.
 DMRG scales exponentially with the $(D-1)/D$-th power of the system size (where D is the system dimension) with a prefactor that is typically larger,
 but the prefactor is not very sensitive to the strength of the correlation.
+Hence it is usually the method of choice for 1- and 2-dimensional systems, and also for some 3-dimensional systems.
 
-SHCI is an example of the selected configuration interaction plus perturbation theory (SCI+PT)
+SHCI is an example of selected configuration interaction plus perturbation theory (SCI+PT)
 methods~\cite{HurMalRan-JCP-73,BuePey-TCA-74,EvaDauMal-CP-83,CimPer-JCoP-87,Har-JCP-91,BytRue-CP-09,KelPerBarGre-JCP-14,CoeMurPat-CPL-14,Eva-JCP-14,SceAppGinCaf-JCoC-16,GarSceLooCaf-JCP-17,LooSceBloGarCafJac-JCP-18,TubLevHaiHeaWha-ARX-18}.
 SCI+PT methods have two stages.
 In the first stage, a variational wavefunction is constructed iteratively, starting from
@@ -205,17 +211,17 @@ First, it greatly speeds up the determinant selection and Hamiltonian constructi
 %First, it greatly speeds up the determinant selection and Hamiltonian construction by using the heatbath selection criterion and the fast Hamiltonian construction algorithm, and, second, it drastically reduces the central processing unit (CPU) cost as well as the memory cost of performing the perturbation step by using a 3-step perturbation algorithm.
 With fast SHCI, we can employ two orders of magnitude larger variational wavefunctions than other SCI+PT methods and can incorporate the entire Hilbert space in the perturbative correction calculation.
 
-I apply fast SHCI to the homogeneous electron gas (HEG) system.
-HEG is one of the most fundamental models in condensed-matter physics and is commonly used for benchmarking new methods.
+I apply fast SHCI to the homogeneous electron gas (HEG).
+HEG is one of the most fundamental models in condensed-matter physics and is often used for benchmarking new methods.
 With a tunable parameter controlling the density of the electrons, HEG provides a wide range of interacting fermion systems from weakly correlated to strongly correlated.
 HEG is also the foundation of density functional theory (DFT).
 In this thesis, I focus on the HEG systems in the mid to high-density region.
-In this region, the basis set incompleteness error is the dominating error for most quantum chemistry methods.
+In this region, the basis set incompleteness error is the dominant error for most quantum chemistry methods.
 SHCI works well with large basis sets and thus naturally solves the basis set incompleteness problem.
-In our calculation, we use up to $4\times10^4$ orbitals, which is over an order of magnitude more the number of orbitals used in previous calculations with other methods, such as FCIQMC.
+In our calculation, we use up to $4\times10^4$ orbitals, which is over an order of magnitude more than the number of orbitals used in previous calculations with other methods, such as FCIQMC.
 
 I also apply fast SHCI to the chromium dimer system.
-Chromium dimer is a challenging strongly-correlated system that has been used as a benchmark molecule for a variety of methods~\cite{Scu-JCP-91,KurYan-JCP-11,PurZhaKra-JCP-15,MaManOlsGag-JCTC-16,VanMalVer-JCTC-16,GuoWatHuSunCha-JCTC-16}.
+The chromium dimer is a challenging strongly-correlated system that has been used as a benchmark molecule for a variety of methods~\cite{Scu-JCP-91,KurYan-JCP-11,PurZhaKra-JCP-15,MaManOlsGag-JCTC-16,VanMalVer-JCTC-16,GuoWatHuSunCha-JCTC-16}.
 I calculate both the energy at the Cr$_2$ equilibrium geometry and its entire potential energy curve.
 For the equilibrium geometry, with 2 billion variational determinants, we achieve extremely high accuracy, which beats the accuracy of well-developed methods, such as the density matrix renormalization group (DMRG).
 For the potential energy curve, we include in our Hilbert space up to 28 active electrons with a cc-pVDZ basis.
@@ -227,12 +233,12 @@ Each MapReduce operation consists of two phases: a map phase where each input is
 Many algorithms are expressible with this model, including the algorithm for finding important determinants and evaluating the perturbative correction in our SHCI method.
 MapReduce implementations can automatically allocate resources and execute these algorithms in parallel.
 Most industrial implementations focus on handling big data rather than achieving higher performance.
-Our library focuses on high performance, and to achieve better performance, we introduce three main improvements to the MapReduce algorithm: eager reduction, fast serialization, and special treatment for a small fixed key range.
-Our library achieves an order of magnitude faster performance than popular cluster computing library, Spark, on several compute-intensive MapReduce tasks.
+Our library focuses on high performance, which is achieved by introducing three major improvements to the MapReduce algorithm: eager reduction, fast serialization, and special treatment for a small fixed key range.
+Our library achieves an order of magnitude faster performance than the popular cluster computing library, Spark, on several compute-intensive MapReduce tasks.
 
-The usage of software engineering techniques is also essential to the successful development and maintenance of the SHCI software.
+The use of software engineering techniques is essential to the successful development and maintenance of the SHCI software.
 Software engineering studies the management of the software development process in a scientific and systematic way.
-It helps to make the software development faster, easier and making the software more robust and more extensible.
+It helps to make the software development faster, easier and the software is more robust and extensible.
 Software engineering is especially important to scientific software development because if the software has poor quality, the results may be unreliable, which can lead to wrong conclusions and mislead future research.
 There are many software engineering practices in the industry.
 I examine the most common ones and discuss their applicability in the setting of scientific software development.
@@ -262,7 +268,7 @@ SHCI also successfully produces accurate results on huge Hilbert spaces of Chrom
 
 Modular design makes the SHCI code easy to maintain and extend, and also produces several generic distributed computing building blocks, which makes writing high-performance parallel software much easier than using raw MPI routines directly.
 
-Finally, regarding scientific software engineering, it is important to see that scientific software is becoming more and more complex, and thus it is crucial to keep quality of the code high so that the scientific results from this software are reliable and the process of extending the software in order to experiment new scientific ideas is efficient.
+Finally, regarding scientific software engineering, since scientific software is becoming more and more complex, it is crucial to keep the quality of the code high so that the scientific results from this software are reliable and the process of extending the software in order to experiment on new scientific ideas is efficient.
 We can borrow the experience from industrial software engineering, but due to the differences between industrial and scientific research, some common practices which are generally believed to be beneficial to industrial software engineering will have to be adjusted to really benefit scientific software development.
 
 \bibliography{sampleThesis,umrigar,toulouse,chan,needs,zhang,chemistry,realistic}

@@ -1,10 +1,10 @@
 \chapter{Chromium Dimer Simulation with Fast SHCI}
-In this chapter, I apply the fast SHCI method to the chromium dimer system.
-I first perform an accurate calculation at the equilibrium geometry, and then perform a slightly less accurate calculation for several squeezed or stretched geometries and obtain the entire potential energy surface.
+In this chapter, I apply the fast SHCI method to the chromium dimer.
+I first perform an accurate calculation at the equilibrium geometry, and then perform a slightly less accurate calculation for several squeezed or stretched geometries and obtain the entire potential energy curve.
 
 \section{Introduction}
 
-Chromium dimer is a challenging strongly-correlated system
+The chromium dimer is a challenging strongly-correlated system
 that has been used as a benchmark molecule for a variety of methods~\cite{Scu-JCP-91,KurYan-JCP-11,PurZhaKra-JCP-15,MaManOlsGag-JCTC-16,VanMalVer-JCTC-16,GuoWatHuSunCha-JCTC-16}.
 In this chapter, we use the fast heat-bath configuration interaction method to calculate both the energy at the equilibrium geometry and entire potential energy curve.
 
@@ -31,8 +31,8 @@ We show how we obtain an accurate estimate of the FCI energy in this large activ
 We use PySCF~\cite{SunCha_etal_PySCF-ComMolSci-18} to generate the molecular orbital integrals for orbitals that minimize the HCI variational
 energy for $\epsilon_1=2\times 10^{-4}$~Ha, using the method of Ref.~\cite{SmiMusHolSha-JCTC-17}.
 We perform SHCI with several $\epsilon_1$ values from $5\times10^{-5}$ to $3\times10^{-6}$~Ha.
-The Hamiltonian matrix is constructed only once.
-% The Hamiltonian matrix is stored in memory and so needs to be constructed only once.
+%The Hamiltonian matrix is constructed only once.
+The Hamiltonian matrix is stored in memory distributed over computer nodes, and so needs to be constructed only once.
 %We keep the ratio between $\epsilon_2$ and $\epsilon_1$ to $10^{-6}$ and the target error for the stochastic perturbation to 0.01 mHa.
 We use very small values of $\epsilon_2 = 10^{-6} \epsilon_1$  to ensure that the perturbative correction is exceedingly well converged,
 and choose the target error for the stochastic perturbation energy to be $10^{-5}$~Ha.
@@ -137,12 +137,13 @@ is $-2099.9224(6)$~Ha.
 We compare our result with DMRG and p-DMRG, which are the only essentially exact methods that have been applied to this large active space of the chromium dimer.
 The DMRG calculations use up to bond dimension $M=16000$ and obtain an extrapolated energy of $-2099.9195(27)$~Ha (default schedule) and $-2099.9192(24)$ (reverse schedule)~\cite{GuoLiCha-JCTC-18}.
 %These two values are similar to our most accurate data point but higher than our extrapolated result by 3~mH, which is about one standard error of the DMRG results.
-These two values are similar to our most accurate data point but higher than our extrapolated result by 3~mH, which is about the estimated error of the DMRG results.
+These two values are close to the SHCI energy obtained with the smallest $\epsilon_1$, but higher than the extrapolated
+SHCI energy by 3~mH, which is about the estimated error of the DMRG results.
 %The p-DMRG calculations use up to $M=4000$ and obtain an extrapolated energy of $-2099.9201$~Ha~\cite{GuoLiCha-JCTC-18}.
 The p-DMRG calculations use up to $M=4000$ and extrapolated energy obtained from a linear fit is $-2099.9201$~Ha~\cite{GuoLiCha-JCTC-18}.
 If instead, we perform a weighted quadratic fit (shown in Fig.~\ref{fig:extrapolation}), the extrapolated energy is $-2099.9225$~Ha,
 in perhaps fortuitously good agreement with our result of $-2099.9224(6)$~Ha.  However, the extrapolation uncertainty is larger than the SHCI extrapolation uncertainty.
-In contrast, the CCSD(T) energy is considerably higher.
+In contrast, the CCSD(T) energy is considerably higher and DMRG and SHCI.
 %In summary, our extrapolated value agrees with DMRG's and p-DMRG's extrapolated results but we achieve a smaller uncertainty.
 
 %One of the merits of selected-CI is the ability to take higher-order excitations into account accurately.
@@ -171,7 +172,7 @@ We use both PySCF~\cite{SunCha_etal_PySCF-ComMolSci-18} and our program to gener
 energy for $\epsilon_1=2\times 10^{-4}$~Ha, using an improved version of the method of Ref.~\cite{SmiMusHolSha-JCTC-17}.
 For 12 correlated electrons, we use CAS-core orbitals, and for 28 correlated electrons, we use the HF-core orbitals.
 For the former, the potential energy curves obtained from HF-core and CAS-core orbitals differ greatly,
-whereas for the latter, there is essentially no difference between HF-core and CAS-core curves.
+whereas for the latter there is essentially no difference between HF-core and CAS-core curves.
 We perform SHCI with several $\epsilon_1$ values from $2\times10^{-4}$ to $5\times10^{-6}$~Ha.
 %The Hamiltonian matrix is constructed only once for each geometry and each active space.
 The sparse Hamiltonian matrix is stored in memory and so needs to be constructed only once for each geometry and each active space.
@@ -265,7 +266,7 @@ and the 28 active electron energies become nearly coincident there.
 Fig.~\ref{fig:cashf} shows the difference between using HF-core orbitals and using CAS-core orbital, under the setting of 12 correlated electrons and cc-pVTZ basis sets.
 We can see that the CAS-core curve gives a lower potential energy, closer to experiment, but has the wrong minimum location.
 The HF-core calculation results in a potential energy curve whose overall shape and the location of the minimum are much closer to the experiment.
-                                                                                                                                                                                                                                                                                                                                                                                               
+
 % We can also see from Fig.~\ref{fig:cr2curve} that the effect of using HF core or CAS core for orbital optimization matters little to the 28 electrons SHCI calculation.
 
 %We also compare SHCI results with unrestricted Hartree-Fock (UHF) and low order coupled cluster methods.
@@ -279,7 +280,7 @@ The UCCSD and UCCSD(T) curves are better, but even UCCSD(T), which is considered
 systems, agrees poorly with experiment.  In contrast, the SHCI curve is in reasonable agreement with experiment, perhaps
 fortuitously so, since the cc-pVDZ basis used is expected to have a significant finite-basis error.
 With our current computer resources, we cannot obtain a well-converged curve with larger basis sets,
-but with further improvements in the method and larger computers, we hope to obtain basis set converged curves
+but, with further improvements in the method and larger computers, we hope to obtain basis set converged curves
 that agree yet better with experiment, and perhaps even provide information about experimental inaccuracies.
 
 %Given the resources that we have right now, 28 electrons in a cc-pVDZ basis are the largest configuration that we can do for the entire potential energy curve.

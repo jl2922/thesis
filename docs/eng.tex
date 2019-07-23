@@ -1,7 +1,7 @@
 \chapter{Scientific Software Engineering in Small Research Groups}
 With the development of computer technology, more and more scientific research involves developing and using scientific software.
-From the natural sciences, such as physics and chemistry, to the social sciences, such as economics and finance, software open new fields for researchers and brings new results and insights to the world that are impossible or too costly with conventional theoretical and experimental approaches.
-Therefore, many researchers are devoting increasingly more time and resources to software development, and this scientific software becomes more and more complicated.
+From the natural sciences, such as physics and chemistry, to the social sciences, such as economics and finance, software opens new fields for researchers and provides new results and insights that are impossible or too costly with conventional theoretical and experimental approaches.
+Therefore, many researchers are devoting increasingly more time and resources to software development, and this scientific software is becoming more and more complicated.
 
 Software engineering is a computer science subject that studies how to manage complicated software development in a systematic and structured way so that software is easier to develop, maintain, and extend, and the software developers can cooperate more efficiently.
 Software engineering is especially crucial to scientific software development, because if the software has poor quality, the results may be wrong, which can lead to wrong conclusions and mislead future research.
@@ -16,11 +16,13 @@ This section tries to discuss the ones that matter the most to the software engi
 \subsection{Feature Requirements}
 The clarity of the feature requirements is one of the biggest difference between industrial and scientific software development.
 In industrial software engineering, before writing the first line of code, project managers or user experience teams first come up with detailed designs through market research, and the software requirements for implementing the design are clearly documented in a design document written by professional managers and technical leaders.
-This is completely different from scientific research, where the input and output of the software are often uncertain, developers may have to make lots of feature decisions when writing the code, and the algorithms involved are constantly changing to improve the results or speed up the calculation.
+This is completely different from scientific research, where the input and output of the software often evolve during
+the research, developers have to make feature decisions when writing the code, and the algorithms involved are
+constantly changing to improve the accuracy and speed of the calculations.
 
 In some rare cases, features in the industrial software also change during the development process.
 However, additional features can usually be incorporated without changing the overall architecture.
-In contrast, during the development of scientific software, as researchers dive deeper into the problem they are solving, it is common that they may use their existing code as a component to explore more generalized problems or related problems, which can require an overall restructuring of the program.
+In contrast, during the development of scientific software, as researchers dive deeper into the problem they are solving, it is common that they may use their existing code as a component to explore more general problems or related problems, which can require an overall restructuring of the program.
 
 \subsection{Users}
 We focus on software development in small research groups.
@@ -33,7 +35,7 @@ Many companies may even sacrifice new features or technologies until they become
 
 \subsection{Lifecycle}
 
-In industry, the usual length of the lifecycle of software is usually from several months to several years.
+In industry, the lifecycle of software is usually from several months to several years.
 
 However, in scientific software engineering, depending to the nature of the research, some software developed in small research groups is used only during the period of a specific research project,
 while other software based on mature algorithms serve as basics tools for application-based research and may be used for much longer.
@@ -47,10 +49,10 @@ Many successful industrial products use object-oriented design, such as the Wind
 
 In scientific software engineering, there are also many related data and functions, and by grouping them into higher level logical units with object-oriented programming, we can get a similar benefit as in the industrial cases.
 
-Most object-oriented languages allow granular access control of each member variable and each member function of objects.
+Most object-oriented languages allow granular access control of each member variable and each member function of the objects.
 From my experience of developing SHCI, it is usually more convenient and efficient to relax the access control of data related objects in scientific programming.
 There are two reasons for this:
-1) the nature of scientific research imposes lots of uncertainty to whether some member variables in an object may be related to another object or not and making the access control more relaxed can make it much easier to experiment with new algorithms and speed up the research.
+1) the nature of scientific research imposes lots of uncertainty as to whether some member variables in an object may be related to another object or not and making the access control more relaxed can make it much easier to experiment with new algorithms and speed up the research.
 2) most software in scientific programming is only for internal users, and thus there are many fewer risks associated with accessing private variables.
 
 \subsection{Unit Tests}
@@ -58,22 +60,22 @@ Unit tests are common practices in industrial software engineering.
 Upon submitting new functions or classes, many software companies require each edge case of each function in each class to be addressed by a separate test case.
 Unit tests seem to slow down the development process in the short run, but can eventually speed up the entire product development process in the long run and increase the robustness of the products.
 
-However, many codes in scientific software are often for experimental proposes and are very likely to be used only once.
+However, many codes in scientific software are often for experimental proposes and are likely to be used only once.
 Unit tests are mainly for preventing errors in the future when using that unit as a component, so there is no need to write unit tests for units that are not likely to be used in the future or used in other components.
 
-For utility classes that are used as components in other classes, whether unit tests are beneficial are mainly up to the background of the group members.
-For many engineering research groups, members are usually more proficient in programming, and students in these groups may frequently write unit tests after they graduate and enter the industrial world.
-In this case, enforcing unit tests on these utility components will not take much time, and can also be a great opportunity for students to practice the skills of writing unit tests.
-For natural science or social science research groups, due to the lack of comprehensive computer science training, enforcing unit tests even just on the utility classes may be too costly, and it may be more efficient to not using them but instead put in the option to generate verbose outputs in each component.
+For utility classes that are used as components in other classes, whether unit tests are beneficial depends mainly on the background of the group members.
+In many engineering research groups, members are proficient in programming, and students in these groups may frequently write unit tests after they graduate and enter the industrial world.
+In this case, enforcing unit tests on these utility components will not take much time, and can be a good opportunity for students to practice the skills of writing unit tests.
+For natural science or social science research groups, due to the lack of comprehensive computer science training, enforcing unit tests even just on the utility classes may be too costly, and it may be more efficient to not use them but instead put in the option to generate verbose outputs in each component.
 
 \subsection{Code Review}
 Code review is the practice of letting other team members review changes to a software system before merging these changes.
-It can help teams to identify defects and hardly readable parts in the code earlier and improve the quality of software significantly.
+It can help teams to identify defects and hard to read parts in the code earlier, and improve the quality of software significantly.
 It also makes sure that each line of code is known to several team members so that in the absence of some team members, the team can still make changes to the code quickly.
 
 The main drawback of code review is that it takes some time to understand other's code, but for industrial software engineering, it almost always saves time in the long run due to the increased quality and high knowledge coverage of the code.
 
-For scientific software engineering, code review is also helpful due to the same reason as for industrial software engineering.
+For scientific software engineering, code review is also helpful for the same reasons as for industrial software engineering.
 However, for some codes which involve fancy algorithms or specialized knowledge of a certain team member, other team members may need to spend a significant amount of time to acquire the background knowledge.
 Code review, in this case, can slow down the overall progress of the research significantly, but sometimes it is may still be beneficial to keep doing code review in such case for educational purposes.
 
@@ -82,7 +84,7 @@ Software development is usually an iterative process, and during incremental dev
 These changes often cause the quality of the code to decrease.
 In order to improve the quality, many large software companies, including Google, perform periodic refactoring of their codebase.
 During the refactoring periods, engineers focus on implement existing functions and features in a more readable, more maintainable way, and more robust way.
-Although they seem to stop making progress during these periods, their overall speed is still very likely to be faster.
+Although they seem to stop making progress during these periods, long term productivity is improved.
 
 Refactoring is especially important to scientific software engineering because when doing scientific programming, we are often not sure whether a new change is useful or not, 
 so we tend to care less about the quality of the code and focus more on implementing and testing new ideas as soon as possible.
@@ -95,7 +97,7 @@ Continuous Integration automatically builds and tests the codebase before a chan
 This allows developers to detect errors in the code quickly before it causes trouble to end users or other developers working on the same repository.
 
 In scientific software engineering, many researchers focus on moving fast and getting results out as soon as possible.
-While efficiency is important to small research groups, chasing efficiency to much may have an adverse effect and slow down the speed in the long run.
+While efficiency is important to small research groups, chasing efficiency too much may have an adverse effect and slow down the speed in the long run.
 Continuous integration is an easy way to make sure that after applying the new changes, the entire software can still build successfully, and the basic tests produce expected results.
-Depending on how stable and mature an algorithm is, developers can decide how much tests to be included in the continuous integration so that they can achieve a balance between not breaking mature functions and testing new ideas quickly.
+Depending on how stable and mature an algorithm is, developers can decide how many tests to include in the continuous integration so that they can achieve a balance between not breaking mature functions and testing new ideas quickly.
 In addition, the continuous integration configuration file can also be used as a guideline for setting up the software on a new computing environment, and a successful integration status ensures users that the software can be built successfully on a clean environment.

@@ -23,7 +23,7 @@ the HEG provides a simple paradigm for studying interacting fermion problems
 %of a wide range of systems from weakly correlated to strongly correlated.
 ranging from weakly correlated to strongly correlated.
 In addition, the HEG is a cornerstone of density functional theory (DFT).
-%In the local density approximation (LDA), the local exchange-correlation energy $\epsilon_{xc}$ comes from HEG~\cite{perdew1986density, dahl2013local}. 
+%In the local density approximation (LDA), the local exchange-correlation energy $\epsilon_{xc}$ comes from HEG~\cite{perdew1986density, dahl2013local}.
 %And in the parametrization of more accurate exchange-correlation functionals, HEG energies are also used extensively~\cite{lundqvist2013theory}.
 The exchange-correlation energy of the HEG is the entire exchange-correlation energy in the
 local density approximation (LDA) of DFT, and it is an important component of more accurate exchange-correlation functionals~\cite{ParYan-BOOK-89,DreGro-BOOK-90}.
@@ -36,13 +36,13 @@ The DMC random walk is performed in real space (the coordinates of the electrons
 the computed energies are directly in the infinite-basis limit.
 %However, DMC energies have an error due to the fixed-node approximation which depends on the
 However, in order to control the Fermion sign problem, DMC is usually performed with the fixed-node approximation
-and consequently, the energies have a fixed-node error which depends on the
+and consequently the energies have a fixed-node error which depends on the
 quality of the trial wavefunctions.
 Backflow wavefunctions have been used to reduce the error~\cite{kwon1998effects,RioMaDruTowNee-PRE-06}
 %Backflow wavefunctions have been used to reduce the error~\cite{RioMaDruTowNee-PRE-06}
 but the magnitude of the remaining error is unclear.
 
-%The full configuration interaction quantum Monte Carlo (FCIQMC) is another quantum Monte Carlo based method in the second quantized space. It stochastically samples the configuration space to approximate the full configuration interaction (FCI) energy at a reduced computational cost and achieved a significantly and variationally lower energy for HEG $r_s=0.5$ than DMC~\cite{shepherd2012investigation}.
+%The full configuration interaction quantum Monte Carlo (FCIQMC) is another quantum Monte Carlo based method in the second quantized space. It stochastically samples the configuration space to approximate the full configuration interaction (FCI) energy at a reduced computational cost, and achieved a significantly and variationally lower energy for HEG $r_s=0.5$ than DMC~\cite{shepherd2012investigation}.
 %However, FCIQMC has the basis set incompleteness error and requires a complete basis set (CBS) extrapolation, which in turn introduces an extrapolation error.
 %In the mid-to-high density regime, the basis set incompleteness error dominates the total errors.
 %For example, for HEG with $r_s=0.5$ and 14 electrons in each periodic box, the two largest FCIQMC calculations, which use 778 and 1850 orbitals and give $-0.5893(3)$~Ha and $-0.5936(3)$~Ha respectively, a $4.3$~mHa difference, which is much larger than the uncertainty of FCIQMC itself.
@@ -59,7 +59,7 @@ In contrast to DMC, the random walk in the full configuration interaction quantu
 method~\cite{BooThoAla-JCP-09,CleBooAla-JCP-10,SheBooGruAla-PRB-12,SheBooGruAla-PRB-12} is in the space of
 occupation numbers of a finite number of orbitals.
 The finite basis set energies need to be extrapolated to obtain the complete basis set (CBS) energies.
-The Fermion sign problem in FCIQMC is controlled by making an {\it initiator approximation}.
+The Fermion sign problem in FCIQMC is controlled by having walker cancellations and by making an {\it initiator approximation}.
 The initiator error disappears in the infinite walker population limit, and for many systems it is practical
 to use a sufficiently large population to make the initiator error negligible.
 In the mid-to-high density regime, the basis set incompleteness error is the dominant error.
@@ -71,7 +71,7 @@ The coupled cluster Monte Carlo (CCMC) method~\cite{neufeld2017study} is closely
 to FCIQMC but yields coupled cluster energies in the infinite walker limit.
 It has been used~\cite{neufeld2017study} to compute the correlation energy of the HEG with a 14-electron periodic cell for
 $r_s$ in the range $0.5 - 5.0\ a_0$ with excitation orders up to five, i.e., CCSDTQ5, and 358 orbitals.
-As expected, high excitation orders are necessary to get an agreement with FCIQMC at the larger $r_s$ values.
+As expected, high excitation orders are necessary to get agreement with FCIQMC at the larger $r_s$ values.
 
 %The method that we use in this paper is a modified version of the recently proposed fast heat-bath configuration interaction (SHCI).
 %SHCI is a selected configuration interaction plus perturbation method (SCI+PT) and distinguishes from other SCI+PT methods in that it uses precomputed double excitation lists to significantly improve the efficiency in both the variational stage and perturbation stage~\cite{holmes2016heat}.
@@ -82,7 +82,7 @@ As expected, high excitation orders are necessary to get an agreement with FCIQM
 %
 %This paper adapts the SHCI algorithm to the homogeneous electron gas problem (HEG).
 %We introduce a more space efficient data structure to deal with large basis sets.
-%In addition, we optimize the storage and the usage of the double excitation lists, taking into consideration the momentum conservation property of the plane-wave based orbitals of HEG.
+%In addition, we optimize the storage and the usage of the double excitation lists, taking into consideration the mementum conservation property of the plane-wave based orbitals of HEG.
 %Finally, we apply the revised algorithm to HEG with up to 39,886 orbitals, which is more than an order of magnitude larger than previously ever done with previous essentially exact methods.
 %This reduces the extrapolation distances in the complete basis extrapolation significantly and thus gives more accurate and reliable results.
 
@@ -117,7 +117,7 @@ The Hamiltonian of this system can be expressed in terms of the Yukawa potential
 \begin{align*}
 \hat{H}=\sum_{i=1}^{N}-\frac{1}{2}\nabla_i^2+\frac{1}{2}\sum_{i\ne j}^{N} \frac{1}{L^d}\sum_{\mathbf{q}\ne 0}V(\mathbf{q})e^{i\mathbf{q}\cdot(\mathbf{r}_i-\mathbf{r}_j)}
 \end{align*}
-where 
+where
 $N= N_\uparrow + N_\downarrow$,
 $\mathbf{q}=\frac{2\pi}{L}(n_1, n_2, \cdots, n_d)$, $n_i\in\mathbb{Z}$.
 And $V(\mathbf{q})$ is the Fourier transform of the Yukawa potential at $\kappa\to 0$.
@@ -160,7 +160,7 @@ Appendix~\ref{app:heg} gives the Hamiltonian matrix elements of HEG.
 %Hence, in order to achieve high accuracy for the infinite basis set, we have to use a large number of orbitals, which is one to two orders of magnitude larger than what SHCI calculations used.
 
 The usual representation of determinants involves using bit-packing, i.e., one bits denote occupied orbitals
-, and zero bits denote unoccupied orbitals.  This becomes inefficient when the number of orbitals is much
+and zero bits denote unoccupied orbitals.  This becomes inefficient when the number of orbitals is much
 larger than the number of electrons.
 %To reduce storage and improve speed when using a large basis set, we introduce a new way for representing the determinants.
 To reduce memory and time requirements when using a large basis set, we introduce a hybrid representation of the determinants.
@@ -223,12 +223,12 @@ The time complexity of finding determinants connected to a given determinant in 
 
 \section{Results}
 \label{heg:results}
-We apply our revised algorithm to HEG of several different $r_s$ values in the mid to high-density region and both 14-electron and 54-electron supercells.
-In each case, we calculate the correlation energies in several basis sets of different momentum cutoffs and perform a complete basis set (CBS) extrapolation.
+We apply our revised algorithm to HEG of several different $r_s$ values in the mid- to high-density region and both 14-electron and 54-electron supercells.
+In each case, we calculate the correlation energies in several basis sets with different momentum cutoffs, and perform a complete basis set (CBS) extrapolation.
 
 When the electron density is high, the correlation energies depend significantly on the momentum cutoff.
 Hence, in order to obtain more accurate results, we use up to 39,886 orbitals in our calculations.
-In the high-density region, this decreases the CBS extrapolation distance in previous literature by about more than an order of magnitude, and thus give us much shorter extrapolation distances and more accurate results.
+In the high density region, this decreases the CBS extrapolation distance in the previous literature by more than an order of magnitude, and thus gives us much shorter extrapolation distances and more accurate results.
 
 \subsection{14-Electron Supercell}
 \begin{figure}
@@ -307,7 +307,9 @@ SHCI uses up to 39886 orbitals, which give shorter extrapolation distances and m
 \end{table}
 
 We can see from this table that the results from SHCI are significantly more accurate than previous results.
-This is mainly due to the fact that the high performance of SHCI and its capability to work with large basis sets enable us to go much closer to the infinite basis set. Fig.~\ref{fig:comparison} which plots the raw data points from FCIQMC~\cite{shepherd2012full} and SHCI, illustrates this.
+%This is mainly due to the fact that the high performance of SHCI and its capability to work with large basis sets enable us to go much closer to the infinite basis set.
+This is mainly because SHCI can use large basis sets enabling us to go much closer to the infinite basis set limit.
+Fig.~\ref{fig:comparison} which plots the raw data points from FCIQMC~\cite{shepherd2012full} and SHCI, illustrates this.
 \begin{figure}
   \begin{center}
   \includegraphics[width=\linewidth]{figs/compare.eps}
@@ -326,7 +328,7 @@ Fig.~\ref{fig:cbs54e_05} shows the CBS extrapolation and Table~\ref{tab:results5
 
 We can see that our SHCI result agrees well with FCIQMC, but slighly lower than FCIQMC-TC, and all of them are much higher then BF-DMC, which probably used a poor trial wavefunction.
 In these SHCI calculations, we use an order of magnitude more orbitals than FCIQMC and FCIQMC-TC, and the extrapolation distance of SHCI is about an order of magnitude smaller than FCIQMC and 4 times smaller than FCIQMC-TC.
-Hence, we believe the extrapolated value from SHCI is likely to be more accurate and reliable than both FCIQMC and FCIQMC-TC.
+Hence, we believe the extrapolated value from SHCI is likely to be more accurate and reliable that from FCIQMC or FCIQMC-TC.
 
 \begin{figure}
   \begin{center}
@@ -363,9 +365,10 @@ SHCI uses up to 23506 orbitals, which give much shorter extrapolation distances 
 \end{table}
 
 \section{Conclusions}
-In this paper, we apply our fast semistochastic heat-bath configuration interaction algorithm (SHCI) to the homongenous electron gas (HEG) problem in the mid to high-density region.
-The basis set incompleteness error is a dominating error in this region, and the uncertainty of the result depends a lot on the uncertainty of the extrapolation, which in terms depends on the extrapolation distance.
-By using SHCI with up to 39886 orbitals, we reduce the extrapolation distance significantly and achieves more accurate results than state-of-the-art methods.
+In this paper, we applied our fast semistochastic heat-bath configuration interaction algorithm (SHCI) to the homongenous electron gas (HEG) problem in the mid- to high-density regime.
+%The basis set incompleteness error is the dominant error in this region, and the uncertainty of the result depends a lot on the uncertainty of the extrapolation, which in terms depends on the extrapolation distance.
+In this regime, basis set extrapolation is the main source of uncertainty in the energy.
+By using SHCI with up to 39886 orbitals, we reduced the extrapolation distance significantly and achieved more accurate results than other state-of-the-art methods.
 
 \label{conclusions}
 

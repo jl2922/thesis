@@ -320,8 +320,8 @@ Spark is explicitly set to use the \lstinline{MEMORY_ONLY} mode and we choose me
 Each r5.xlarge has 4 logical cores, 32GB memory, and up to 10 Gbps network performance.
 % It is based on Intel Xeon Platinum 8000 series (Skylake-SP) processors with a sustained all core Turbo CPU clock speed of up to 3.1 GHz.
 
-For Spark, we use the AWS Elastic MapReduce (EMR) service version 5.20.0 , which comes with Spark 2.4.0.
-Since in the default setting, Spark changes the number of executors on the fly, which may obscure the results, we set the environment variable for maximizing resource allocation to true to avoid the change.
+For Spark, we use the AWS Elastic MapReduce (EMR) service version 5.20.0, which comes with Spark 2.4.0.
+Since, in the default setting, Spark changes the number of executors on the fly, which may obscure the results, we set the environment variable for maximizing resource allocation to true to avoid the change.
 We also manually specify the number of partitions to 100 to force the cross-executor shuffle on the entire cluster.
 For Blaze, we use GCC 7.3 with -O3 optimization and MPICH 3.2. 
 % We also test the effects of using Thread-Caching Malloc (TCMalloc) from Google, the results of which are indicated by Blaze TCM.
